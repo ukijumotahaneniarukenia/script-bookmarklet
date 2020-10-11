@@ -27,3 +27,9 @@ javascript: void (import('TOBE_REPLACE_IMPORT_JS_PROGRAM_URL').then(m => m.defau
 ```
 javascript: void (import('https://github.com/ukijumotahaneniarukenia/script-bookmarklet/blob/main/test.js').then(m => m.default()));
 ```
+
+既存のサイトJSコードと名前空間がバッティングしないように以下をテンプレに
+
+```
+javascript: (function (){TOBE_REPLACE_CODE})()
+```
