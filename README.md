@@ -33,3 +33,11 @@ javascript: void (import('https://github.com/ukijumotahaneniarukenia/script-book
 ```
 javascript: (function (){TOBE_REPLACE_CODE})()
 ```
+
+
+訪れたサイトでjQueryが使えるかどうか
+
+エラーでなければ使える
+```
+console.log($.fn.jquery)
+```
