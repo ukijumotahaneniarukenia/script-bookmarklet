@@ -41,3 +41,8 @@ javascript: (function (){TOBE_REPLACE_CODE})()
 ```
 console.log($.fn.jquery)
 ```
+
+javascriptの正規表現
+
+便利
+https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions
