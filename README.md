@@ -2,6 +2,8 @@
 
 呼び出せないから以下でコンパイルしてハードでペタリして管理する運用
 
+サイトに訪れて実行すればいいか
+
 https://closure-compiler.appspot.com/home
 
 
