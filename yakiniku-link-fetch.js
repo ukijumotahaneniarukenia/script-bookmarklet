@@ -1,9 +1,9 @@
-async function hoge(targetUrl) {
+async function hoge(targetUrl, regptn) {
   let targetHtmlText = await getText(targetUrl)
 
   //console.log(targetHtmlText)
 
-  let links = await extractLinks(targetHtmlText)
+  let links = await extractLinks(targetHtmlText, regptn)
 
   console.log(links)
 
@@ -18,12 +18,12 @@ async function hoge(targetUrl) {
     return htmlText
   }
 
-  async function extractLinks(targetHtmlText) {
+  async function extractLinks(targetHtmlText, regptn) {
 
     // 正規表現の変数化などしていきたい
-    let regptn = '<a.*?>.*?</a>'
+    // let regptn = '<a.*?>.*?</a>'
 
-    let re = new RegExp(regptn, 'g')
+    let re = new RegExp(regptn + '(.*?)' , 'g')
 
     let match
     let matches = []
@@ -35,4 +35,4 @@ async function hoge(targetUrl) {
     return matches
   }
 }
-hoge('https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2')
+hoge('https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2', '<a.*?>.*?</a>')
