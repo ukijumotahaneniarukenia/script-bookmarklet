@@ -13,13 +13,27 @@ async function hoge(targetUrl, extractRegPtn, filterRegPtn) {
 
   await listUpAllXpath(targetElement, xpath, prevXpath, xpathList)
 
-  // console.log(xpathList.join('\n'))
-
   let re = new RegExp(filterRegPtn + '(.*?)' , 'g')
 
   let targetXpathList = xpathList.filter(e=>re.exec(e) != null)
 
-  console.log(targetXpathList)
+  let resultInfoList = await extractDetailInfo(targetXpathList)
+
+  console.log(resultInfoList)
+
+  async function extractDetailInfo(targetXpathList) {
+
+    return targetXpathList.map( xpath => {
+
+      let iterator = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
+
+      let targetDom = iterator.snapshotItem(0)
+
+      let targetSubUrl = targetDom.getAttribute('href')
+
+      return {'targetSubUrl' : targetSubUrl}
+    })
+  }
 
   async function getText(executeUrl) {
 
