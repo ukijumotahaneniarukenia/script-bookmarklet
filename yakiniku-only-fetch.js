@@ -1,4 +1,4 @@
-async function hoge(targetUrl, extractRegPtn, filterRegPtn) {
+async function hoge(targetUrl, extractRegPtn, filterRegPtnList) {
 
   let targetHtmlText = await getText(targetUrl)
 
@@ -13,16 +13,22 @@ async function hoge(targetUrl, extractRegPtn, filterRegPtn) {
 
   await listUpAllXpath(targetElement, xpath, prevXpath, xpathList)
 
-  let re = new RegExp(filterRegPtn + '(.*?)', 'g')
+  for (let index = 0; index < filterRegPtnList.length; index++) {
 
-  let targetXpathList = xpathList.filter(e => re.exec(e) != null)
+    const filterRegPtn = filterRegPtnList[index].patternMatch
 
-  let resultInfoList = await extractDetailInfo(targetXpathList)
+    let re = new RegExp(filterRegPtn + '(.*?)', 'g')
 
-  console.log(resultInfoList)
+    let targetXpathList = xpathList.filter(e => re.exec(e) != null)
+
+    let resultInfoList = await extractDetailInfo(targetXpathList)
+
+    console.log(resultInfoList)
+
+  }
 
   async function extractDetailInfo(targetXpathList) {
-
+    // ここはいずれラッパーになってほしい
     return targetXpathList.map(xpath => {
 
       let iterator = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
@@ -51,9 +57,6 @@ async function hoge(targetUrl, extractRegPtn, filterRegPtn) {
   }
 
   async function extractLinks(targetHtmlText, extractRegPtn) {
-
-    // 正規表現の変数化などしていきたい
-    // let regptn = '<a.*?>.*?</a>'
 
     let re = new RegExp(extractRegPtn + '(.*?)', 'g')
 
@@ -142,4 +145,4 @@ async function hoge(targetUrl, extractRegPtn, filterRegPtn) {
     }
   }
 }
-hoge('https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2', '<a.*?>.*?</a>', '\\/h2\\/a')
+hoge('https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2', '<a.*?>.*?</a>', [{patternMatch : '\\/h2\\/a$',name : 'anchor'}])
