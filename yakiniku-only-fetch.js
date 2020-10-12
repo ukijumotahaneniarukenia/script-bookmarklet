@@ -13,9 +13,9 @@ async function hoge(targetUrl, extractRegPtn, filterRegPtn) {
 
   await listUpAllXpath(targetElement, xpath, prevXpath, xpathList)
 
-  let re = new RegExp(filterRegPtn + '(.*?)' , 'g')
+  let re = new RegExp(filterRegPtn + '(.*?)', 'g')
 
-  let targetXpathList = xpathList.filter(e=>re.exec(e) != null)
+  let targetXpathList = xpathList.filter(e => re.exec(e) != null)
 
   let resultInfoList = await extractDetailInfo(targetXpathList)
 
@@ -23,15 +23,19 @@ async function hoge(targetUrl, extractRegPtn, filterRegPtn) {
 
   async function extractDetailInfo(targetXpathList) {
 
-    return targetXpathList.map( xpath => {
+    return targetXpathList.map(xpath => {
 
       let iterator = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
 
       let targetDom = iterator.snapshotItem(0)
 
       let targetSubUrl = targetDom.getAttribute('href')
+      let targetTitle = targetDom.getAttribute('title')
 
-      return {'targetSubUrl' : targetSubUrl}
+      return {
+        'targetSubUrl': targetSubUrl,
+        'targetTitle': targetTitle,
+      }
     })
   }
 
@@ -51,7 +55,7 @@ async function hoge(targetUrl, extractRegPtn, filterRegPtn) {
     // 正規表現の変数化などしていきたい
     // let regptn = '<a.*?>.*?</a>'
 
-    let re = new RegExp(extractRegPtn + '(.*?)' , 'g')
+    let re = new RegExp(extractRegPtn + '(.*?)', 'g')
 
     let match
     let matches = []
