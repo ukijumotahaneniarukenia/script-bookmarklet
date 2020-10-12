@@ -48,3 +48,7 @@ javascriptの正規表現
 
 便利
 https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions
+
+
+音声データの録音
+https://www.google.com/amp/s/ics.media/entry/200427/
