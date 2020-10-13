@@ -1,4 +1,4 @@
-async function hoge(targetUrl, extractRegPtn, filterRegPtnList) {
+async function hoge(targetUrl, extractRegPtn, filterRegPtnList, selectColumnInfo) {
 
   let targetHtmlText = await getText(targetUrl)
 
@@ -21,28 +21,33 @@ async function hoge(targetUrl, extractRegPtn, filterRegPtnList) {
 
     let targetXpathList = xpathList.filter(e => re.exec(e) != null)
 
-    let resultInfoList = await extractDetailInfo(targetXpathList)
+    let resultInfoList = await extractDetailInfo(targetXpathList, selectColumnInfo)
 
     console.log(resultInfoList)
 
   }
 
-  async function extractDetailInfo(targetXpathList) {
+  async function extractDetailInfo(targetXpathList, selectColumnInfo) {
     // ここはいずれラッパーになってほしい
-    return targetXpathList.map(xpath => {
+    let resultList = []
+    for (let xpathIndex = 0; xpathIndex < targetXpathList.length; xpathIndex++) {
+
+      const xpath = targetXpathList[xpathIndex]
 
       let iterator = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
 
       let targetDom = iterator.snapshotItem(0)
 
-      let targetSubUrl = targetDom.getAttribute('href')
-      let targetTitle = targetDom.getAttribute('title')
-
-      return {
-        'targetSubUrl': targetSubUrl,
-        'targetTitle': targetTitle,
+      let resultEntry = {}
+      for (let columnIndex = 0; columnIndex < selectColumnInfo.selectColumnList.length; columnIndex++) {
+        const selectColumn = selectColumnInfo.selectColumnList[columnIndex]
+        const targetText = targetDom.getAttribute(selectColumn)
+        let entry = JSON.parse(`{"${selectColumn}": "${targetText}"}`)
+        resultEntry = Object.assign(resultEntry, entry)
       }
-    })
+      resultList.push(resultEntry)
+    }
+    return resultList
   }
 
   async function getText(executeUrl) {
@@ -145,4 +150,8 @@ async function hoge(targetUrl, extractRegPtn, filterRegPtnList) {
     }
   }
 }
-hoge('https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2', '<a.*?>.*?</a>', [{patternMatch : '\\/h2\\/a$',name : 'anchor'}])
+hoge(
+  'https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2', '<a.*?>.*?</a>'
+  ,[{patternMatch : '\\/h2\\/a$', name : 'anchor'}]
+  ,{selectColumnList : ['href','title']}
+)
