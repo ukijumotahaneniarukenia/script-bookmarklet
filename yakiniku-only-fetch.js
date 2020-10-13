@@ -50,9 +50,15 @@ async function hoge(selectColumnInfoList) {
       let resultEntry = {}
       for (let columnIndex = 0; columnIndex < selectColumnInfo.selectColumnList.length; columnIndex++) {
         const selectColumn = selectColumnInfo.selectColumnList[columnIndex]
-        const targetText = targetDom.getAttribute(selectColumn)
-        let entry = JSON.parse(`{"${selectColumnInfo.name}": "${targetText}"}`)
-        resultEntry = Object.assign(resultEntry, entry)
+        if (selectColumn === 'text') {
+          const targetText = targetDom.textContent
+          let entry = JSON.parse(`{"${selectColumnInfo.name}": "${targetText}"}`)
+          resultEntry = Object.assign(resultEntry, entry)
+        } else {
+          const targetText = targetDom.getAttribute(selectColumn)
+          let entry = JSON.parse(`{"${selectColumnInfo.name}": "${targetText}"}`)
+          resultEntry = Object.assign(resultEntry, entry)
+        }
       }
       resultList.push(resultEntry)
     }
@@ -171,6 +177,18 @@ hoge(
       name: 'Title'
       , filterRegPtn: '\\/h2\\/a$'
       , selectColumnList: ['title']
+      , url: 'https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2'
+    }
+    , {
+      name: 'Price'
+      , filterRegPtn: '\\/div\\[1\\]\\/span\\[1\\]$'
+      , selectColumnList: ['text']
+      , url: 'https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2'
+    }
+    , {
+      name: 'Star'
+      , filterRegPtn: '\\/div\\[3\\]\\/div\\[3\\]\\/div\\/div\\/a\\/span\\[6\\]$'
+      , selectColumnList: ['text']
       , url: 'https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2'
     }
   ]
