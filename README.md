@@ -1,5 +1,7 @@
 # script-bookmarklet
 
+https://stackoverrun.com/ja/q/10621834
+
 呼び出せないから以下でコンパイルしてハードでペタリして管理する運用
 
 サイトに訪れて実行すればいいか
