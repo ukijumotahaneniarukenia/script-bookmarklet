@@ -1,3 +1,9 @@
+let zip = (...arys) => { return arys[0].map((_, idx) => { return arys.map((ary) => { return ary[idx] }) }) }
+
+let merge = (self, other) => { return Object.assign(self, other) }
+
+let zipMerge = (...arys) => { return zip(...arys).map((columns) => { return columns.reduce(merge, {}) }) }
+
 async function hoge(selectColumnInfoList) {
 
   let xpathList = []
@@ -9,6 +15,7 @@ async function hoge(selectColumnInfoList) {
 
   await listUpAllXpath(targetElement, xpath, prevXpath, xpathList)
 
+  let resultMergeInfoList
   for (let infoIndex = 0; infoIndex < selectColumnInfoList.length; infoIndex++) {
 
     const selectColumnInfo = selectColumnInfoList[infoIndex]
@@ -19,8 +26,15 @@ async function hoge(selectColumnInfoList) {
 
     let resultInfoList = await extractDetailInfo(targetXpathList, selectColumnInfo)
 
-    console.log(resultInfoList)
+    if (infoIndex === 0) {
+      resultMergeInfoList = new Array(resultInfoList.length).fill({})
+    }
+
+    resultMergeInfoList = zipMerge(resultMergeInfoList, resultInfoList)
+
   }
+
+  console.log(resultMergeInfoList)
 
   async function extractDetailInfo(targetXpathList, selectColumnInfo) {
     // ここはいずれラッパーになってほしい
@@ -37,7 +51,7 @@ async function hoge(selectColumnInfoList) {
       for (let columnIndex = 0; columnIndex < selectColumnInfo.selectColumnList.length; columnIndex++) {
         const selectColumn = selectColumnInfo.selectColumnList[columnIndex]
         const targetText = targetDom.getAttribute(selectColumn)
-        let entry = JSON.parse(`{"${selectColumn}": "${targetText}"}`)
+        let entry = JSON.parse(`{"${selectColumnInfo.name}": "${targetText}"}`)
         resultEntry = Object.assign(resultEntry, entry)
       }
       resultList.push(resultEntry)
@@ -148,9 +162,15 @@ async function hoge(selectColumnInfoList) {
 hoge(
   [
     {
-      name : 'TitleAndLink'
-      , filterRegPtn : '\\/h2\\/a$'
-      , selectColumnList : ['href','title']
+      name: 'Link'
+      , filterRegPtn: '\\/h2\\/a$'
+      , selectColumnList: ['href']
+      , url: 'https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2'
+    }
+    , {
+      name: 'Title'
+      , filterRegPtn: '\\/h2\\/a$'
+      , selectColumnList: ['title']
       , url: 'https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2'
     }
   ]
