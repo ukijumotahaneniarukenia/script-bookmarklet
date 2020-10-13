@@ -1,8 +1,4 @@
-async function hoge(targetUrl, extractRegPtn, filterRegPtnList, selectColumnInfo) {
-
-  let targetHtmlText = await getText(targetUrl)
-
-  let links = await extractLinks(targetHtmlText, extractRegPtn)
+async function hoge(selectColumnInfoList) {
 
   let xpathList = []
   let targetElement = document.querySelector('html')
@@ -13,18 +9,17 @@ async function hoge(targetUrl, extractRegPtn, filterRegPtnList, selectColumnInfo
 
   await listUpAllXpath(targetElement, xpath, prevXpath, xpathList)
 
-  for (let index = 0; index < filterRegPtnList.length; index++) {
+  for (let infoIndex = 0; infoIndex < selectColumnInfoList.length; infoIndex++) {
 
-    const filterRegPtn = filterRegPtnList[index].patternMatch
+    const selectColumnInfo = selectColumnInfoList[infoIndex]
 
-    let re = new RegExp(filterRegPtn + '(.*?)', 'g')
+    let re = new RegExp(selectColumnInfo.filterRegPtn + '(.*?)', 'g')
 
     let targetXpathList = xpathList.filter(e => re.exec(e) != null)
 
     let resultInfoList = await extractDetailInfo(targetXpathList, selectColumnInfo)
 
     console.log(resultInfoList)
-
   }
 
   async function extractDetailInfo(targetXpathList, selectColumnInfo) {
@@ -151,7 +146,12 @@ async function hoge(targetUrl, extractRegPtn, filterRegPtnList, selectColumnInfo
   }
 }
 hoge(
-  'https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2', '<a.*?>.*?</a>'
-  ,[{patternMatch : '\\/h2\\/a$', name : 'anchor'}]
-  ,{selectColumnList : ['href','title']}
+  [
+    {
+      name : 'TitleAndLink'
+      , filterRegPtn : '\\/h2\\/a$'
+      , selectColumnList : ['href','title']
+      , url: 'https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2'
+    }
+  ]
 )
