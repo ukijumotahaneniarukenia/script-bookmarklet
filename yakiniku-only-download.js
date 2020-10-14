@@ -34,9 +34,15 @@ async function hoge(selectColumnInfoList) {
   ) {
     const selectColumnInfo = selectColumnInfoList[infoIndex];
 
-    let re = new RegExp(selectColumnInfo.filterRegPtn + "(.*?)", "g");
+    let targetXpathList = []
+    for (let filterRegPtnIndex = 0; filterRegPtnIndex < selectColumnInfo.filterRegPtnList.length; filterRegPtnIndex++) {
 
-    let targetXpathList = xpathList.filter((e) => re.exec(e) != null);
+      const filterRegPtn = selectColumnInfo.filterRegPtnList[filterRegPtnIndex];
+
+      let re = new RegExp(filterRegPtn + "(.*?)", "g");
+
+      targetXpathList = targetXpathList.concat(xpathList.filter((e) => {return re.exec(e) != null}));
+    }
 
     let resultInfoList = await extractDetailInfo(
       targetXpathList,
@@ -50,8 +56,8 @@ async function hoge(selectColumnInfoList) {
     resultMergeInfoList = zipMerge(resultMergeInfoList, resultInfoList);
   }
 
-  // console.log(resultMergeInfoList);
-  await download(resultMergeInfoList, "yakiniku.json");
+  console.log(resultMergeInfoList);
+  // await download(resultMergeInfoList, "yakiniku.json");
 
   async function download(targetData, downloadFileName) {
     const blob = new Blob([JSON.stringify(targetData)], { type: "text/plain" });
@@ -263,25 +269,25 @@ async function hoge(selectColumnInfoList) {
 hoge([
   {
     name: "Link",
-    filterRegPtn: "\\/h2\\/a$",
+    filterRegPtnList: ["\\/h2\\/a$"],
     selectColumnList: ["href"],
     url: "https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2",
   },
   {
     name: "Title",
-    filterRegPtn: "\\/h2\\/a$",
+    filterRegPtnList: ["\\/h2\\/a$"],
     selectColumnList: ["title"],
     url: "https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2",
   },
   {
     name: "Price",
-    filterRegPtn: "\\/div\\[1\\]\\/span\\[1\\]$",
+    filterRegPtnList: ["\\/div\\[1\\]\\/span\\[1\\]$"],
     selectColumnList: ["text"],
     url: "https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2",
   },
   {
     name: "Star",
-    filterRegPtn: "\\/div\\[3\\]\\/div\\[3\\]\\/div\\/div\\/a\\/span\\[6\\]$",
+    filterRegPtnList: ["\\/div\\[3\\]\\/div\\[3\\]\\/div\\/div\\/a\\/span\\[6\\]$"],
     selectColumnList: ["text"],
     url: "https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2",
   },
