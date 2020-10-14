@@ -41,7 +41,7 @@ async function hoge(selectColumnInfoList) {
 
       let re = new RegExp(filterRegPtn + "(.*?)", "g");
 
-      targetXpathList = targetXpathList.concat(xpathList.filter((e) => {return re.exec(e) != null}));
+      targetXpathList = targetXpathList.concat(xpathList.filter((e) => { return re.exec(e) != null }));
     }
 
     let resultInfoList = await extractDetailInfo(
@@ -56,7 +56,7 @@ async function hoge(selectColumnInfoList) {
     resultMergeInfoList = zipMerge(resultMergeInfoList, resultInfoList);
   }
 
-  await download(resultMergeInfoList, "yakiniku.json");
+  await download(resultMergeInfoList, "gigazine.json");
 
   async function download(targetData, downloadFileName) {
     const blob = new Blob([JSON.stringify(targetData)], { type: "text/plain" });
@@ -268,26 +268,26 @@ async function hoge(selectColumnInfoList) {
 hoge([
   {
     name: "Link",
-    filterRegPtnList: ["\\/h2\\/a$"],
+    filterRegPtnList: ["\\/div\\/div\\[2\\]\\/time\\/a$"],
     selectColumnList: ["href"],
-    url: "https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2",
+    url: "https://gigazine.net/",
+  },
+  {
+    name: "DateTime",
+    filterRegPtnList: ["\\/div\\/div\\[2\\]\\/time\\/a$"],
+    selectColumnList: ["text"],
+    url: "https://gigazine.net/",
   },
   {
     name: "Title",
-    filterRegPtnList: ["\\/h2\\/a$"],
-    selectColumnList: ["title"],
-    url: "https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2",
+    filterRegPtnList: ["\\/div\\/h2\\/a\\/span$"],
+    selectColumnList: ["text"],
+    url: "https://gigazine.net/",
   },
   {
-    name: "Price",
-    filterRegPtnList: ["\\/div\\[1\\]\\/span\\[1\\]$"],
+    name: "Category",
+    filterRegPtnList: ["\\/div\\/div\\[2\\]\\/a\\/span$"],
     selectColumnList: ["text"],
-    url: "https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2",
-  },
-  {
-    name: "Star",
-    filterRegPtnList: ["\\/div\\[3\\]\\/div\\[3\\]\\/div\\/div\\/a\\/span\\[6\\]$"],
-    selectColumnList: ["text"],
-    url: "https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2",
-  },
+    url: "https://gigazine.net/",
+  }
 ]);
