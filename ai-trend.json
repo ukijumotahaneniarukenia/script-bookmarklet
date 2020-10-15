@@ -1,0 +1,1030 @@
+[
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/explanatory-variable/",
+    "Title": "説明変数"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/median/",
+    "Title": "中央値"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/sample-space/",
+    "Title": "標本と母集団"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/response-variable/",
+    "Title": "目的変数"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/average/",
+    "Title": "平均"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/observed-value/",
+    "Title": "観測値"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/standard-deviation/",
+    "Title": "標準偏差"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/mode/",
+    "Title": "最頻値"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/statistical-estimation/",
+    "Title": "統計的推定"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/variance/",
+    "Title": "分散と不偏分散"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/history/",
+    "Title": "統計学の歴史"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/mean/",
+    "Title": "統計学って何？"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/inductive-statistics/",
+    "Title": "記述統計と推計統計"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/bayesian-statistics/",
+    "Title": "ベイズ統計学基礎"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/distribution/",
+    "Title": "確率分布まとめ"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/box-whisker-plot/",
+    "Title": "箱ひげ図"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/expected-value/",
+    "Title": "期待値"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/marginal-probability/",
+    "Title": "周辺確率"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/simultaneous-probability/",
+    "Title": "同時確率"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/moment-generating-function/",
+    "Title": "積率母関数"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/conditional-probability/",
+    "Title": "条件付き確率"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/correlation-coefficient/",
+    "Title": "相関係数"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/qualitative-variable-and-quantitative-variable/",
+    "Title": "質的変数と量的変数"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/scale/",
+    "Title": "尺度4種"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/discrete-continuous-variable/",
+    "Title": "離散型と連続型"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/central-limit-theorem/",
+    "Title": "中心極限定理"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/samplesize/",
+    "Title": "サンプルサイズ"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/basic/parametric-method/",
+    "Title": "パラメトリックとは"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/estimator/unbiasedness/",
+    "Title": "不偏推定量"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/estimator/consistency/",
+    "Title": "一致推定量"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/estimator/effective-estimator/",
+    "Title": "有効推定量"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/estimator/likehood-score-fisher/",
+    "Title": "尤度関数とスコア関数"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/estimator/cramer-rao/",
+    "Title": "クラメールラオの下限"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/estimator/maximum-likelihood-estimation/",
+    "Title": "最尤推定量"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/hypothesis-testing/about-2/",
+    "Title": "仮説検定基礎"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/hypothesis-testing/rejection-region/",
+    "Title": "棄却域"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/hypothesis-testing/z-test/",
+    "Title": "正規分布の検定"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/hypothesis-testing/t-test/",
+    "Title": "t検定"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/hypothesis-testing/sided-test/",
+    "Title": "片側検定と両側検定"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/hypothesis-testing/chi2-test/",
+    "Title": "独立性のカイ二乗検定"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/hypothesis-testing/degree-of-freedom-of-contingency-table/",
+    "Title": "カイ二乗検定の自由度"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/hypothesis-testing/maximam-likehood-estimate-of-degree-of-freedom/",
+    "Title": "独立性の検定"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/hypothesis-testing/goodness-of-fit-test-by-chi-test/",
+    "Title": "適合度検定"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/hypothesis-testing/chi2-test-residual-analysis/",
+    "Title": "カイ二乗検定の残差分析"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/hypothesis-testing/chi%e2%80%90square-test/",
+    "Title": "カイ二乗検定"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/regression/simple_linear_reg/",
+    "Title": "回帰分析"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/regression/multiple-regression-analysis/",
+    "Title": "重回帰分析"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/regression/logistic_regression/",
+    "Title": "ロジスティック回帰"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/bayes/",
+    "Title": "ベイズ統計まとめ"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/decision-theory/",
+    "Title": "決定理論"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/risk-function/",
+    "Title": "損失関数・危険関数"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/basic-2/",
+    "Title": "ベイズ論と頻度論"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/beta-bernoulli-distribution/",
+    "Title": "ベータ分布の事後分布"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/conjugate-prior-distribution/",
+    "Title": "共役事前分布"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/bayes-normal-distribution/",
+    "Title": "正規分布の事後分布"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/maximum-likelihood-estimation-bayes-estimator/",
+    "Title": "ベイズ推定と最尤推定"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/bayes-estimator-theory/",
+    "Title": "ベイズ推定の定義"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/bayes-estimator-practice/",
+    "Title": "ベイズ推定量導出"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/improper_prior/",
+    "Title": "非正則事前分布"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/noninformative_prior/",
+    "Title": "無情報事前分布"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/bayes-test-1/",
+    "Title": "仮説検定1"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/bayes-test-2/",
+    "Title": "仮説検定2"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/bayes-test-3/",
+    "Title": "仮説検定3"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/bayes-test-4/",
+    "Title": "仮説検定4"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/bayes-test-5/",
+    "Title": "仮説検定5"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/bayes-test-6/",
+    "Title": "仮説検定6"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/bayes_interval_estimation/",
+    "Title": "区間推定"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bayes/bayes-theorem/",
+    "Title": "ベイズの定理"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/time-series-analysis/",
+    "Title": "時系列分析の基礎"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/time-series-analysis-stat/",
+    "Title": "時系列分析の用語"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/time-series-analysis-stationaly-noise/",
+    "Title": "定常性とホワイトノイズ"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/time-series-analysis-armodel/",
+    "Title": "ARモデル基礎"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/time-series-analysis-armodel_stats/",
+    "Title": "1次ARモデル"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/time-series-analysis-n-dim-armodel_stats/",
+    "Title": "n次ARモデル"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/ndim_ma_model/",
+    "Title": "n次MAモデル"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/arna_model/",
+    "Title": "ARMAモデル"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/time-series-analysis-mamodel/",
+    "Title": "MAモデル"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/arima_model/",
+    "Title": "ARIMAモデル"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/spurious-regression/",
+    "Title": "見せかけの回帰"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/time_analy_random_walk/",
+    "Title": "ランダムウォーク"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/cointegration/",
+    "Title": "共和分"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/hypothesis-testing/",
+    "Title": "時系列の仮説検定"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/transformation/",
+    "Title": "定常性獲得"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/diff/",
+    "Title": "差分変換"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/state_space_model/",
+    "Title": "状態空間モデル基礎"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/auto_correlation/",
+    "Title": "自己相関"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/stationarity/",
+    "Title": "定常性"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/models/",
+    "Title": "様々なモデル"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/state_space_model_example/",
+    "Title": "状態空間モデル例"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/time-series-analysis/sarima_model/",
+    "Title": "SARIMAモデル"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/neural-network/activation_function/",
+    "Title": "活性化関数"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/neural-network/perceptron/",
+    "Title": "パーセプトロン"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/neural-network/regularization/",
+    "Title": "正則化"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/neural-network/optimizer/",
+    "Title": "勾配法"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/neural-network/num_diff/",
+    "Title": "数値微分"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/neural-network/nn_loss_function/",
+    "Title": "損失関数"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/neural-network/nn/",
+    "Title": "NNの基礎"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/neural-network/initial_value/",
+    "Title": "重みの初期値"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/neural-network/sgd/",
+    "Title": "ミニバッチ"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/normal-distribution/normal-distribution/",
+    "Title": "正規分布のまとめ"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/normal-distribution/table/",
+    "Title": "標準正規分布表"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/normal-distribution/standardization/",
+    "Title": "標準化"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/normal-distribution/n-moment-generating/",
+    "Title": "期待値・分散導出1"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/normal-distribution/n-parameter-derivation/",
+    "Title": "期待値・分散導出2"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/normal-distribution/density-function-derivation/",
+    "Title": "確率密度関数"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/normal-distribution/example/",
+    "Title": "身長の分布"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/normal-distribution/nature/",
+    "Title": "正規分布の性質"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/normal-distribution/the-deviation/",
+    "Title": "偏差値の基礎"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/continuous-uniform-distribution/c-moment-gnerating/",
+    "Title": "期待値・分散導出1"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/continuous-uniform-distribution/c-parameter-derivation/",
+    "Title": "期待値・分散導出2"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/discrete-uniform-distribution/d-moment-generating/",
+    "Title": "期待値・分散導出1"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/discrete-uniform-distribution/d-parameter-derivation/",
+    "Title": "期待値・分散導出2"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/binomial-distribution/binomial-distribution/",
+    "Title": "二項分布のまとめ"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/binomial-distribution/b-moment-generating/",
+    "Title": "期待値・分散導出1"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/binomial-distribution/b-parameter-derivation/",
+    "Title": "期待値・分散導出2"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/binomial-distribution/bin-mode/",
+    "Title": "最頻値導出"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/binomial-distribution/skewness-kurtosis/",
+    "Title": "歪度・尖度"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bernoulli-distribution/bernoulli-distribution/",
+    "Title": "ベルヌーイ分布まとめ"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bernoulli-distribution/ber-parameter-derivation/",
+    "Title": "期待値・分散証明"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/bernoulli-distribution/bernoulli-trial/",
+    "Title": "ベルヌーイ試行"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/exponential-distribution/e-moment-generating/",
+    "Title": "期待値・分散導出1"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/exponential-distribution/e-parameter-derivasion/",
+    "Title": "期待値・分散導出2"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/exponential-distribution/exponential-memoryless-and-poisson/",
+    "Title": "ポアソン分布関係"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/poisson-distribution/p-moment-generating/",
+    "Title": "期待値・分散導出1"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/poisson-distribution/p-parameter-derivation/",
+    "Title": "期待値・分散導出2"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/gamma-distribution/g-moment-generating/",
+    "Title": "期待値・分散導出1"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/gamma-distribution/g-parameter-derivation/",
+    "Title": "期待値・分散導出2"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/t-distribution/t-table/",
+    "Title": "t分布表と見方"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/t-distribution/t-distribution-basic/",
+    "Title": "t分布の基礎"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/t-distribution/t-parameter-derivation/",
+    "Title": "期待値・分散"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/f-distribution/f-distribution/",
+    "Title": "F分布まとめ"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/f-distribution/f-density-function/",
+    "Title": "密度関数導出"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/f-distribution/f-parameter-chi-derivation/",
+    "Title": "期待値・分散導出1"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/f-distribution/f-parameter-derivation/",
+    "Title": "期待値・分散導出2"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/chi-squared-distribution/chi-squared-distribution/",
+    "Title": "カイ二乗分布まとめ"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/chi-squared-distribution/chi-sqare-distribution/",
+    "Title": "密度関数"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/chi-squared-distribution/chi-moment-generating/",
+    "Title": "期待値・分散導出1"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/chi-squared-distribution/chi-parameter-derivation/",
+    "Title": "期待値・分散導出2"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/exponential-distribution-family/exponential-distribution-family-list/",
+    "Title": "指数型分布属一覧"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/exponential-distribution-family/exponential-family-mean-variance/",
+    "Title": "期待値・分散求め方"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/exponential-distribution-family/exponential-distribution-family/",
+    "Title": "指数型分布族とは"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/linear-algebra/cofactor/",
+    "Title": "余因子行列"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/linear-algebra/inverse-matrix-by-cofactor-matrix/",
+    "Title": "逆行列の求め方1"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/linear-algebra/gaussian_elimination/",
+    "Title": "逆行列の求め方2"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/linear-algebra/eigenvalue-and-eigenvector/",
+    "Title": "固有値と固有ベクトル"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/linear-algebra/cramers-rule/",
+    "Title": "クラメルの公式"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/linear-algebra/gaussian_elimination-2/",
+    "Title": "掃出し法"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/linear-algebra/structure-of-matrix/",
+    "Title": "行列"
+  },
+  {
+    "Link": "https://ai-trend.jp/basic-study/linear-algebra/inverse-matrix-outline/",
+    "Title": "逆行列とは"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/mesure-time/",
+    "Title": "処理速度計測"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/speed-comp-python-r/",
+    "Title": "Rと処理速度比較"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/pandas-refer-element/",
+    "Title": "pandas要素参照"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/pandas-index-columns/",
+    "Title": "pandas列名・行名"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/what-is-numpy/",
+    "Title": "numpyの特徴"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/pandas-read_csv/",
+    "Title": "csv読み込み"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/change_columns/",
+    "Title": "pandas列操作"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/split-str/",
+    "Title": "文字列の分解"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/google-natural-language-api/",
+    "Title": "感情分析"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/debug/",
+    "Title": "pdbデバッグ"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/voice-record/",
+    "Title": "録音"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/google-cloud-speech-api/",
+    "Title": "音声をテキスト化"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/chainer-neural-network/",
+    "Title": "ニューラルネットワーク"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/zaif-auto-trade/",
+    "Title": "仮想通貨売買"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/linearregression/",
+    "Title": "回帰分析と可視化"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/python3-install/",
+    "Title": "インストール(mac)"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/mecab-install/",
+    "Title": "Mecab導入"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/introduction-to-python/",
+    "Title": "Python入門"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/intro1/",
+    "Title": "Python超基礎"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/intro2/",
+    "Title": "for文・if文"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/intro3/",
+    "Title": "関数とライブラリ"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/python%e5%85%a5%e9%96%80-for%e6%96%87%e3%81%ab%e4%be%bf%e5%88%a9%e3%81%aa%e9%96%a2%e6%95%b0%e3%82%92%e3%81%be%e3%81%a8%e3%82%81%e3%81%a6%e3%81%bf%e3%81%9f%ef%bc%81format%e9%96%a2%e6%95%b0items/",
+    "Title": "for文応用2"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/for-function/",
+    "Title": "for文応用1"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/lambda/",
+    "Title": "lambda式"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/nest-for/",
+    "Title": "複数ループ"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/python/comprehension/",
+    "Title": "内包表記"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-beginner/",
+    "Title": "R言語まとめ"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-install-mac/",
+    "Title": "R導入(mac)"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-install-windows/",
+    "Title": "R導入(win)"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-0/",
+    "Title": "プログラム実行"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-1/",
+    "Title": "ベクトル行列操作"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-2/",
+    "Title": "データの読み込み"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-2-5/",
+    "Title": "便利なコマンド集"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-3/",
+    "Title": "回帰分析基礎"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-8-function/",
+    "Title": "自作関数"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-10-plot/",
+    "Title": "グラフ描画"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-bonus/",
+    "Title": "超入門プログラム"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-5-logistic/",
+    "Title": "ロジスティック回帰分析"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-7/",
+    "Title": "相関係数"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-9-t-test/",
+    "Title": "t検定"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/r-linear-regression/",
+    "Title": "回帰分析"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/step-w/",
+    "Title": "重回帰分析"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/normal-distribution-2/",
+    "Title": "正規分布のグラフ"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/aggregate/",
+    "Title": "便利な関数集"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/coefficient/",
+    "Title": "重相関係数R"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/box-plot/",
+    "Title": "箱ひげ図描画"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/notin-add/",
+    "Title": "ベクトルに要素追加"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/dt/",
+    "Title": "t分布のグラフ"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/fileencoding/",
+    "Title": "マルチバイトエラー"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/conditional-logistic/",
+    "Title": "条件付きロジスティック回帰"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/chi-sqare/",
+    "Title": "カイ二乗分布のグラフ"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/package/",
+    "Title": "パッケージ導入"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/set-seed/",
+    "Title": "乱数の悪戯"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/chi-test/",
+    "Title": "カイ二乗検定"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/fisher/",
+    "Title": "フィッシャーの検定"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/scatter/",
+    "Title": "散布図プロット"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/simulated/",
+    "Title": "サイコロの和"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/youden_index/",
+    "Title": "ROC曲線"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/f-function-graph/",
+    "Title": "F分布の密度関数"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/rm_function/",
+    "Title": "変数初期化"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/bitflyer-api-ticker/",
+    "Title": "仮想通貨情報取得"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/try-back-from-error/",
+    "Title": "エラー時の実行継続方法"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/integer-to-alp/",
+    "Title": "整数をエクセル列名に"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/r-beginner/colnames-colnumber/",
+    "Title": "Excelの列名と列番号"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/cpp/cpp-install-windows/",
+    "Title": "C++の実行環境構築（Win版）"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/cpp/cpp-install-mac/",
+    "Title": "C++の実行環境構築（mac版）"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/db/postgre-mac-install/",
+    "Title": "Postgre導入(mac)"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/db/postgre-windows-install/",
+    "Title": "Postgre導入(win)"
+  },
+  {
+    "Link": "https://ai-trend.jp/programming/db/mysql-mac-install/",
+    "Title": "MySQL導入"
+  },
+  {
+    "Link": "/basic-study#basic",
+    "Title": "統計学の基礎"
+  },
+  {
+    "Link": "/basic-study#estimator",
+    "Title": "統計的推定"
+  },
+  {
+    "Link": "/basic-study#hypothesis-testing",
+    "Title": "仮説検定"
+  },
+  {
+    "Link": "/basic-study#regression",
+    "Title": "回帰分析"
+  },
+  {
+    "Link": "/basic-study#bayes",
+    "Title": "ベイズ統計"
+  },
+  {
+    "Link": "/basic-study#time-series-analysis",
+    "Title": "時系列分析"
+  },
+  {
+    "Link": "/basic-study#survival-data-analysis",
+    "Title": "生存時間解析"
+  },
+  {
+    "Link": "/basic-study#neural-network",
+    "Title": "ニューラルネットワーク"
+  },
+  {
+    "Link": "/basic-study#ai",
+    "Title": "人工知能"
+  },
+  {
+    "Link": "/basic-study#special-feature-article",
+    "Title": "コラム"
+  },
+  {
+    "Link": "/basic-study#normal-distribution",
+    "Title": "正規分布"
+  },
+  {
+    "Link": "/basic-study#continuous-uniform-distribution",
+    "Title": "連続一様分布"
+  },
+  {
+    "Link": "/basic-study#discrete-uniform-distribution",
+    "Title": "離散一様分布"
+  },
+  {
+    "Link": "/basic-study#binomial-distribution",
+    "Title": "二項分布"
+  },
+  {
+    "Link": "/basic-study#bernoulli-distribution",
+    "Title": "ベルヌーイ分布"
+  },
+  {
+    "Link": "/basic-study#exponential-distribution",
+    "Title": "指数分布"
+  },
+  {
+    "Link": "/basic-study#multinomial-distribution",
+    "Title": "多項分布"
+  },
+  {
+    "Link": "/basic-study#poisson-distribution",
+    "Title": "ポアソン分布"
+  },
+  {
+    "Link": "/basic-study#beta-distribution",
+    "Title": "ベータ分布"
+  },
+  {
+    "Link": "/basic-study#gamma-distribution",
+    "Title": "ガンマ分布"
+  },
+  {
+    "Link": "/basic-study#geometric-distribution",
+    "Title": "幾何分布"
+  },
+  {
+    "Link": "/basic-study#hypergeometric-distribution",
+    "Title": "超幾何分布"
+  },
+  {
+    "Link": "/basic-study#t-distribution",
+    "Title": "t分布"
+  },
+  {
+    "Link": "/basic-study#f-distribution",
+    "Title": "F分布"
+  },
+  {
+    "Link": "/basic-study#chi-squared-distribution",
+    "Title": "カイ二乗分布"
+  },
+  {
+    "Link": "/basic-study#dirichlet-distribution",
+    "Title": "ディリクレ分布"
+  },
+  {
+    "Link": "/basic-study#exponential-distribution-family",
+    "Title": "指数型分布族"
+  },
+  {
+    "Link": "/basic-study#linear-algebra",
+    "Title": "線形代数"
+  },
+  {
+    "Link": "/basic-study#math-analysis",
+    "Title": "解析学"
+  },
+  {
+    "Link": "/programming#python",
+    "Title": "Python"
+  },
+  {
+    "Link": "/programming#r-beginner",
+    "Title": "R言語入門"
+  },
+  {
+    "Link": "/programming#cpp",
+    "Title": "C++"
+  },
+  {
+    "Link": "/programming#db",
+    "Title": "データベース"
+  },
+  {
+    "Link": "/business-article/ai-service/",
+    "Title": "AIサービス紹介"
+  },
+  {
+    "Link": "/business-article/ai-column/",
+    "Title": "AIコラム"
+  },
+  {
+    "Link": "/business-article/event-report/",
+    "Title": "イベントレポート"
+  },
+  {
+    "Link": "/business-article/interview/",
+    "Title": "インタビュー"
+  },
+  {
+    "Link": "/business-article/business/",
+    "Title": "ビジネス"
+  },
+  {
+    "Link": "/business-article/ai-human-resources/",
+    "Title": "AI人材関連"
+  }
+]
