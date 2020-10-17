@@ -1,6 +1,7 @@
-function listUpInstanceMethods(clazz) {
+function listUpInstanceMethods(instance) {
     let resultList = new Set();
-    let instanceMethodsNameList = Object.getOwnPropertyNames(clazz.prototype);
+    // グローバルなオブジェクトも受け取れるようにインスタンスからプロトタイプを逆引き
+    let instanceMethodsNameList = Object.getOwnPropertyNames(Object.getPrototypeOf(instance));
 
     for (let idx = 0; idx < instanceMethodsNameList.length; idx++) {
         resultList.add(instanceMethodsNameList[idx]);
@@ -9,6 +10,12 @@ function listUpInstanceMethods(clazz) {
     return resultList;
 }
 
-let resultList = listUpInstanceMethods(Date);
+let resultList
+
+resultList = listUpInstanceMethods(new Date());
+
+console.log(Array.from(resultList));
+
+resultList = listUpInstanceMethods(window);
 
 console.log(Array.from(resultList));
