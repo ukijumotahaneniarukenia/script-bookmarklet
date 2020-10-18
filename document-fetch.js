@@ -11,10 +11,9 @@ async function hoge(url) {
     response.text().then(function (text) {
       let parser = new DOMParser();
       let doc = parser.parseFromString(text, "text/html");
-      console.log(doc);
+      console.log(doc.querySelector('html'));
     });
   }
 }
 
 hoge("https://ukijumotahaneniarukenia.site/");
-
