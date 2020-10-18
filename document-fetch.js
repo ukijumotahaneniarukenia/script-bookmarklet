@@ -1,19 +1,27 @@
-async function hoge(url) {
-  const opts = {
-    method: "GET",
-    mode: "same-origin",
-    headers: {
-      "Content-Type": "text/html",
-    },
-  };
-  const response = await fetch(url, opts);
-  if (response.ok) {
-    response.text().then(function (text) {
-      let parser = new DOMParser();
-      let doc = parser.parseFromString(text, "text/html");
-      console.log(doc.querySelector('html'));
-    });
+async function main(url) {
+
+  const targetHtml = await getHtml(url)
+
+  console.log(targetHtml)
+
+  async function getHtml(url) {
+    const opts = {
+      method: "GET",
+      mode: "same-origin",
+      headers: {
+        "Content-Type": "text/html",
+      },
+    };
+    const response = await fetch(url, opts);
+    let parser = new DOMParser();
+    if (response.ok) {
+      const textHtml = await response.text()
+      let doc = parser.parseFromString(textHtml, "text/html");
+      let html = doc.querySelector('html');
+      return html
+    }
   }
 }
 
-hoge("https://ukijumotahaneniarukenia.site/");
+main("https://ukijumotahaneniarukenia.site/");
+
