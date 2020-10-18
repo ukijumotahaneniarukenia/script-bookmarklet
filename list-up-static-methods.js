@@ -1,42 +1,25 @@
-function listUpStaticMethods(instance) {
-    let resultList = new Set();
-    let staticMethodsNameList
-
-    if (typeof(instance) === 'object') {
-        // デフォルトはオブジェクトで取りに行く
-        staticMethodsNameList = Object.getOwnPropertyNames(instance);
-
-        if(staticMethodsNameList.length === 0) {
-            // デフォで取れない場合はファンクション型で取りに行く
-            staticMethodsNameList = Object.getOwnPropertyNames(instance.constructor);
-        }
-
-    } else if (typeof(instance) === 'function') {
-
-        staticMethodsNameList = Object.getOwnPropertyNames(instance.prototype);
-
-    } else {
-        return
-    }
-
-
-    for (let idx = 0; idx < staticMethodsNameList.length; idx++) {
-        resultList.add(staticMethodsNameList[idx]);
-    }
-
-    return resultList;
+function getClass(className) {
+  // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/eval#Don't_use_eval_needlessly!
+  return Function("return (" + className + ")")();
 }
 
-let resultList
+async function listUpStaticMethods(className) {
+  // listUpStaticMethods("Date")
+  // listUpStaticMethods("Array")
+  // listUpStaticMethods("String")
+  // listUpStaticMethods("Window")
+  // listUpStaticMethods("Math")
+  let resultList = new Set();
+  let targetClass = getClass(className);
+  let staticMethodsNameList = Object.getOwnPropertyNames(targetClass);
 
-resultList = listUpStaticMethods(new Date());
+  for (let idx = 0; idx < staticMethodsNameList.length; idx++) {
+    resultList.add(staticMethodsNameList[idx]);
+  }
 
-console.log(Array.from(resultList));
+  return Array.from(resultList);
+}
 
-resultList = listUpStaticMethods(window);
+let targetClassName = prompt("List Up Static Methods. Please Input Class Name. Ex.) Date Array String Window Math");
 
-console.log(Array.from(resultList));
-
-resultList = listUpStaticMethods(Array);
-
-console.log(Array.from(resultList));
+listUpStaticMethods(targetClassName).then(function(resultList){console.log(resultList)})
