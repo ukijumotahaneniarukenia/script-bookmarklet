@@ -40,7 +40,14 @@
             <v-text-field v-model="searchKeyWord" append-icon="mdi-magnify" label="Search" single-line hide-details>
             </v-text-field>
           </v-card-title>
-          <v-data-table :headers="tableHeaderList" :items="tableDataList" :search="searchKeyWord"></v-data-table>
+          <!-- https://vuetifyjs.com/en/components/data-tables/#crud-actions -->
+          <v-data-table :headers="tableHeaderList" :items="tableDataList" :search="searchKeyWord">
+            <template v-slot:item.action="{ item }">
+              <v-btn color="green">
+                プレビュー
+              </v-btn>
+            </template>
+          </v-data-table>
         </v-card>
       </v-container>
     </v-app>
@@ -57,8 +64,9 @@
           searchKeyWord: "",
           tableDataList: [],
           tableHeaderList: [
-            { text: "FileName", value: "fileName" },
-            { text: "Size", value: "size" },
+            { text: "FileName", align: 'left', value: "fileName" },
+            { text: "Size", align: 'left', value: "size" },
+            { text: "Preview", align: 'center', value: "action" },
           ],
         };
       },
@@ -93,8 +101,8 @@
           for (let index = 0; index < uploadFileList.length; index++) {
             let uploadFile = uploadFileList[index];
             console.log(uploadFile)
-            console.log({fileName: uploadFile.name,size: this.fileSizeUnit(uploadFile.size)})
-            this.tableDataList.push({fileName: uploadFile.name,size: this.fileSizeUnit(uploadFile.size)})
+            console.log({fileName: uploadFile.name,size: this.fileSizeUnit(uploadFile.size),check:false})
+            this.tableDataList.push({fileName: uploadFile.name,size: this.fileSizeUnit(uploadFile.size),check:false})
           }
         }
       }
