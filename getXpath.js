@@ -9,7 +9,7 @@ function formatDateTime(date, format) {
     return format;
 }
 
-function listUpAllXpath(targetElement, xpath, prevXpath, xpathList) {
+function listUpAllXpath(xpath, prevXpath, xpathList) {
     // タグ名が同一か問わず、同一階層に存在しているすべての子ノードリストを取得
     let iterator = document.evaluate(
         xpath,
@@ -59,7 +59,6 @@ function listUpAllXpath(targetElement, xpath, prevXpath, xpathList) {
                 xpathList.push(xpath);
 
                 listUpAllXpath(
-                    same_hierarchy_children_list[hieIdx],
                     xpath,
                     xpath,
                     xpathList
@@ -72,10 +71,6 @@ function listUpAllXpath(targetElement, xpath, prevXpath, xpathList) {
                     sameIdx < same_tag_hierarchy_children_list.snapshotLength;
                     sameIdx++
                 ) {
-                    let currentElement = same_tag_hierarchy_children_list.snapshotItem(
-                        sameIdx
-                    );
-
                     xpath =
                         prevXpath +
                         "/" +
@@ -91,7 +86,7 @@ function listUpAllXpath(targetElement, xpath, prevXpath, xpathList) {
 
                     xpathList.push(xpath);
 
-                    listUpAllXpath(currentElement, xpath, xpath, xpathList);
+                    listUpAllXpath(xpath, xpath, xpathList);
                 }
             }
         }
@@ -100,20 +95,11 @@ function listUpAllXpath(targetElement, xpath, prevXpath, xpathList) {
 
 function getAllXpath(entryXpath) {
     let xpathList = [];
-    let targetElement = document
-        .evaluate(
-            entryXpath,
-            document,
-            null,
-            XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
-            null
-        )
-        .snapshotItem(0);
     let prevXpath = entryXpath;
 
     xpathList.push(entryXpath);
 
-    listUpAllXpath(targetElement, entryXpath, prevXpath, xpathList);
+    listUpAllXpath(entryXpath, prevXpath, xpathList);
 
     let domJsonizeHashList = [];
     for (let xpathIdx = 0; xpathIdx < xpathList.length; xpathIdx++) {
