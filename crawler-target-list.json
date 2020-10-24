@@ -1,0 +1,110 @@
+[
+  {
+    "downloadFileName": "gigazine",
+    "url": "https://gigazine.net/",
+    "selectColumnInfoList": [
+      {
+        "name": "Link",
+        "patternMatchList": [
+          {
+            "filterRegPtn": "\\/div\\/div\\[2\\]\\/time\\/a$",
+            "selectColumn": "href"
+          }
+        ]
+      },
+      {
+        "name": "DateTime",
+        "patternMatchList": [
+          {
+            "filterRegPtn": "\\/div\\/div\\[2\\]\\/time\\/a$",
+            "selectColumn": "text"
+          }
+        ]
+      },
+      {
+        "name": "Title",
+        "patternMatchList": [
+          {
+            "filterRegPtn": "\\/div\\/h2\\/a\\/span$",
+            "selectColumn": "text"
+          }
+        ]
+      },
+      {
+        "name": "Category",
+        "patternMatchList": [
+          {
+            "filterRegPtn": "\\/div\\/div\\[2\\]\\/a\\/span$",
+            "selectColumn": "text"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "downloadFileName": "yakiniku",
+    "url": "https://search.rakuten.co.jp/search/mall/%E8%82%89/100227/?v=2",
+    "selectColumnInfoList": [
+      {
+        "name": "Link",
+        "patternMatchList": [
+          {
+            "filterRegPtn": "\\/h2\\/a$",
+            "selectColumn": "href"
+          }
+        ]
+      },
+      {
+        "name": "Title",
+        "patternMatchList": [
+          {
+            "filterRegPtn": "\\/h2\\/a$",
+            "selectColumn": "title"
+          }
+        ]
+      },
+      {
+        "name": "Price",
+        "patternMatchList": [
+          {
+            "filterRegPtn": "\\/div\\[1\\]\\/span\\[1\\]$",
+            "selectColumn": "text"
+          }
+        ]
+      },
+      {
+        "name": "Star",
+        "patternMatchList": [
+          {
+            "filterRegPtn": "\\/div\\[3\\]\\/div\\[3\\]\\/div\\/div\\/a\\/span\\[6\\]$",
+            "selectColumn": "text"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "downloadFileName": "ai-trend",
+    "url": "https://ai-trend.jp/basic-study/#basic",
+    "selectColumnInfoList": [
+      {
+        "name": "Link",
+        "patternMatchList": [
+          {
+            "filterRegPtn": "\\/ul\\[[0-9]+\\]\\/li\\[[0-9]+\\]\\/a$",
+            "selectColumn": "href"
+          }
+        ]
+      },
+      {
+        "name": "Title",
+        "patternMatchList": [
+          {
+            "filterRegPtn": "\\/ul\\[[0-9]+\\]\\/li\\[[0-9]+\\]\\/a$",
+            "selectColumn": "text"
+          }
+        ]
+      }
+    ]
+  }
+]
