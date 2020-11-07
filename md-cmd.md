@@ -22,3 +22,7 @@ jsスクリプトの先頭に以下を追加
 ```
 /// <reference path="./type-manage/node_modules/@types/node/index.d.ts" />
 ```
+
+本家型定義ファイルは以下のレポジトリで管理されている
+
+https://github.com/DefinitelyTyped/DefinitelyTyped
