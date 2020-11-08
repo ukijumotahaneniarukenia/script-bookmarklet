@@ -1,3 +1,6 @@
+/// <reference path="./type-manage/node_modules/@types/node/index.d.ts" />
+/// <reference path="./type-manage/node_modules/@types/echarts/index.d.ts" />
+
 // https://echarts.apache.org/en/index.html
 // https://echarts.apache.org/en/cheat-sheet.html
 // https://github.com/apache/incubator-echarts/tree/4.9.0/dist
@@ -44,7 +47,8 @@ async function createTargetDom() {
 async function renderChart() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      echarts.init(document.getElementById("targetElement")).setOption({
+      let targetChart = echarts.init(document.getElementById("targetElement"))
+      targetChart.setOption({
         series: {
           type: "pie",
           data: [
