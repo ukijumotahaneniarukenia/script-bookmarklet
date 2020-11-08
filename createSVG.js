@@ -32,18 +32,13 @@ async function createTargetDom() {
 
 async function stylingTargetDom() {
   return new Promise((resolve, reject) => {
-    let targetDom = document.getElementById("app");
-    targetDom.setAttribute(
-      "style",
-      "position: absolute;top: 100px;left:100px;"
-    );
     resolve("stylingTargetDom is OK");
   });
 }
 
 async function createTargetMainDomText(targetMainDomText, height, width) {
   return new Promise((resolve, reject) => {
-    console.log('createTargetMainDomText is OK')
+    console.log("createTargetMainDomText is OK");
     resolve(
       targetMainDomText
         .replace(/TOBE_REPLACE_HEIGHT/, height)
@@ -51,7 +46,6 @@ async function createTargetMainDomText(targetMainDomText, height, width) {
     );
   });
 }
-
 
 async function main(
   targetMainDomText,
@@ -78,18 +72,17 @@ async function main(
 }
 
 let targetMainDomText = `
-<svg id="app" height="TOBE_REPLACE_HEIGHT" width="TOBE_REPLACE_WIDTH" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg id="app" style="display: flex;justify-content: center;" height="TOBE_REPLACE_HEIGHT" width="TOBE_REPLACE_WIDTH" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 </svg>
 `;
 
-
-main(targetMainDomText,1000,1000,500,100,5)
-main(targetMainDomText,1000,1000,500,200,10)
-main(targetMainDomText,1000,1000,500,300,15)
-main(targetMainDomText,1000,1000,500,400,20)
-main(targetMainDomText,1000,1000,500,500,25)
-main(targetMainDomText,1000,1000,100,500,5)
-main(targetMainDomText,1000,1000,200,500,10)
-main(targetMainDomText,1000,1000,300,500,15)
-main(targetMainDomText,1000,1000,400,500,20)
-main(targetMainDomText,1000,1000,500,500,25)
+// main(targetMainDomText, 1000, 1000, 500, 100, 5);
+// main(targetMainDomText, 1000, 1000, 500, 200, 10);
+// main(targetMainDomText, 1000, 1000, 500, 300, 15);
+// main(targetMainDomText, 1000, 1000, 500, 400, 20);
+// main(targetMainDomText, 1000, 1000, 500, 500, 25);
+// main(targetMainDomText, 1000, 1000, 100, 500, 5);
+// main(targetMainDomText, 1000, 1000, 200, 500, 10);
+// main(targetMainDomText, 1000, 1000, 300, 500, 15);
+// main(targetMainDomText, 1000, 1000, 400, 500, 20);
+main(targetMainDomText, window.screen.availHeight, window.screen.availWidth, window.screen.availHeight, window.screen.availWidth, 25);
