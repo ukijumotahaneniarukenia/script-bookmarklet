@@ -60,32 +60,19 @@ async function renderChart() {
   // https://www.d3-graph-gallery.com/graph/interactivity_zoom.html
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      // List of words
       let myWords = [
-        "Hello",
-        "Everybody",
-        "How",
-        "Are",
-        "You",
-        "Today",
-        "It",
-        "Is",
-        "A",
-        "Lovely",
-        "Day",
-        "I",
-        "Love",
-        "Coding",
-        "In",
-        "My",
-        "Van",
-        "Mate",
+        { word: "Running", size: "10" },
+        { word: "Surfing", size: "20" },
+        { word: "Climbing", size: "50" },
+        { word: "Kiting", size: "30" },
+        { word: "Sailing", size: "20" },
+        { word: "Snowboarding", size: "60" },
       ];
 
       // set the dimensions and margins of the graph
-      let margin = { top: 10, right: 10, bottom: 10, left: 10 }
-      let width = 450 - margin.left - margin.right
-      let height = 450 - margin.top - margin.bottom
+      let margin = { top: 10, right: 10, bottom: 10, left: 10 };
+      let width = 450 - margin.left - margin.right;
+      let height = 450 - margin.top - margin.bottom;
 
       // append the svg object to the body of the page
       let svg = d3
@@ -97,23 +84,28 @@ async function renderChart() {
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
       // Constructs a new cloud layout instance. It run an algorithm to find the position of words that suits your requirements
+      // Wordcloud features that are different from one word to the other must be here
       let layout = d3.layout
         .cloud()
         .size([width, height])
         .words(
           myWords.map((item) => {
-            return { text: item };
+            return { text: item.word, size: item.size };
           })
         )
-        .padding(10)
-        .fontSize(60)
+        .padding(5) //space between words
+        .rotate(() => {
+          return ~~(Math.random() * 2) * 90;
+        })
+        .fontSize((item) => {
+          return item.size;
+        }) // font size of words
         .on("end", draw);
       layout.start();
 
       // This function takes the output of 'layout' above and draw the words
-      // Better not to touch it. To change parameters, play with the 'layout' variable above
+      // Wordcloud features that are THE SAME from one word to the other can be here
       function draw(words) {
-        // このsvgは見える
         svg
           .append("g")
           .attr(
@@ -128,17 +120,22 @@ async function renderChart() {
           .data(words)
           .enter()
           .append("text")
-          .style("font-size", function (d) {
-            return d.size + "px";
+          .style("font-size", (item) => {
+            return item.size;
           })
+          .style("fill", "#69b3a2")
           .attr("text-anchor", "middle")
-          .attr("transform", function (d) {
-            return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+          .style("font-family", "Impact")
+          .attr("transform", (item) => {
+            return (
+              "translate(" + [item.x, item.y] + ")rotate(" + item.rotate + ")"
+            );
           })
-          .text(function (d) {
-            return d.text;
+          .text((item) => {
+            return item.text;
           });
       }
+
       resolve("renderChart is OK");
     }, 3000);
   });
