@@ -1,5 +1,9 @@
 # script-bookmarklet
 
+nodeでcron
+https://www.jsdelivr.com/package/npm/node-schedule
+
+
 https://stackoverrun.com/ja/q/10621834
 
 呼び出せないから以下でコンパイルしてハードでペタリして管理する運用
