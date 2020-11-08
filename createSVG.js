@@ -1,3 +1,5 @@
+// https://www.w3schools.com/graphics/svg_intro.asp
+
 // https://stackoverflow.com/questions/22894540/creating-circles-with-svg-and-javascript
 async function createCircleSVG(targetMainDomText, endX, endY, delta) {
   return new Promise((resolve, reject) => {
