@@ -63,7 +63,7 @@ async function renderChart() {
   });
 }
 
-async function targetElement() {
+async function main() {
   setContentSecurityPolicy()
     .then((res) => {
       console.log(res);
@@ -85,4 +85,4 @@ async function targetElement() {
     });
 }
 
-targetElement();
+main();

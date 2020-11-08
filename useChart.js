@@ -30,8 +30,7 @@ async function createTargetDom(){
   return new Promise((resolve,reject) => {
     let targetDom = document.createElement("canvas");
     targetDom.setAttribute("id", "target-chart");
-    targetDom.setAttribute("width", "400");
-    targetDom.setAttribute("height", "400");
+    targetDom.setAttribute("style", "width: 400px;height:400px;");
     document.body.appendChild(targetDom);
     resolve('createTargetDom is OK')
   })
