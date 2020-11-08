@@ -1,17 +1,18 @@
 // https://stackoverflow.com/questions/22894540/creating-circles-with-svg-and-javascript
-async function createCircleSVG(targetMainDomText,startIndex,endIndex){
+async function createCircleSVG(targetMainDomText,endX,endY,delta){
   return new Promise((resolve,reject)=>{
     let parser = new DOMParser();
     doc = parser.parseFromString(targetMainDomText, "text/html")
     let svgns = "http://www.w3.org/2000/svg"
     let targetSVG = doc.body.firstChild
-    for (let x = 0; x < 500; x += 50) {
-        for (let y = 0; y < 300; y += 50) {
+    for (let x = 0; x < endX; x += delta) {
+        for (let y = 0; y < endY; y += delta) {
             let circle = document.createElementNS(svgns, 'circle');
             circle.setAttributeNS(null, 'cx', x);
             circle.setAttributeNS(null, 'cy', y);
-            circle.setAttributeNS(null, 'r', 50);
+            circle.setAttributeNS(null, 'r', delta);
             circle.setAttributeNS(null, 'style', 'fill: none; stroke: blue; stroke-width: 1px;' );
+            console.log(circle)
             targetSVG.appendChild(circle);
         }
     }
@@ -25,10 +26,10 @@ async function createTargetDom() {
   });
 }
 
-async function main(targetMainDomText,startIndex,endIndex){
+async function main(targetMainDomText,startIndex,endIndex,delta){
   createTargetDom()
     .then(()=>{
-      return createCircleSVG(targetMainDomText,startIndex,endIndex)
+      return createCircleSVG(targetMainDomText,startIndex,endIndex,delta)
     })
     .then(res=>{
       console.log(res)
@@ -41,4 +42,4 @@ let targetMainDomText = `
 </svg>
 `
 
-main(targetMainDomText,1,1)
+main(targetMainDomText,500,300,50)
