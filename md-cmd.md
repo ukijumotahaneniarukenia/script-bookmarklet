@@ -8,6 +8,7 @@ $ cd $HOME/script-bookmarklet/type-manage
 $ npm install --save @types/node
 $ npm install --save @types/echart
 $ npm install --save @types/d3
+$ npm install --save @types/node-schedule
 ```
 
 index.d.tsのファイルパスを調査
