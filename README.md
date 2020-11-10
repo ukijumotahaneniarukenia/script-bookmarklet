@@ -1,5 +1,15 @@
 # script-bookmarklet
 
+サンプル集
+
+- http://subsimple.com/bookmarklets/collection_layout.php
+
+- https://www.squarefree.com/bookmarklets/
+
+- https://gist.github.com/caseywatts/c0cec1f89ccdb8b469b1
+
+- http://js.do/blog/bookmarklets/
+
 nodeでcron
 https://www.jsdelivr.com/package/npm/node-schedule
 
