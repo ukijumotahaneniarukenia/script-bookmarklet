@@ -1,5 +1,12 @@
 # script-bookmarklet
 
+chrome bookmark jsonファイルが存在するディレクトリ（linuxはあった）
+|OS|PATH|
+|:-:|:-:|
+|windows|HOME\AppData\Local\Google\Chrome\User Data\Default\bookmarks|
+|darwin|HOME/Library/Application Support/Google/Chrome/Default/Bookmarks|
+|linux|HOME/.config/google-chrome/Default|
+
 サンプル集
 
 - http://subsimple.com/bookmarklets/collection_layout.php
