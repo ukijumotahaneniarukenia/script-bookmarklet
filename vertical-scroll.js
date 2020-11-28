@@ -18,7 +18,7 @@ async function main(
   waitTimeSeconds
 ) {
   let elapsedTime = 0;
-  console.log("Elapsed Time:%s", String(elapsedTime));
+  console.log("Elapsed Time:%s[seconds]", String(elapsedTime));
   for (;;) {
     if (await limitCondtion(window.scrollY, prevWindowYCoordinate)) {
       break;
