@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+ショートハンド
+- https://www.webprofessional.jp/shorthand-javascript-techniques/
+
 chrome bookmark jsonファイルが存在するディレクトリ（linuxはあった）
 |OS|PATH|
 |:-:|:-:|
