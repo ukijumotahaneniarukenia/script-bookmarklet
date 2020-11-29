@@ -5,11 +5,14 @@
 // https://stackoverflow.com/questions/11547672/how-to-stringify-event-object
 function eventCatchLogger(event) {
   console.log(event);
-  console.log(stringifyEvent(event));
+  // console.log(JSON.stringify(resolveReferences(event)));
+  // console.log(stringifyEvent(event));
   console.log(stringifyObject(event));
-  console.log(JSON.parse(stringifyEvent(event)));
-  console.log(JSON.parse(stringifyObject(event)));
+  // console.log(JSON.parse(stringifyEvent(event)));
+  // console.log(JSON.parse(stringifyObject(event)));
 }
+
+// https://stackoverflow.com/questions/15312529/resolve-circular-references-from-json-object
 
 function stringifyObject(object, depth=0, max_depth=5) {
   // change max_depth to see more levels, for a touch event, 2 is good
