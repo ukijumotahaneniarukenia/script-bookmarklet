@@ -12,84 +12,80 @@ function formatDateTime(date, format) {
 function listUpAllXpath(xpath, prevXpath, xpathList) {
   // タグ名が同一か問わず、同一階層に存在しているすべての子ノードリストを取得
   let iterator = document.evaluate(
-      xpath,
-      document,
-      null,
-      XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
-      null
+    xpath,
+    document,
+    null,
+    XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+    null
   ); // それ自身単一の場合ないしそれ自身複数の場合
 
   for (let childIdx = 0; childIdx < iterator.snapshotLength; childIdx++) {
+    // あれば通るしなければ以下は通らない
+
+    let currentElement = iterator.snapshotItem(childIdx);
+
+    let same_hierarchy_children_list = currentElement.children; // それ自身の配下の子ノードを取得
+
+    for (
+      let hieIdx = 0;
+      hieIdx < same_hierarchy_children_list.length;
+      hieIdx++
+    ) {
       // あれば通るしなければ以下は通らない
 
-      let currentElement = iterator.snapshotItem(childIdx);
+      let childElement = same_hierarchy_children_list[
+        hieIdx
+      ].nodeName.toLocaleLowerCase();
 
-      let same_hierarchy_children_list = currentElement.children; // それ自身の配下の子ノードを取得
+      // 同一タグ名に対して連番を付与するために取得
+      let same_tag_hierarchy_children_list = document.evaluate(
+        prevXpath + "/" + childElement,
+        document,
+        null,
+        XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+        null
+      );
 
-      for (
-          let hieIdx = 0;
-          hieIdx < same_hierarchy_children_list.length;
-          hieIdx++
-      ) {
-          // あれば通るしなければ以下は通らない
+      if (same_tag_hierarchy_children_list.snapshotLength === 1) {
+        // 単一の場合
 
-          let childElement = same_hierarchy_children_list[
-              hieIdx
-          ].nodeName.toLocaleLowerCase();
+        xpath = prevXpath + "/" + childElement;
 
-          // 同一タグ名に対して連番を付与するために取得
-          let same_tag_hierarchy_children_list = document.evaluate(
-              prevXpath + "/" + childElement,
-              document,
-              null,
-              XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
-              null
-          );
+        // 前回訪問済みの場合はスキップ
+        if (xpathList.includes(xpath)) {
+          continue;
+        }
 
-          if (same_tag_hierarchy_children_list.snapshotLength === 1) {
-              // 単一の場合
+        xpathList.push(xpath);
 
-              xpath = prevXpath + "/" + childElement;
+        listUpAllXpath(xpath, xpath, xpathList);
+      } else {
+        // 複数の場合
 
-              // 前回訪問済みの場合はスキップ
-              if (xpathList.includes(xpath)) {
-                  continue;
-              }
+        for (
+          let sameIdx = 0;
+          sameIdx < same_tag_hierarchy_children_list.snapshotLength;
+          sameIdx++
+        ) {
+          xpath =
+            prevXpath +
+            "/" +
+            childElement +
+            "[" +
+            (sameIdx + 1).toString() +
+            "]";
 
-              xpathList.push(xpath);
-
-              listUpAllXpath(
-                  xpath,
-                  xpath,
-                  xpathList
-              );
-          } else {
-              // 複数の場合
-
-              for (
-                  let sameIdx = 0;
-                  sameIdx < same_tag_hierarchy_children_list.snapshotLength;
-                  sameIdx++
-              ) {
-                  xpath =
-                      prevXpath +
-                      "/" +
-                      childElement +
-                      "[" +
-                      (sameIdx + 1).toString() +
-                      "]";
-
-                  // 前回訪問済みの場合はスキップ
-                  if (xpathList.includes(xpath)) {
-                      continue;
-                  }
-
-                  xpathList.push(xpath);
-
-                  listUpAllXpath(xpath, xpath, xpathList);
-              }
+          // 前回訪問済みの場合はスキップ
+          if (xpathList.includes(xpath)) {
+            continue;
           }
+
+          xpathList.push(xpath);
+
+          listUpAllXpath(xpath, xpath, xpathList);
+        }
       }
+    }
   }
 }
 
@@ -103,22 +99,22 @@ function getAllXpath(entryXpath) {
 
   let domJsonizeHashList = [];
   for (let xpathIdx = 0; xpathIdx < xpathList.length; xpathIdx++) {
-      let hash = {};
-      let targetXpath = xpathList[xpathIdx];
-      let iterator = document.evaluate(
-          targetXpath,
-          document,
-          null,
-          XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
-          null
-      );
-      let targetElement = iterator.snapshotItem(0);
-      hash = {
-          targetUrl: window.location.href,
-          targetXpath: targetXpath,
-          targetElement: targetElement.outerHTML,
-      };
-      domJsonizeHashList.push(hash);
+    let hash = {};
+    let targetXpath = xpathList[xpathIdx];
+    let iterator = document.evaluate(
+      targetXpath,
+      document,
+      null,
+      XPathResult.ORDERED_NODE_SNAPSHOT_TYPE,
+      null
+    );
+    let targetElement = iterator.snapshotItem(0);
+    hash = {
+      targetUrl: window.location.href,
+      targetXpath: targetXpath,
+      targetElement: targetElement.outerHTML,
+    };
+    domJsonizeHashList.push(hash);
   }
   return domJsonizeHashList;
 }
@@ -131,15 +127,15 @@ function waitTime(waitTimeSeconds) {
   });
 }
 
-function limitCondtion(currentWindowYCoordinate, previousWindowYCoordinate) {
+function limitCondtion(currentWindowAvaliableScrollYCoordinate, currentWindowYCoordinate, previousWindowYCoordinate) {
   return new Promise((resolve) => {
-    resolve(currentWindowYCoordinate == previousWindowYCoordinate);
+    resolve(currentWindowAvaliableScrollYCoordinate === currentWindowYCoordinate &&  currentWindowYCoordinate === previousWindowYCoordinate);
   });
 }
 
-function download(){
+function download() {
   return new Promise((resolve) => {
-    let targetXpath = '/html';
+    let targetXpath = "/html";
 
     let resultList = getAllXpath(targetXpath);
 
@@ -166,21 +162,20 @@ function download(){
   });
 }
 
-window.addEventListener('DOMContentLoaded', function() {
-
+window.addEventListener("DOMContentLoaded", function () {
   urls = [
-      '//yoheim.net/image/s156.png',
-      '//yoheim.net/image/s157.png',
-      '//yoheim.net/image/s158.png'
+    "//yoheim.net/image/s156.png",
+    "//yoheim.net/image/s157.png",
+    "//yoheim.net/image/s158.png",
   ];
 
-  var ul = document.getElementById('imageRoot');
-  ul.innerHTML = '';
+  var ul = document.getElementById("imageRoot");
+  ul.innerHTML = "";
 
-  urls.forEach(function(url) {
-      var image = new Image();
-      image.src = url;
-      ul.appendChild(image);
+  urls.forEach(function (url) {
+    var image = new Image();
+    image.src = url;
+    ul.appendChild(image);
   });
 });
 
@@ -192,8 +187,8 @@ async function main(
   let elapsedTime = 0;
   console.log("Elapsed Time:%s[seconds]", String(elapsedTime));
   for (;;) {
-    console.log(window.scrollY, prevWindowYCoordinate)
-    if (await limitCondtion(window.scrollY, prevWindowYCoordinate)) {
+    console.log(window.scrollY, prevWindowYCoordinate);
+    if (await limitCondtion(document.body.scrollHeight, window.scrollY, prevWindowYCoordinate)) {
       //メディアのフェッチで失敗したときに
       //現在の位置をローカルストレージに保持しておき、リロード後、前回の位置まで移動する。
       // https://developer.mozilla.org/ja/docs/Web/API/Window/localStorage
@@ -206,7 +201,7 @@ async function main(
       //現在の位置をローカルストレージに保持しておき、リロード後、前回の位置まで移動する。
 
       // TODO fetch がコケていることを検知したい
-      console.log('')
+      console.log("end");
 
       break;
     } else {
@@ -216,7 +211,7 @@ async function main(
     elapsedTime = elapsedTime + (await waitTime(waitTimeSeconds));
     console.log("Elapsed Time:%s[seconds]", String(elapsedTime));
   }
-  await download()
+  await download();
 }
 
 main(-1, 300, 4);

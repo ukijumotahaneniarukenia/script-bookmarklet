@@ -5,11 +5,7 @@
 // https://stackoverflow.com/questions/11547672/how-to-stringify-event-object
 function eventCatchLogger(event) {
   console.log(event);
-  // console.log(JSON.stringify(resolveReferences(event)));
-  // console.log(stringifyEvent(event));
   console.log(stringifyObject(event));
-  // console.log(JSON.parse(stringifyEvent(event)));
-  // console.log(JSON.parse(stringifyObject(event)));
 }
 
 // https://stackoverflow.com/questions/15312529/resolve-circular-references-from-json-object
@@ -34,18 +30,6 @@ function stringifyObject(object, depth=0, max_depth=5) {
   }
 
   return depth? obj: JSON.stringify(obj);
-}
-
-function stringifyEvent(e) {
-  const obj = {};
-  for (let k in e) {
-    obj[k] = e[k];
-  }
-  return JSON.stringify(obj, (k, v) => {
-    if (v instanceof Node) return 'Node';
-    if (v instanceof Window) return 'Window';
-    return v;
-  }, ' ');
 }
 
 let allEventList = Object.keys(window).filter((key) => /^on/.test(key));
