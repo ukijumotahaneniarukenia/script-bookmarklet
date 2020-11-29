@@ -127,15 +127,29 @@ function waitTime(waitTimeSeconds) {
   });
 }
 
-function isEndRoll(currentWindowAvaliableScrollYCoordinate, currentWindowYCoordinate, previousWindowYCoordinate) {
+function isEndRoll(
+  currentWindowAvaliableScrollYCoordinate,
+  currentWindowYCoordinate,
+  previousWindowYCoordinate
+) {
   return new Promise((resolve) => {
-    resolve(currentWindowAvaliableScrollYCoordinate === currentWindowYCoordinate &&  currentWindowYCoordinate === previousWindowYCoordinate);
+    resolve(
+      currentWindowAvaliableScrollYCoordinate === currentWindowYCoordinate &&
+        currentWindowYCoordinate === previousWindowYCoordinate
+    );
   });
 }
 
-function isHangUp(currentWindowAvaliableScrollYCoordinate, currentWindowYCoordinate, previousWindowYCoordinate) {
+function isHangUp(
+  currentWindowAvaliableScrollYCoordinate,
+  currentWindowYCoordinate,
+  previousWindowYCoordinate
+) {
   return new Promise((resolve) => {
-    resolve(currentWindowAvaliableScrollYCoordinate > currentWindowYCoordinate &&  currentWindowYCoordinate === previousWindowYCoordinate);
+    resolve(
+      currentWindowAvaliableScrollYCoordinate > currentWindowYCoordinate &&
+        currentWindowYCoordinate === previousWindowYCoordinate
+    );
   });
 }
 
@@ -188,23 +202,49 @@ window.addEventListener("DOMContentLoaded", function () {
 async function main(
   prevWindowYCoordinate,
   scrollYCoordinatePixel,
-  waitTimeSeconds
+  waitTimeSeconds,
+  killHangUpLimitCount
 ) {
   let elapsedTime = 0;
+  let hangUpCount = 0;
   console.log("Elapsed Time:%s[seconds]", String(elapsedTime));
   for (;;) {
+    console.log(
+      hangUpCount,
+      killHangUpLimitCount,
+      document.body.scrollHeight,
+      window.scrollY,
+      prevWindowYCoordinate
+    );
 
-    console.log(document.body.scrollHeight, window.scrollY, prevWindowYCoordinate);
-
-    if (await isHangUp(document.body.scrollHeight, window.scrollY, prevWindowYCoordinate)) {
-      window.localStorage.setItem('previousScrollY', window.scrollY);
-      window.scroll(0,window.localStorage.getItem('previousScrollY')-window.screen.availHeight)
+    if (hangUpCount === killHangUpLimitCount) {
+      break;
     }
 
-    if (await isEndRoll(document.body.scrollHeight, window.scrollY, prevWindowYCoordinate)) {
+    if (
+      await isHangUp(
+        document.body.scrollHeight,
+        window.scrollY,
+        prevWindowYCoordinate
+      )
+    ) {
+      window.localStorage.setItem("previousScrollY", window.scrollY);
+      window.scroll(
+        0,
+        window.localStorage.getItem("previousScrollY") -
+          window.screen.availHeight
+      );
+      hangUpCount++;
+    }
 
+    if (
+      await isEndRoll(
+        document.body.scrollHeight,
+        window.scrollY,
+        prevWindowYCoordinate
+      )
+    ) {
       break;
-
     }
 
     prevWindowYCoordinate = window.scrollY;
@@ -216,5 +256,5 @@ async function main(
   await download();
 }
 
-// main(-1, 300, 4); // so good
-main(-1, 700, 0.5); // so rapid
+// main(-1, 300, 4,10); // so good
+main(-1, 700, 0.5, 10); // so rapid
