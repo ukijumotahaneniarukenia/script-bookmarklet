@@ -127,9 +127,15 @@ function waitTime(waitTimeSeconds) {
   });
 }
 
-function limitCondtion(currentWindowAvaliableScrollYCoordinate, currentWindowYCoordinate, previousWindowYCoordinate) {
+function isEndRoll(currentWindowAvaliableScrollYCoordinate, currentWindowYCoordinate, previousWindowYCoordinate) {
   return new Promise((resolve) => {
     resolve(currentWindowAvaliableScrollYCoordinate === currentWindowYCoordinate &&  currentWindowYCoordinate === previousWindowYCoordinate);
+  });
+}
+
+function isHangUp(currentWindowAvaliableScrollYCoordinate, currentWindowYCoordinate, previousWindowYCoordinate) {
+  return new Promise((resolve) => {
+    resolve(currentWindowAvaliableScrollYCoordinate > currentWindowYCoordinate &&  currentWindowYCoordinate === previousWindowYCoordinate);
   });
 }
 
@@ -187,27 +193,24 @@ async function main(
   let elapsedTime = 0;
   console.log("Elapsed Time:%s[seconds]", String(elapsedTime));
   for (;;) {
-    console.log(window.scrollY, prevWindowYCoordinate);
-    if (await limitCondtion(document.body.scrollHeight, window.scrollY, prevWindowYCoordinate)) {
-      //メディアのフェッチで失敗したときに
-      //現在の位置をローカルストレージに保持しておき、リロード後、前回の位置まで移動する。
-      // https://developer.mozilla.org/ja/docs/Web/API/Window/localStorage
-      // window.localStorage.setItem('previousScrollY', window.scrollY);
-      // window.location.reload()
-      // window.scroll(0,window.localStorage.getItem('previousScrollY'))
 
-      //ネットワークの混雑状況によりメディアのフェッチに時間がかかっている場合、同じ座標になってしまいループから抜けてしまうので、いい感じにしたい
-      // レンダリングの完了待ち状態を知りたい
-      //現在の位置をローカルストレージに保持しておき、リロード後、前回の位置まで移動する。
+    console.log(document.body.scrollHeight, window.scrollY, prevWindowYCoordinate);
 
-      // TODO fetch がコケていることを検知したい
-      console.log("end");
+    if (await isHangUp(document.body.scrollHeight, window.scrollY, prevWindowYCoordinate)) {
+      window.localStorage.setItem('previousScrollY', window.scrollY);
+      window.location.reload()
+      window.scroll(0,window.localStorage.getItem('previousScrollY'))
+    }
+
+    if (await isEndRoll(document.body.scrollHeight, window.scrollY, prevWindowYCoordinate)) {
 
       break;
-    } else {
-      prevWindowYCoordinate = window.scrollY;
-      window.scrollTo(0, prevWindowYCoordinate + scrollYCoordinatePixel);
+
     }
+
+    prevWindowYCoordinate = window.scrollY;
+    window.scrollTo(0, prevWindowYCoordinate + scrollYCoordinatePixel);
+
     elapsedTime = elapsedTime + (await waitTime(waitTimeSeconds));
     console.log("Elapsed Time:%s[seconds]", String(elapsedTime));
   }
