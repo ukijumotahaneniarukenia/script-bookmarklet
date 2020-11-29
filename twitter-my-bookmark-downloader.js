@@ -166,6 +166,24 @@ function download(){
   });
 }
 
+window.addEventListener('DOMContentLoaded', function() {
+
+  urls = [
+      '//yoheim.net/image/s156.png',
+      '//yoheim.net/image/s157.png',
+      '//yoheim.net/image/s158.png'
+  ];
+
+  var ul = document.getElementById('imageRoot');
+  ul.innerHTML = '';
+
+  urls.forEach(function(url) {
+      var image = new Image();
+      image.src = url;
+      ul.appendChild(image);
+  });
+});
+
 async function main(
   prevWindowYCoordinate,
   scrollYCoordinatePixel,
@@ -174,7 +192,22 @@ async function main(
   let elapsedTime = 0;
   console.log("Elapsed Time:%s[seconds]", String(elapsedTime));
   for (;;) {
+    console.log(window.scrollY, prevWindowYCoordinate)
     if (await limitCondtion(window.scrollY, prevWindowYCoordinate)) {
+      //メディアのフェッチで失敗したときに
+      //現在の位置をローカルストレージに保持しておき、リロード後、前回の位置まで移動する。
+      // https://developer.mozilla.org/ja/docs/Web/API/Window/localStorage
+      // window.localStorage.setItem('previousScrollY', window.scrollY);
+      // window.location.reload()
+      // window.scroll(0,window.localStorage.getItem('previousScrollY'))
+
+      //ネットワークの混雑状況によりメディアのフェッチに時間がかかっている場合、同じ座標になってしまいループから抜けてしまうので、いい感じにしたい
+      // レンダリングの完了待ち状態を知りたい
+      //現在の位置をローカルストレージに保持しておき、リロード後、前回の位置まで移動する。
+
+      // TODO fetch がコケていることを検知したい
+      console.log('')
+
       break;
     } else {
       prevWindowYCoordinate = window.scrollY;
@@ -186,4 +219,4 @@ async function main(
   await download()
 }
 
-main(-1, 300, 2);
+main(-1, 300, 4);
