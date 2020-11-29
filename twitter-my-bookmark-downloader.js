@@ -198,8 +198,7 @@ async function main(
 
     if (await isHangUp(document.body.scrollHeight, window.scrollY, prevWindowYCoordinate)) {
       window.localStorage.setItem('previousScrollY', window.scrollY);
-      window.location.reload()
-      window.scroll(0,window.localStorage.getItem('previousScrollY'))
+      window.scroll(0,window.localStorage.getItem('previousScrollY')-window.screen.availHeight)
     }
 
     if (await isEndRoll(document.body.scrollHeight, window.scrollY, prevWindowYCoordinate)) {
@@ -217,4 +216,5 @@ async function main(
   await download();
 }
 
-main(-1, 300, 4);
+// main(-1, 300, 4); // so good
+main(-1, 700, 0.5); // so rapid
