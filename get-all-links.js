@@ -2,7 +2,7 @@ let targetrList = document.querySelectorAll("a")
 
 let linkList = []
 
-for(ele of targetrList){linkList.push(ele.href)}
+for(let ele of targetrList){linkList.push(ele.href)}
 
 let resultList = Array.from(new Set(linkList))
 

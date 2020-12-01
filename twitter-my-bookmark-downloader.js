@@ -182,23 +182,6 @@ function download() {
   });
 }
 
-window.addEventListener("DOMContentLoaded", function () {
-  urls = [
-    "//yoheim.net/image/s156.png",
-    "//yoheim.net/image/s157.png",
-    "//yoheim.net/image/s158.png",
-  ];
-
-  var ul = document.getElementById("imageRoot");
-  ul.innerHTML = "";
-
-  urls.forEach(function (url) {
-    var image = new Image();
-    image.src = url;
-    ul.appendChild(image);
-  });
-});
-
 async function main(
   prevWindowYCoordinate,
   scrollYCoordinatePixel,
