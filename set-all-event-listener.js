@@ -1,6 +1,8 @@
 // https://github.com/alex2844/js-events
 
 // オブジェクトの全プロパティを取得する関数が必要
+// https://ja.javascript.info/getting-all-properties
+// 再帰でオブジェクトが入れ子になっている場合はやはり難しい。dojoにライブラリがあるが、pureからは使いづらい。
 
 // https://stackoverflow.com/questions/11547672/how-to-stringify-event-object
 function eventCatchLogger(event) {

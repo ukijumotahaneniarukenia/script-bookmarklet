@@ -11,6 +11,12 @@ document.body.addEventListener('scroll', eventCatchLogger);
 
 document.body.addEventListener('click', eventCatchLogger, { once: false });
 
+window.addEventListener('mousewheel', eventCatchLogger); // スクロール
+
+window.addEventListener('mousemove', eventCatchLogger); // マウスホバー
+
+window.addEventListener('scroll', eventCatchLogger); // スクロール
+
 document.body.removeEventListener('scroll', eventCatchLogger);
 
 let result = [document, window].concat([...document.querySelectorAll("*")]).map((targetElement) => {
