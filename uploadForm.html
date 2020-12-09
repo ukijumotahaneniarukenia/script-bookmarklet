@@ -15,11 +15,11 @@
         let uploadFileDom = document.getElementById("uploadFileList");
         let uploadFileList = Array.from(uploadFileDom.files);
         let columnList = ["name", "size", "type"];
-        setFileList(uploadFileList, columnList)
+        setFileList(uploadFileList, columnList);
       }
       function setFileList(targetUploadFileList, targetColumnList) {
         let targetTable = document.createElement("table");
-        targetTable.setAttribute('border','1')
+        targetTable.setAttribute("border", "1");
         let targetTableHeader = document.createElement("thead");
         let targetTableBody = document.createElement("tbody");
         let targetColumnListCount = targetColumnList.length;
@@ -28,30 +28,34 @@
           let uploadFile = targetUploadFileList[fileIdx];
           let targetTableHeaderRow = document.createElement("tr");
           let targetTableBodyRow = document.createElement("tr");
-          for (let columnIdx = 0; columnIdx < targetColumnListCount; columnIdx++) {
+          for (
+            let columnIdx = 0;
+            columnIdx < targetColumnListCount;
+            columnIdx++
+          ) {
             let columnName = targetColumnList[columnIdx];
 
             if (fileIdx === 0) {
               let targetTableHeaderRowData = document.createElement("td");
               targetTableHeaderRowData.textContent = columnName;
               targetTableHeaderRow.appendChild(targetTableHeaderRowData);
-              targetTableHeader.appendChild(targetTableHeaderRow)
+              targetTableHeader.appendChild(targetTableHeaderRow);
             }
 
             let targetTableBodyRowData = document.createElement("td");
             targetTableBodyRowData.textContent = uploadFile[columnName];
             targetTableBodyRow.appendChild(targetTableBodyRowData);
-            targetTableBody.appendChild(targetTableBodyRow)
+            targetTableBody.appendChild(targetTableBodyRow);
           }
         }
-        console.log(targetTable)
         targetTable.appendChild(targetTableHeader);
         targetTable.appendChild(targetTableBody);
-        document.getElementById('showUploadFileList').appendChild(targetTable)
+        document.getElementById("showUploadFileList").innerHTML = "";
+        document.getElementById("showUploadFileList").appendChild(targetTable);
       }
-      document
-        .getElementById("uploadFileList")
-        .addEventListener("change", getFileList);
+      let targetDom = document.getElementById("uploadFileList");
+
+      targetDom.addEventListener("change", getFileList);
     </script>
   </body>
 </html>
