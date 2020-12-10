@@ -11,12 +11,32 @@
       <input type="file" name="uploadFileList" id="uploadFileList" multiple />
     </form>
     <div id="showUploadFileList"></div>
-    <script>
+    <script type="module">
+      import isUtf8 from "./node_modules/isutf8/dist/index.esm.js";
+
+      function readFile(uploadFile, callBack){
+        let fileReader = new FileReader()
+        fileReader.onload = callBack // 読み込み完了時に呼ぶコールバック関数をイベントハンドラ関数として設定
+        fileReader.readAsArrayBuffer(uploadFile) // ファイル読み込み
+      }
       function getFileList() {
         let uploadFileDom = document.getElementById("uploadFileList");
         let uploadFileList = Array.from(uploadFileDom.files);
         let columnList = ["name", "size", "type"];
-        setFileList(uploadFileList, columnList);
+        uploadFileList.map((uploadFile) => {
+          readFile(uploadFile, (e)=>{
+            console.log(uploadFile)
+            console.log(e.target.result)
+            console.log(Buffer.from(e.target.result).String(16))
+
+            // ここでエンコードチェックなどする
+            console.log(isUtf8(e.target.result))
+            // nodejs の実行エンジンならbufferは組み込みで存在
+            console.log(isUtf8(Buffer.from(e.target.result).String(16)))
+
+          })
+        })
+        // setFileList(uploadFileList, columnList);
       }
       function setFileList(targetUploadFileList, targetColumnList) {
         let targetTable = document.createElement("table");
