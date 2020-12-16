@@ -1,5 +1,7 @@
 # script-bookmarklet
 
+- https://qiita.com/tomoyukilabs/items/9b464c53450acc0b9574
+
 ショートハンド
 - https://www.webprofessional.jp/shorthand-javascript-techniques/
 
