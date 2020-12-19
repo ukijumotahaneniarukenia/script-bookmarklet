@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <!-- イケメンなサイト -->
+    <!-- https://danielcwilson.com/blog/2015/07/animations-part-1/ -->
+    <title>横スクロールページ</title>
+    <style type="text/css">
+      body,
+      div,
+      pre,
+      p,
+      blockquote,
+      form,
+      dl,
+      dt,
+      dd,
+      ul,
+      ol,
+      li,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      embed,
+      object {
+        margin: 0;
+        padding: 0;
+        vertical-align: baseline;
+        font-size: 100%;
+      }
+      body {
+        background: rgb(39, 38, 43);
+      }
+      #contents {
+        overflow: hidden;
+        padding-top: 100px;
+        padding-left: 50px;
+        padding-right: 50px;
+        height: 100%;
+        width: 100%;
+      }
+      div.section {
+        width: 500px;
+        background: #9db385;
+        height: 400px;
+        float: left;
+        margin-right: 30px;
+      }
+    </style>
+		<script type="text/javascript">
+			window.addEventListener('load',(e)=>{
+				let targetElement = document.getElementById('contents')
+				let targetElementList = Array.from(document.querySelectorAll('.section'))
+				let sectionCount = targetElementList.length + 1; // nowrap対策で足す1
+				let sectionWidth = targetElementList[0].offsetWidth
+				targetElement.style.width = (sectionWidth * sectionCount) + 'px';
+			})
+    </script>
+		<script type="text/javascript">
+			function scrollHorizontally(e) {
+				e.preventDefault();
+				e = window.event || e;
+				let delta = Math.max(-1, Math.min(1, e.wheelDelta || -e.detail));
+				document.documentElement.scrollLeft -= delta * 40; // Multiplied by 40
+				document.body.scrollLeft -= delta * 40; // Multiplied by 40
+			}
+			window.addEventListener("mousewheel", scrollHorizontally, {passive: false});
+		</script>
+	</head>
+  <body>
+    <div id="contents">
+      <div class="section"></div>
+      <div class="section"></div>
+      <div class="section"></div>
+      <div class="section"></div>
+      <div class="section"></div>
+      <div class="section"></div>
+      <div class="section"></div>
+      <div class="section"></div>
+      <div class="section"></div>
+    </div>
+  </body>
+</html>
