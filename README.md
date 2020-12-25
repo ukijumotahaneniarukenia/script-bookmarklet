@@ -14,6 +14,8 @@ chrome bookmark jsonファイルが存在するディレクトリ（linuxはあ�
 
 サンプル集
 
+デノでコマンド作る
+- https://qiita.com/uki00a/items/7e0cfff3069c3cefc293
 - http://subsimple.com/bookmarklets/collection_layout.php
 
 - https://www.squarefree.com/bookmarklets/
