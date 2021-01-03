@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+使えそうなサンプル集
+- https://bgrins.github.io/devtools-snippets/
+
 - https://qiita.com/tomoyukilabs/items/9b464c53450acc0b9574
 
 ショートハンド
