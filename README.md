@@ -3,6 +3,9 @@
 使えそうなサンプル集
 - https://bgrins.github.io/devtools-snippets/
 
+testemのディレクトリ構成はいろいろ便利
+- https://github.com/testem/testem/tree/master/examples/jshint
+
 - https://qiita.com/tomoyukilabs/items/9b464c53450acc0b9574
 
 ショートハンド
