@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+video関連のタグ説明
+- https://hakuhin.jp/js/video.html
+
 使えそうなサンプル集
 - https://bgrins.github.io/devtools-snippets/
 
