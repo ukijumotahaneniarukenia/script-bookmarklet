@@ -1,0 +1,41 @@
+<html>
+  <head>
+    <script>
+      document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+          // 親フレームのイベント
+          document.addEventListener("mousemove", onMouseMove);
+
+          // 子フレームのイベント
+          let iframeElements = document.getElementsByTagName("iframe");
+          for (let i = 0; i < iframeElements.length; i++) {
+            iframeElements[i].addEventListener(
+              "load",
+              (function (element) {
+                return function () {
+                  element.contentWindow.document.addEventListener(
+                    "mousemove",
+                    onMouseMove
+                  );
+                };
+              })(iframeElements[i]),
+              false
+            );
+          }
+
+          function onMouseMove() {
+            console.log("マウス動いた！");
+          }
+        },
+        false
+      );
+    </script>
+  </head>
+  <body>
+    <main>
+      <p>親フレームです。</p>
+      <iframe src="./iframe-child.html"></iframe>
+    </main>
+  </body>
+</html>
