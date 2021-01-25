@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+プログラム内でのEvent発生
+- https://stackoverflow.com/questions/2856513/how-can-i-trigger-an-onchange-event-manually
+
 video関連のタグ説明
 - https://hakuhin.jp/js/video.html
 
