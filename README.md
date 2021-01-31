@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+画像のレスポンシブ表示
+- https://developer.mozilla.org/ja/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
+
 プログラム内でのEvent発生
 - https://stackoverflow.com/questions/2856513/how-can-i-trigger-an-onchange-event-manually
 
