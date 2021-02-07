@@ -10,7 +10,8 @@ let isSkip = false; // 変数を持ち回るときなどは便利
 
 for (let idx = startIdx; idx < endIdx; idx++) {
   initPromise = initPromise
-    .then(task1.bind(this, [idx, isSkip]))
+    // .then(task1.bind(this, [idx, isSkip]))
+    .then(task1.bind(task1, [idx, isSkip])) // こっちでもうごく
     .then(task2)
     .finally(() => {
       console.log('teardown by for item')
