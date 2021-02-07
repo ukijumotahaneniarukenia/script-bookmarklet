@@ -1,5 +1,3 @@
-/// <reference path="./type-manage/node_modules/@types/node/index.d.ts" />
-
 Number.parseInt()
 
 console.log(String.fromCharCode(65))
