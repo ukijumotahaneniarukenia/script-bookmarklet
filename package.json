@@ -1,8 +1,9 @@
 {
-  "type": "module",
   "dependencies": {
     "buffer": "^6.0.3",
     "deepmerge": "^4.2.2",
+    "dojo": "^1.16.3",
+    "dojox": "^1.16.3",
     "is-utf8": "^0.2.1",
     "isutf8": "^3.1.1"
   }

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Tutorial: Hello Dojo!</title>
+  </head>
+  <body>
+    <!-- load Dojo -->
+    <!-- https://dojotoolkit.org/download/ -->
+    <!-- http://jsfiddle.net/user/fiddles/all/ -->
+    <!-- https://dojotoolkit.org/reference-guide/1.7/dojox/json/ref.html -->
+    <script
+      src="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"
+      data-dojo-config="async: true"
+    ></script>
+
+    <script>
+      require(["dojox/json/ref"], function () {
+        let me = {
+          name: "Kris",
+          father: { name: "Bill" },
+          mother: { name: "Karen" },
+        };
+        let jsonMe = dojox.json.ref.toJson(me); // serialize me
+        console.log(jsonMe);
+      });
+    </script>
+  </body>
+</html>
