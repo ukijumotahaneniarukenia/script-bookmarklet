@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+    href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+    rel="stylesheet"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <title>JUST ANOTHER NAK5 PRESS</title>
+    <style>
+      #my-modal {
+        position: absolute;
+        z-index: 9;
+        height: 600px;
+        width: 300px;
+        background-color: whitesmoke;
+        text-align: center;
+        border: 1px solid #d3d3d3;
+        top: 0;
+        right: 0;
+      }
+      #my-modal-header {
+        padding: 10px;
+        cursor: move;
+        z-index: 10;
+        background-color: #bbbbbb;
+        color: #555555;
+      }
+    </style>
+    <style>
+      /* https://google.github.io/material-design-icons/ */
+      .material-icons {
+        font-family: "Material Icons";
+        font-weight: normal;
+        font-style: normal;
+        font-size: 24px; /* Preferred icon size */
+        display: inline-block;
+        line-height: 1;
+        text-transform: none;
+        letter-spacing: normal;
+        word-wrap: normal;
+        white-space: nowrap;
+        direction: ltr;
+
+        /* Support for all WebKit browsers. */
+        -webkit-font-smoothing: antialiased;
+        /* Support for Safari and Chrome. */
+        text-rendering: optimizeLegibility;
+
+        /* Support for Firefox. */
+        -moz-osx-font-smoothing: grayscale;
+
+        /* Support for IE. */
+        font-feature-settings: "liga";
+      }
+      .material-icons.md-18 {
+        font-size: 18px;
+      }
+      .material-icons.md-24 {
+        font-size: 24px;
+      }
+      .material-icons.md-36 {
+        font-size: 36px;
+      }
+      .material-icons.md-48 {
+        font-size: 48px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="app">
+      <div style="position: fixed; top: 10px; right: 10px; z-index: 2147483647">
+        <div id="my-modal">
+          <div id="my-modal-header">MY CONTROLLER</div>
+          <div style="margin: 5px">
+            <button
+              @click="hoge($event)"
+              class="button is-outlined is-rounded is-info is-fullwidth"
+            >
+              <span class="material-icons md-24" style="margin-right:5px">music_note</span>
+              Info
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data: function () {
+          return {};
+        },
+        mounted() {
+          this.dragElement(document.getElementById("my-modal"));
+        },
+        methods: {
+          hoge(event) {
+            console.log("hoge");
+            console.log(event);
+          },
+          dragElement(targetElement) {
+            let moveX = 0,
+              moveY = 0,
+              prevClientX = 0,
+              prevClientY = 0;
+            if (document.getElementById(targetElement.id + "header")) {
+              document.getElementById(
+                targetElement.id + "header"
+              ).onmousedown = dragStart;
+            } else {
+              targetElement.onmousedown = dragStart;
+            }
+            function dragStart(event) {
+              event = event || window.event;
+              event.preventDefault();
+              prevClientX = event.clientX;
+              prevClientY = event.clientY;
+              document.onmouseup = dragEnd;
+              document.onmousemove = dragOver;
+            }
+            function dragOver(event) {
+              event = event || window.event;
+              event.preventDefault();
+              moveX = prevClientX - event.clientX;
+              moveY = prevClientY - event.clientY;
+              prevClientX = event.clientX;
+              prevClientY = event.clientY;
+              targetElement.style.top = targetElement.offsetTop - moveY + "px";
+              targetElement.style.left =
+                targetElement.offsetLeft - moveX + "px";
+            }
+            function dragEnd() {
+              document.onmouseup = null;
+              document.onmousemove = null;
+            }
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

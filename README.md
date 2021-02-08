@@ -3,6 +3,9 @@
 - ブックマークレットの作り方
   - https://gist.github.com/caseywatts/c0cec1f89ccdb8b469b1
 
+- 縦スクロールと横スクロールのスウィッチ
+  - https://danielcwilson.com/blog/2015/07/animations-part-1/
+
 - DOMの構造チェック
   - https://validator.w3.org/
 
