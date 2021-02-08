@@ -116,7 +116,7 @@ async function setUpMyControllerDom() {
       <div id="my-modal-header">MY CONTROLLER</div>
       <div style="margin: 5px">
         <button
-          @click="hoge($event)"
+          @click="removeAds($event)"
           class="button is-outlined is-rounded is-info is-fullwidth"
         >
           <span class="material-icons md-24" style="margin-right:5px">music_note</span>
@@ -151,6 +151,39 @@ async function setUpExternalScriptLibrary() {
   });
 }
 
+async function setUpClean() {
+  let removeDomList = [];
+  let removeScriptDom = `
+Array.from(document.querySelectorAll('script')).map(item=>{item.parentNode.removeChild(item)})
+`;
+  let removeMetaDom = `
+  Array.from(document.querySelectorAll('meta')).map(item=>{item.parentNode.removeChild(item)})
+  `;
+  let removeStyleDom = `
+  Array.from(document.querySelectorAll('style')).map(item=>{item.parentNode.removeChild(item)})
+  `;
+  let removeNoScriptDom = `
+  Array.from(document.querySelectorAll('noscript')).map(item=>{item.parentNode.removeChild(item)})
+  `;
+  let removeLinkDom = `
+  Array.from(document.querySelectorAll('link')).map(item=>{item.parentNode.removeChild(item)})
+  `;
+  // removeDomList.push(removeScriptDom);
+  // removeDomList.push(removeMetaDom);
+  // removeDomList.push(removeStyleDom);
+  // removeDomList.push(removeNoScriptDom);
+  // removeDomList.push(removeLinkDom);
+  return new Promise((resolve, reject) => {
+    for (let index = 0; index < removeDomList.length; index++) {
+      let targetRemoveDom = removeDomList[index];
+      let scriptDom = document.createElement("script");
+      scriptDom.innerHTML = targetRemoveDom;
+      document.body.appendChild(scriptDom);
+    }
+    resolve("setUpHeadClean is OK");
+  });
+}
+
 async function setUpVueConfig() {
   let myVueConfigDom = `
 new Vue({
@@ -160,11 +193,20 @@ new Vue({
   },
   mounted() {
     this.dragElement(document.getElementById("my-modal"));
+    Array.from(document.querySelectorAll("*")).map(targetDom => {
+      targetDom.addEventListener("mouseover", (event) => this.removeAds(event))
+      window.addEventListener("scroll", (event) => this.removeAds(event))
+    })
   },
   methods: {
-    hoge(event) {
-      console.log("hoge");
+    removeAds(event) {
+      console.log("removeAds");
       console.log(event);
+      Array.from(document.querySelectorAll('iframe[id*=google]')).map(item=>{item.parentNode.removeChild(item)})
+      Array.from(document.querySelectorAll('iframe')).map(item=>{item.parentNode.removeChild(item)})
+      Array.from(document.querySelectorAll('div[class*=Google]')).map(item=>{item.parentNode.removeChild(item)})
+      Array.from(document.querySelectorAll('div[id=bnr]')).map(item=>{item.parentNode.removeChild(item)})
+      Array.from(document.querySelectorAll('div[id=banner]')).map(item=>{item.parentNode.removeChild(item)})
     },
     dragElement(targetElement) {
       let moveX = 0,
@@ -216,7 +258,11 @@ new Vue({
 }
 
 async function main() {
-  setUpMetaDom()
+  setUpClean()
+    .then((res) => {
+      console.log(res);
+      return setUpMetaDom();
+    })
     .then((res) => {
       console.log(res);
       return setUpEncoding();
@@ -249,4 +295,5 @@ async function main() {
     });
 }
 
+//https://ezgif.com このサイトに仕込んでおくと捗る
 main();

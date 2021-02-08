@@ -6,8 +6,8 @@
       rel="stylesheet"
     />
     <link
-    href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
-    rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+      rel="stylesheet"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8" />
@@ -83,14 +83,74 @@
               @click="hoge($event)"
               class="button is-outlined is-rounded is-info is-fullwidth"
             >
-              <span class="material-icons md-24" style="margin-right:5px">music_note</span>
+              <span class="material-icons md-24" style="margin-right: 5px"
+                >music_note</span
+              >
               Info
             </button>
           </div>
         </div>
       </div>
     </div>
-
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
+    <div>a</div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script>
       new Vue({
@@ -100,10 +160,17 @@
         },
         mounted() {
           this.dragElement(document.getElementById("my-modal"));
+          Array.from(document.querySelectorAll("*")).map((targetDom) => {
+            targetDom.addEventListener("mouseover", this.hoge);
+            window.addEventListener("scroll", this.hoge);
+          });
         },
         methods: {
           hoge(event) {
             console.log("hoge");
+            Array.from(document.querySelectorAll("iframe")).map((item) => {
+              item.parentNode.removeChild(item);
+            });
             console.log(event);
           },
           dragElement(targetElement) {
