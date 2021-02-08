@@ -1,101 +1,60 @@
 # script-bookmarklet
 
-https://codemyui.com/tag/video/
+- ブックマークレットの作り方
+  - https://gist.github.com/caseywatts/c0cec1f89ccdb8b469b1
 
-画像のレスポンシブ表示
-- https://developer.mozilla.org/ja/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
+- DOMの構造チェック
+  - https://validator.w3.org/
 
-プログラム内でのEvent発生
-- https://stackoverflow.com/questions/2856513/how-can-i-trigger-an-onchange-event-manually
+- UX等の吟味するサンプルサイト
+  - https://codemyui.com/tag/video/
 
-video関連のタグ説明
-- https://hakuhin.jp/js/video.html
+- 画像のレスポンシブ表示
+  - https://developer.mozilla.org/ja/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images
 
-使えそうなサンプル集
-- https://bgrins.github.io/devtools-snippets/
+- プログラム内でのEvent発生
+  - https://stackoverflow.com/questions/2856513/how-can-i-trigger-an-onchange-event-manually
 
-testemのディレクトリ構成はいろいろ便利
-- https://github.com/testem/testem/tree/master/examples/jshint
+- video関連のタグ説明
+  - https://hakuhin.jp/js/video.html
 
-- https://qiita.com/tomoyukilabs/items/9b464c53450acc0b9574
+- サンプル集
+  - https://bgrins.github.io/devtools-snippets/
 
-ショートハンド
-- https://www.webprofessional.jp/shorthand-javascript-techniques/
+- ディレクトリ構成サンプル
+  - https://github.com/testem/testem/tree/master/examples/jshint
 
-chrome bookmark jsonファイルが存在するディレクトリ（linuxはあった）
-|OS|PATH|
-|:-:|:-:|
-|windows|HOME\AppData\Local\Google\Chrome\User Data\Default\bookmarks|
-|darwin|HOME/Library/Application Support/Google/Chrome/Default/Bookmarks|
-|linux|HOME/.config/google-chrome/Default|
+- XMLHttpRequestとFetchAPIの比較
+  - https://qiita.com/tomoyukilabs/items/9b464c53450acc0b9574
 
-サンプル集
+- ショートハンド
+  - https://www.webprofessional.jp/shorthand-javascript-techniques/
 
-デノでコマンド作る
-- https://qiita.com/uki00a/items/7e0cfff3069c3cefc293
-- http://subsimple.com/bookmarklets/collection_layout.php
+- スクリプトの定期実行CHROME拡張ツール
+  - [ScriptAutoRunner](https://chrome.google.com/webstore/detail/scriptautorunner/gpgjofmpmjjopcogjgdldidobhmjmdbm?hl=ja-jp)
 
-- https://www.squarefree.com/bookmarklets/
+- zip merge関数など
+  - https://stackoverrun.com/ja/q/10621834
 
-- https://gist.github.com/caseywatts/c0cec1f89ccdb8b469b1
+- javascriptの正規表現
+  - https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions
 
-- http://js.do/blog/bookmarklets/
-
-nodeでcron
-https://www.jsdelivr.com/package/npm/node-schedule
+- 音声データの録音
+  - https://www.google.com/amp/s/ics.media/entry/200427/
 
 
-https://stackoverrun.com/ja/q/10621834
+コンパイルしたコードをTOBE_REPLACE_CODEと置き換えブックマークレットに登録
 
-呼び出せないから以下でコンパイルしてハードでペタリして管理する運用
-
-サイトに訪れて実行すればいいか
-
-https://closure-compiler.appspot.com/home
-
-
-コンパイルしたコードをURLに登録
-```
-javascript: TOBE_REPLACE_MY_COMPILED_CODE
-```
-
-
-当てはめ後
-```
-javascript: alert("\u3046\u3093\u3053");console.log("\u3082\u308a\u3082\u308a");
-```
-
-importで呼び出せないもの
-
-```
-javascript: void (import('TOBE_REPLACE_IMPORT_JS_PROGRAM_URL').then(m => m.default()));
-```
-
-当てはめ後
-
-```
-javascript: void (import('https://github.com/ukijumotahaneniarukenia/script-bookmarklet/blob/main/test.js').then(m => m.default()));
-```
-
-既存のサイトJSコードと名前空間がバッティングしないように以下をテンプレに
+- https://closure-compiler.appspot.com/home
 
 ```
 javascript: (function (){TOBE_REPLACE_CODE})()
 ```
 
+chrome bookmark jsonファイルが存在するディレクトリ
 
-訪れたサイトでjQueryが使えるかどうか
-
-エラーでなければ使える
-```
-console.log($.fn.jquery)
-```
-
-javascriptの正規表現
-
-便利
-https://developer.mozilla.org/ja/docs/Web/JavaScript/Guide/Regular_Expressions
-
-
-音声データの録音
-https://www.google.com/amp/s/ics.media/entry/200427/
+|OS|PATH|
+|:-:|:-:|
+|windows|HOME\AppData\Local\Google\Chrome\User Data\Default\bookmarks|
+|darwin|HOME/Library/Application Support/Google/Chrome/Default/Bookmarks|
+|linux|HOME/.config/google-chrome/Default|
