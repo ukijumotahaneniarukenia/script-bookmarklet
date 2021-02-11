@@ -65,6 +65,15 @@
         Unko
       </button>
       <button
+        id="add-unko2"
+        class="button is-outlined is-rounded is-info is-fullwidth"
+      >
+        <span class="material-icons md-24" style="margin-right: 5px"
+          >music_note</span
+        >
+        Unko2
+      </button>
+      <button
         id="dynamic-add-unko"
         class="button is-outlined is-rounded is-info is-fullwidth"
       >
@@ -129,6 +138,13 @@
         }, 1000 * waitTimeSeconds)
       }
       lazyUnko(9) //イベントの貼り付けを遅らせることができる なぞ
+    </script>
+    <script type="module">
+      import { Unko, Unko2 } from "./sampleESmodule2.js";
+      const unkoInstance = new Unko();
+      const unko2Instance = new Unko2();
+      const addUnko2ButtonDom = document.getElementById("add-unko2")
+      addUnko2ButtonDom.addEventListener("click", (event) => {unko2Instance.addUnko2(event,unkoInstance.unko() + unko2Instance.unko2())})
     </script>
   </body>
 </html>

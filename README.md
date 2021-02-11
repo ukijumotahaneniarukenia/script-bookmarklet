@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- スクリプトタグの属性など。基本deferでいいと思う。type moduleとの兼ね合い。
+  - https://gist.github.com/jakub-g/385ee6b41085303a53ad92c7c8afd7a6
+
 - ブックマークレットの作り方
   - https://gist.github.com/caseywatts/c0cec1f89ccdb8b469b1
 
