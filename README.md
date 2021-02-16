@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- スクロールスピードの制御
+  - https://stackoverflow.com/questions/7408100/can-i-change-the-scroll-speed-using-css-or-jquery
+
 - スクリプトタグの属性など。基本deferでいいと思う。type moduleとの兼ね合い。
   - https://gist.github.com/jakub-g/385ee6b41085303a53ad92c7c8afd7a6
 
