@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <style>
+      img {
+        width: 100vw;
+        max-width: 100%;
+        height: auto;
+      }
+      #slide-item {
+        position: sticky;
+        top: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="slide-item-wrapper" style="height: 100000px">
+      <img id="slide-item" src="./cafe-portrait-3878x5817.jpg" alt="" />
+    </div>
+    <script>
+      const zoomElement = document.getElementById("slide-item");
+      let zoom = 1;
+      const ZOOM_SPEED = 0.005;
+
+      window.addEventListener("scroll", function (e) {
+        zoomElement.addEventListener("wheel", event => {
+        if (event.wheelDeltaY < 0) {
+          // up to down scroll
+          zoomElement.style.transform = `scale(${(zoom += ZOOM_SPEED)})`;
+        } else {
+          // down to up scroll
+          zoomElement.style.transform = `scale(${(zoom -= ZOOM_SPEED)})`;
+        }
+        })
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      img {
+        width: 100vw;
+        max-width: 100%;
+        height: auto;
+      }
+
+      .slide-item {
+        position: sticky;
+        top: 0px;
+      }
+
+      .text-content {
+        position: absolute;
+        padding: 10px;
+        top: 1900px;
+        color: #241c15;
+        background-color: #efeeea;
+        left: 0px;
+        right: 0px;
+        margin: auto;
+        width: 70vw;
+        border-radius: 5px;
+        opacity: 0.85;
+      }
+
+      .text-content-reverse {
+        position: absolute;
+        padding: 10px;
+        top: 1900px;
+        color: #f6f6f4;
+        background-color: #241c15;
+        left: 0px;
+        right: 0px;
+        margin: auto;
+        width: 70vw;
+        border-radius: 5px;
+        opacity: 0.85;
+      }
+
+      #text-content-1f6ac20a-b082-4260-8022-99f6b8e12356 {
+        position: absolute;
+        top: var(--text-content-1f6ac20a-b082-4260-8022-99f6b8e12356-top);
+      }
+
+      #text-content-9811af09-01ee-4e4d-985a-b0c60aef7fa {
+        position: absolute;
+        top: var(--text-content-9811af09-01ee-4e4d-985a-b0c60aef7fa-top);
+      }
+
+      #text-content-a132b163-5016-45a5-a334-415f7e5769fa {
+        position: absolute;
+        top: var(--text-content-a132b163-5016-45a5-a334-415f7e5769fa-top);
+      }
+
+      .zoom-center {
+        transform: scale(2.5);
+        transition-duration: 5s; /* コンテンツを読む時間 */
+      }
+
+      .zoom-top {
+        transform: scale(2.5) translate(0px, 200px);
+        transition-duration: 5s; /* コンテンツを読む時間 */
+      }
+
+      .zoom-bottom {
+        transform: scale(2.5) translate(0px, -200px);
+        transition-duration: 5s; /* コンテンツを読む時間 */
+      }
+
+      .zoom-right {
+        transform: scale(2.5) translate(-105px, 0px);
+        transition-duration: 5s; /* コンテンツを読む時間 */
+      }
+
+      .zoom-left {
+        transform: scale(2.5) translate(105px, 0px);
+        transition-duration: 5s; /* コンテンツを読む時間 */
+      }
+
+      .zoom-top-right {
+        transform: scale(2.5) translate(-105px, 200px);
+        transition-duration: 5s; /* コンテンツを読む時間 */
+      }
+
+      .zoom-top-left {
+        transform: scale(2.5) translate(105px, 200px);
+        transition-duration: 5s; /* コンテンツを読む時間 */
+      }
+
+      .zoom-bottom-right {
+        transform: scale(2.5) translate(-105px, -200px);
+        transition-duration: 5s; /* コンテンツを読む時間 */
+      }
+
+      .zoom-bottom-left {
+        transform: scale(2.5) translate(105px, -200px);
+        transition-duration: 5s; /* コンテンツを読む時間 */
+      }
+
+      img {
+        transition-duration: 2.5s; /* removeするときは早くzoom outする */
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="slide-item-wrapper-1" style="height: 10000px">
+      <img
+        id="slide-item-1"
+        src="./cafe-portrait-3878x5817.jpg"
+        alt="cafe"
+        class="slide-item"
+      />
+      <div
+        id="text-content-1f6ac20a-b082-4260-8022-99f6b8e12356"
+        class="text-content text-content-group"
+      >
+        It is a long established fact that a reader will be distracted by the
+        readable content of a page when looking at its layout. The point of
+        using Lorem Ipsum is
+      </div>
+      <div
+        id="text-content-9811af09-01ee-4e4d-985a-b0c60aef7fa"
+        class="text-content-reverse text-content-group"
+      >
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It
+        has roots in a piece
+      </div>
+      <div
+        id="text-content-a132b163-5016-45a5-a334-415f7e5769fa"
+        class="text-content-reverse text-content-group"
+      >
+        y dummy text of the printing and typesetting industry. Lorem Ipsum has
+        been the industry's standard dummy text ever since the 1500s, when an
+        unknow
+      </div>
+    </div>
+    <script>
+      function removeTailUnit(targetPixcel) {
+        return Number(targetPixcel.replace(/px$/,""))
+      }
+      let targetSlideInfoMap = new Map();
+      // 各アイテムのトップ間の距離が大事 zoom outする時間で大体1500pxぐらいはスクロールできる
+      let targetSlideTextContentInfoList = [
+        {
+          domId: "text-content-1f6ac20a-b082-4260-8022-99f6b8e12356",
+          top: 1900,
+          zoomMode: "zoom-bottom",
+        },
+        {
+          domId: "text-content-9811af09-01ee-4e4d-985a-b0c60aef7fa",
+          top: 3500,
+          zoomMode: "zoom-top",
+        },
+        {
+          domId: "text-content-a132b163-5016-45a5-a334-415f7e5769fa",
+          top: 5100,
+          zoomMode: "zoom-top-right",
+        },
+      ];
+      targetSlideInfoMap.set("slide-item-1", targetSlideTextContentInfoList);
+      window.addEventListener("scroll", (event) => {
+        for (const [
+          targetSlideId,
+          targetSlideTextContentIdList,
+        ] of targetSlideInfoMap.entries()) {
+          const targetSlideDom = document.getElementById(targetSlideId);
+          for (
+            let index = 0;
+            index < targetSlideTextContentInfoList.length;
+            index++
+          ) {
+            const targetSlideTextContentInfo =
+              targetSlideTextContentInfoList[index];
+            const targetSlideTextContentDom = document.getElementById(
+              targetSlideTextContentInfo.domId
+            );
+            targetSlideTextContentDom.style.setProperty(
+              `--${targetSlideTextContentInfo.domId}-top`,
+              targetSlideTextContentInfo.top + "px"
+            );
+            let targetTextContentDomInfo = targetSlideTextContentDom.getBoundingClientRect();
+            if (window.innerHeight > Math.abs(targetTextContentDomInfo.y)) {
+              console.log(
+                targetSlideTextContentInfo.domId,
+                "add",
+                targetTextContentDomInfo
+              );
+              targetSlideDom.classList.add(targetSlideTextContentInfo.zoomMode);
+            }
+            if (
+              window.innerHeight <=
+              Math.abs(targetTextContentDomInfo.y) +
+                targetTextContentDomInfo.height
+            ) {
+              console.log(
+                targetSlideTextContentInfo.domId,
+                "remove",
+                targetTextContentDomInfo
+              );
+              targetSlideDom.classList.remove(
+                targetSlideTextContentInfo.zoomMode
+              );
+            }
+          }
+        }
+      });
+      window.scrollTo(0, 1);
+    </script>
+  </body>
+</html>
