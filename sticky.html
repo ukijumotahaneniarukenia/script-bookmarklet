@@ -12,7 +12,7 @@
       img {
         width: 100vw;
         max-width: 100%;
-        height: auto;
+        height: 100vh;
       }
 
       .slide-item {
@@ -64,47 +64,47 @@
       }
 
       .zoom-center {
-        transform: scale(2.5);
+        transform: scale(5.5);
         transition-duration: 5s; /* コンテンツを読む時間 */
       }
 
       .zoom-top {
-        transform: scale(2.5) translate(0px, 200px);
+        transform: scale(5.5) translate(0px, 200px);
         transition-duration: 5s; /* コンテンツを読む時間 */
       }
 
       .zoom-bottom {
-        transform: scale(2.5) translate(0px, -200px);
+        transform: scale(5.5) translate(0px, -200px);
         transition-duration: 5s; /* コンテンツを読む時間 */
       }
 
       .zoom-right {
-        transform: scale(2.5) translate(-105px, 0px);
+        transform: scale(5.5) translate(-105px, 0px);
         transition-duration: 5s; /* コンテンツを読む時間 */
       }
 
       .zoom-left {
-        transform: scale(2.5) translate(105px, 0px);
+        transform: scale(5.5) translate(105px, 0px);
         transition-duration: 5s; /* コンテンツを読む時間 */
       }
 
       .zoom-top-right {
-        transform: scale(2.5) translate(-105px, 200px);
+        transform: scale(5.5) translate(-105px, 200px);
         transition-duration: 5s; /* コンテンツを読む時間 */
       }
 
       .zoom-top-left {
-        transform: scale(2.5) translate(105px, 200px);
+        transform: scale(5.5) translate(105px, 200px);
         transition-duration: 5s; /* コンテンツを読む時間 */
       }
 
       .zoom-bottom-right {
-        transform: scale(2.5) translate(-105px, -200px);
+        transform: scale(5.5) translate(-105px, -200px);
         transition-duration: 5s; /* コンテンツを読む時間 */
       }
 
       .zoom-bottom-left {
-        transform: scale(2.5) translate(105px, -200px);
+        transform: scale(5.5) translate(105px, -200px);
         transition-duration: 5s; /* コンテンツを読む時間 */
       }
 
@@ -115,13 +115,15 @@
   </head>
 
   <body>
-    <div id="slide-item-wrapper-1" style="height: 10000px">
-      <img
-        id="slide-item-1"
-        src="./cafe-portrait-3878x5817.jpg"
-        alt="cafe"
-        class="slide-item"
-      />
+    <div id="slide-item-wrapper-1">
+      <div id="hoge" style="height: 10000px">
+          <img
+          id="slide-item-1"
+          src="./cafe-portrait-3878x5817.jpg"
+          alt="cafe"
+          class="slide-item"
+        />
+      </div>
       <div
         id="text-content-1f6ac20a-b082-4260-8022-99f6b8e12356"
         class="text-content text-content-group"
