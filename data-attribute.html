@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    article::before {
+      content: attr(data-index-number);
+    }
+    article::after {
+      content: attr(data-index-number);
+    }
+    article[data-columns="3"] {
+      background-color: cadetblue;
+      transform: rotate(90deg);
+    }
+    article[data-columns="4"] {
+      background-color: gainsboro;
+      transform: rotate(-90deg);
+    }
+  </style>
+  <body>
+    <!-- https://developer.mozilla.org/ja/docs/Learn/HTML/Howto/Use_data_attributes -->
+    <article
+      id="message-31af76f2-e08b-4e78-aec5-aed05301c701"
+      class="message is-info"
+      data-columns="3"
+      data-index-number="3"
+    >
+      <!-- うんここここっこ -->
+      <div
+        id="message-header-31af76f2-e08b-4e78-aec5-aed05301c701"
+        class="message-header"
+        data-columns="3"
+        data-index-number="2"
+      >
+        Info
+        <button class="delete"></button>
+        <!-- うんこ -->
+      </div>
+      <div
+        id="message-body-31af76f2-e08b-4e78-aec5-aed05301c701"
+        class="message-body"
+        data-columns="3"
+        data-index-number="1"
+      >
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
+        risus mi, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus
+        ac ex sit amet fringilla. Nullam gravida purus diam, et dictum felis
+        venenatis efficitur. Aenean ac eleifend lacus, in mollis lectus. Donec
+        sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id
+        porttitor mi magna a neque. Donec dui urna, vehicula et sem eget,
+        facilisis sodales sem.
+      </div>
+    </article>
+    <script>
+      const article = document.getElementById(
+        "message-31af76f2-e08b-4e78-aec5-aed05301c701"
+      );
+      console.log(article.dataset);
+      console.log(article.dataset.indexNumber);
+      console.log(Number(article.dataset.indexNumber));
+      console.log(article.getAttribute("data-columns"))
+      article.setAttribute("data-columns","4")
+    </script>
+  </body>
+</html>
