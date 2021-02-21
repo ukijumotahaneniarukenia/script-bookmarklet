@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <script type="text/javascript">
+      function loadvideo() {
+        var video = document.getElementById("videotest");
+        document.getElementById("videosource1").src = "big-buck-bunney.mp4";
+        video.load();
+      }
+      function playvideo() {
+        var video = document.getElementById("videotest");
+        video.play();
+      }
+      function log(msg) {
+        document.getElementById("console").innerHTML =
+          document.getElementById("console").innerHTML + "<br/>" + msg;
+      }
+    </script>
+  </head>
+
+  <body>
+    <input type="button" value="Load" OnClick="loadvideo();" />
+    <input type="button" value="Play" OnClick="playvideo();" />
+
+    <div style="width: 640px; height: 480px">
+      <video
+        id="videotest"
+        width="640"
+        height="480"
+        controls="controls"
+        preload="auto"
+        poster="cafe-portrait-3878x5817.jpg"
+        onabort="log('abort');"
+        oncanplay="log('canplay');"
+        oncanplaythrough="log('canplaythrough');"
+        ondurationchange="log('durationchange');"
+        onemptied="log('emptied');"
+        onended="log('ended');"
+        onerror="log('error');"
+        onloadeddata="log('loadeddata');"
+        onloadedmetadata="log('loadedmetadata');"
+        onloadstart="log('loadstart');"
+        onpause="log('pause');"
+        onplay="log('play');"
+        onplaying="log('playing');"
+        onprogress="log('progress');"
+        onratechange="log('ratechange');"
+        onreadystatechange="log('readystatechange');"
+        onseeked="log('seeked');"
+        onseeking="log('seeking');"
+        onstalled="log('stalled');"
+        onsuspend="log('suspend');"
+        ontimeupdate="log('timeupdate');"
+        onvolumechange="log('volumechange');"
+        onwaiting="log('waiting');"
+      >
+        <source id="videosource1" src="" type="video/mp4" />
+      </video>
+    </div>
+
+    <div id="console"></div>
+  </body>
+</html>

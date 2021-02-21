@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- https://medium.com/launch-school/what-are-web-workers-4a0e1ded7a67 -->
+  <!-- https://www.html5rocks.com/ja/tutorials/workers/basics/ -->
+  <!-- https://github.com/mdn/simple-web-worker/blob/gh-pages/worker.js -->
+  <head>
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
+      rel="stylesheet"
+    />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      .x {
+        position: absolute;
+        transform: rotate(45deg);
+        top: 60px;
+        left: 20px;
+      }
+
+      .flash {
+        color: red;
+      }
+
+      #draw_counter,
+      #script_counter {
+        border: 1px solid black;
+        width: 200px;
+        padding: 10px;
+        position: relative;
+        z-index: 2;
+        margin: 10px;
+      }
+
+      .x .horizontal {
+        width: 45px;
+        height: 5px;
+        position: absolute;
+        left: -20px;
+        background: red;
+      }
+
+      .x .vertical {
+        height: 45px;
+        width: 5px;
+        background: red;
+        position: absolute;
+        left: 0px;
+        top: -20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="x">
+      <div class="horizontal"></div>
+      <div class="vertical"></div>
+    </div>
+  </body>
+  <script type="text/plain" id="workerJS">
+    let counter = 0;
+    const pause = function (ms) {
+      let time = new Date();
+      counter += 1;
+      while ((new Date()) - time <= ms) {
+        // waiting ...
+      }
+    }
+
+    self.addEventListener('message', function(event) {
+      if (event.data === 'Compute') {
+        pause(100);
+        self.postMessage(counter);
+      }
+    });
+  </script>
+  <script>
+    let ele = document.createElement("h3");
+    ele.innerHTML = "Computations Complete: 0";
+    document.body.appendChild(ele);
+
+    let workerJS = document.getElementById("workerJS").innerText;
+    let blob = new Blob([workerJS]);
+    let blobURL = window.URL.createObjectURL(blob);
+    const worker = new Worker(blobURL);
+
+    document.addEventListener("mousemove", function () {
+      let cross = document.getElementsByClassName("x")[0];
+      cross.style.left = String(event.clientX) + "px";
+      cross.style.top = String(event.clientY) + "px";
+      worker.postMessage("Compute");
+    });
+
+    // for touch screens
+    document.addEventListener("touchmove", function () {
+      let cross = document.getElementsByClassName("x")[0];
+      cross.style.left = String(event.touches[0].clientX) + "px";
+      cross.style.top = String(event.touches[0].clientY) + "px";
+      worker.postMessage("Compute");
+    });
+
+    worker.addEventListener("message", function () {
+      ele.innerHTML = "Computations Complete: " + String(event.data);
+    });
+  </script>
+</html>
