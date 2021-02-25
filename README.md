@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- Mobxの図
+  - https://mobx.js.org/README.html#a-quick-example
+
 - ビデオのカットフレーム
   - https://stackoverflow.com/questions/32699721/javascript-extract-video-frames-reliably
 
