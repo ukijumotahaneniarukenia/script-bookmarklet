@@ -1,8 +1,10 @@
 # script-bookmarklet
 
+- データバインド機能のフレームワーク 
+  - https://knockoutjs.com/examples/helloWorld.html
+
 - data属性の活用
   - https://developer.mozilla.org/ja/docs/Learn/HTML/Howto/Use_data_attributes
-
 
 - スクロールスピードの制御
   - https://stackoverflow.com/questions/7408100/can-i-change-the-scroll-speed-using-css-or-jquery
