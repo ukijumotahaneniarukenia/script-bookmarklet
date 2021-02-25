@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- ビデオのカットフレーム
+  - https://stackoverflow.com/questions/32699721/javascript-extract-video-frames-reliably
+
 - データバインド機能のフレームワーク 
   - https://knockoutjs.com/examples/helloWorld.html
 
