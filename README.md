@@ -1,7 +1,7 @@
 # script-bookmarklet
 
 - サーバサイドでブラウザのオブジェクトを使用したい場合
-  - デフォssrでdim単位で部分適用できるらしい
+  - デフォssrでdom単位で部分適用できるらしい
     - https://qiita.com/su_mi1228/items/4e39c2ae5f45413a85be
 
 - Mobxの図
