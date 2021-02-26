@@ -1,5 +1,9 @@
 # script-bookmarklet
 
+- for文のインデックスを引数に渡しプロミス化して配列に持ち直す。そのあとPromise.allで処理を解決して実行結果をコールバックで受け取る。
+  - 実行順序不同で計算結果のみ受け取りたい場合は便利そう
+  - https://qiita.com/progre/items/5666f4a333cc2d032d15#
+
 - サーバサイドでブラウザのオブジェクトを使用したい場合
   - デフォssrでdom単位で部分適用できるらしい
     - https://qiita.com/su_mi1228/items/4e39c2ae5f45413a85be
