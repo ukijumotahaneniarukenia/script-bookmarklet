@@ -1,0 +1,27 @@
+{
+  "env": {
+    "node": true,
+    "browser": true,
+    "es6": true
+  },
+  // https://github.com/eslint/eslint/issues/13178#issuecomment-696277176
+  // https://github.com/eslint/eslint/issues/13178#issuecomment-696388855
+  // トップレベルawaitがESLINTでエラー判定されないようにするための設定
+  "parser": "@babel/eslint-parser",
+  // https://stackoverflow.com/questions/50285821/eslint-parsing-error-unexpected-token-function-with-async
+  // async functionがESLINTでエラー判定されないようにするための設定
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module"
+  },
+  "extends": ["eslint:recommended", "plugin:prettier/recommended"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "singleQuote": true,
+        "trailingComma": "es5"
+      }
+    ]
+  }
+}
