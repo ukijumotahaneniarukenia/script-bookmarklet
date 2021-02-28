@@ -8,57 +8,54 @@
 async function setContentSecurityPolicy() {
   // void型のreturnのイメージ
   return new Promise((resolve, reject) => {
-    let meta = document.createElement("meta");
-    meta.setAttribute("http-equiv", "Content-Security-Policy");
-    meta.setAttribute(
-      "content",
-      "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'"
-    );
-    document.head.appendChild(meta);
-    resolve("setContentSecurityPolicy is OK");
-  });
+    let meta = document.createElement('meta')
+    meta.setAttribute('http-equiv', 'Content-Security-Policy')
+    meta.setAttribute('content', "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'")
+    document.head.appendChild(meta)
+    resolve('setContentSecurityPolicy is OK')
+  })
 }
 
 async function setEncoding() {
   return new Promise((resolve, reject) => {
-    let meta = document.createElement("meta");
-    meta.setAttribute("charset", "utf-8");
-    document.head.appendChild(meta);
-    resolve("setEncoding is OK");
-  });
+    let meta = document.createElement('meta')
+    meta.setAttribute('charset', 'utf-8')
+    document.head.appendChild(meta)
+    resolve('setEncoding is OK')
+  })
 }
 
 async function includeExternalLibrary() {
-  let includScriptLibraryList = ["https://cdn.jsdelivr.net/npm/node-schedule@1.3.2/lib/schedule.min.js"];
+  let includScriptLibraryList = ['https://cdn.jsdelivr.net/npm/node-schedule@1.3.2/lib/schedule.min.js']
   return new Promise((resolve, reject) => {
     for (let index = 0; index < includScriptLibraryList.length; index++) {
-      let targetScriptLibrary = includScriptLibraryList[index];
-      let scriptLibrary = document.createElement("script");
-      scriptLibrary.setAttribute("type", "text/javascript");
-      scriptLibrary.setAttribute("src", targetScriptLibrary);
-      document.head.appendChild(scriptLibrary);
+      let targetScriptLibrary = includScriptLibraryList[index]
+      let scriptLibrary = document.createElement('script')
+      scriptLibrary.setAttribute('type', 'text/javascript')
+      scriptLibrary.setAttribute('src', targetScriptLibrary)
+      document.head.appendChild(scriptLibrary)
     }
-    resolve("includeExternalLibrary is OK");
-  });
+    resolve('includeExternalLibrary is OK')
+  })
 }
 
-async function main(){
+async function main() {
   setContentSecurityPolicy()
-    .then(res=>{
+    .then((res) => {
       console.log(res)
       return setEncoding()
     })
-    .then(res=>{
+    .then((res) => {
       console.log(res)
       return includeExternalLibrary()
     })
-    .then(res=>{
+    .then((res) => {
       console.log(res)
     })
-    .catch(res=>{
+    .catch((res) => {
       console.log(res)
     })
-    .finally(()=>{
+    .finally(() => {
       console.log('Done')
     })
 }

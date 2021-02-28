@@ -5,17 +5,16 @@
 const getEventHandlerFunctionDefineText = (targetEventName) => {
   let targetRegisteredEventHandlerInfo = getEventListeners(window)
   let eventHandlerInfoList = new Array()
-  targetRegisteredEventHandlerInfo[targetEventName].map( item => {
+  targetRegisteredEventHandlerInfo[targetEventName].map((item) => {
     let pushItem = {
-      "eventName" : `${targetEventName}`,
-      "eventHandler" : item.listener.toString()
+      eventName: `${targetEventName}`,
+      eventHandler: item.listener.toString(),
     }
     eventHandlerInfoList.push(pushItem)
   })
   return eventHandlerInfoList
 }
 
-const result = getEventHandlerFunctionDefineText("scroll")
-
+const result = getEventHandlerFunctionDefineText('scroll')
 
 console.log(result)

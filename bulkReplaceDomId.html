@@ -7,83 +7,63 @@
     <title>Document</title>
   </head>
   <body>
-    <article
-      id="message-31af76f2-e08b-4e78-aec5-aed05301c701"
-      class="message is-info"
-    >
+    <article id="message-31af76f2-e08b-4e78-aec5-aed05301c701" class="message is-info">
       <!-- うんここここっこ -->
-      <div
-        id="message-header-31af76f2-e08b-4e78-aec5-aed05301c701"
-        class="message-header"
-      >
+      <div id="message-header-31af76f2-e08b-4e78-aec5-aed05301c701" class="message-header">
         Info
         <button class="delete"></button>
         <!-- うんこ -->
       </div>
-      <div
-        id="message-body-31af76f2-e08b-4e78-aec5-aed05301c701"
-        class="message-body"
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque
-        risus mi, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus
-        ac ex sit amet fringilla. Nullam gravida purus diam, et dictum felis
-        venenatis efficitur. Aenean ac eleifend lacus, in mollis lectus. Donec
-        sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id
-        porttitor mi magna a neque. Donec dui urna, vehicula et sem eget,
+      <div id="message-body-31af76f2-e08b-4e78-aec5-aed05301c701" class="message-body">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque risus mi, tempus quis placerat ut, porta nec nulla. Vestibulum rhoncus
+        ac ex sit amet fringilla. Nullam gravida purus diam, et dictum felis venenatis efficitur. Aenean ac eleifend lacus, in mollis lectus. Donec
+        sodales, arcu et sollicitudin porttitor, tortor urna tempor ligula, id porttitor mi magna a neque. Donec dui urna, vehicula et sem eget,
         facilisis sodales sem.
       </div>
     </article>
     <script>
       function getUUID() {
-        return URL.createObjectURL(new Blob()).slice(-36);
+        return URL.createObjectURL(new Blob()).slice(-36)
       }
       function getPrefixDomId(targetDomId) {
-        return targetDomId.slice(0, targetDomId.length - 36);
+        return targetDomId.slice(0, targetDomId.length - 36)
       }
       function replaceId(entryDomId, targetDom, resultList, targetNewId) {
-        let targetDomChildList = Array.from(targetDom.childNodes);
+        let targetDomChildList = Array.from(targetDom.childNodes)
         if (targetDomChildList.length === 0) {
-          return resultList;
+          return resultList
         }
         for (let index = 0; index < targetDomChildList.length; index++) {
-          const targetDomChild = targetDomChildList[index];
-          resultList.push(targetDomChild);
-          if (
-            targetDomChild.nodeName !== "#text" &&
-            targetDomChild.nodeName !== "#comment"
-          ) {
-            if (targetDomChild.getAttribute("id") !== null) {
-              let oldId = targetDomChild.getAttribute("id");
+          const targetDomChild = targetDomChildList[index]
+          resultList.push(targetDomChild)
+          if (targetDomChild.nodeName !== '#text' && targetDomChild.nodeName !== '#comment') {
+            if (targetDomChild.getAttribute('id') !== null) {
+              let oldId = targetDomChild.getAttribute('id')
               document
                 .getElementById(entryDomId)
                 .querySelector(`#${oldId}`)
-                .setAttribute("id", `${getPrefixDomId(oldId)}${targetNewId}`);
+                .setAttribute('id', `${getPrefixDomId(oldId)}${targetNewId}`)
             }
-            replaceId(entryDomId, targetDomChild, resultList, targetNewId);
+            replaceId(entryDomId, targetDomChild, resultList, targetNewId)
           } else {
-            replaceId(entryDomId, targetDomChild, resultList, targetNewId);
+            replaceId(entryDomId, targetDomChild, resultList, targetNewId)
           }
         }
       }
       function executeReplaceId(targetCopiedDom) {
-        let resultList = new Array();
-        let newId = getUUID();
-        let entryDomId = targetCopiedDom.getAttribute("id");
-        let oldId = entryDomId.replace(/^unko-/, "");
-        replaceId(entryDomId, targetCopiedDom, resultList, newId);
-        targetCopiedDom.setAttribute("id", `${getPrefixDomId(oldId)}${newId}`);
+        let resultList = new Array()
+        let newId = getUUID()
+        let entryDomId = targetCopiedDom.getAttribute('id')
+        let oldId = entryDomId.replace(/^unko-/, '')
+        replaceId(entryDomId, targetCopiedDom, resultList, newId)
+        targetCopiedDom.setAttribute('id', `${getPrefixDomId(oldId)}${newId}`)
       }
 
-      let targetDom = document.getElementById(
-        "message-31af76f2-e08b-4e78-aec5-aed05301c701"
-      );
-      let targetCopiedDom = targetDom.cloneNode(true);
-      targetCopiedDom.setAttribute(
-        "id",
-        "unko-" + targetCopiedDom.getAttribute("id")
-      );
-      document.body.appendChild(targetCopiedDom);
-      executeReplaceId(targetCopiedDom);
+      let targetDom = document.getElementById('message-31af76f2-e08b-4e78-aec5-aed05301c701')
+      let targetCopiedDom = targetDom.cloneNode(true)
+      targetCopiedDom.setAttribute('id', 'unko-' + targetCopiedDom.getAttribute('id'))
+      document.body.appendChild(targetCopiedDom)
+      executeReplaceId(targetCopiedDom)
     </script>
   </body>
 </html>

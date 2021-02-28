@@ -1,112 +1,104 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-  <meta charset="UTF-8" />
-  <title>My Crawler</title>
-  <style>
-    body {
-      height: 100%;
-      width: 100%;
-    }
-  </style>
-</head>
-<body>
-  <div id="app">
-    <v-app>
-      <v-container justify-center>
-        <v-layout>
-          <v-file-input
-            multiple
-            outlined
-            dense
-            label="File input"
-            id="uploadFileList"
-            @change="handleUpload()"
-          ></v-file-input>
-          <v-btn
-            id="upload"
-            depressed
-            color="primary"
-          >
-            何かが起こる
-          </v-btn>
-        </v-layout>
-        <v-card>
-          <v-card-title>
-            <v-text-field v-model="searchKeyWord" append-icon="mdi-magnify" label="Search" single-line hide-details>
-            </v-text-field>
-          </v-card-title>
-          <!-- https://vuetifyjs.com/en/components/data-tables/#crud-actions -->
-          <v-data-table :headers="tableHeaderList" :items="tableDataList" :search="searchKeyWord">
-            <template v-slot:item.action="{ item }">
-              <v-btn color="green">
-                プレビュー
-              </v-btn>
-            </template>
-          </v-data-table>
-        </v-card>
-      </v-container>
-    </v-app>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-  <script>
-    new Vue({
-      el: '#app',
-      vuetify: new Vuetify(),
-      data: function () {
-        return {
-          searchKeyWord: "",
-          tableDataList: [],
-          tableHeaderList: [
-            { text: "FileName", align: 'left', value: "fileName" },
-            { text: "Size", align: 'left', value: "size" },
-            { text: "Preview", align: 'center', value: "action" },
-          ],
-        };
-      },
-      methods: {
-        fileSizeUnit (size) {
-          // 1 KB = 1024 Byte
-          const kb = 1024
-          const mb = Math.pow(kb, 2)
-          const gb = Math.pow(kb, 3)
-          const tb = Math.pow(kb, 4)
-          const pb = Math.pow(kb, 5)
-          const round = (size, unit) => {
-            return Math.round(size / unit * 100.0) / 100.0
-          }
-
-          if (size >= pb) {
-            return round(size, pb) + 'PB'
-          } else if (size >= tb) {
-            return round(size, tb) + 'TB'
-          } else if (size >= gb) {
-            return round(size, gb) + 'GB'
-          } else if (size >= mb) {
-            return round(size, mb) + 'MB'
-          } else if (size >= kb) {
-            return round(size, kb) + 'KB'
-          }
-          return size + 'バイト'
-        },
-        handleUpload() {
-          this.tableDataList = []
-          let uploadFileList = document.getElementById('uploadFileList').files
-          for (let index = 0; index < uploadFileList.length; index++) {
-            let uploadFile = uploadFileList[index];
-            console.log(uploadFile)
-            console.log({fileName: uploadFile.name,size: this.fileSizeUnit(uploadFile.size),check:false})
-            this.tableDataList.push({fileName: uploadFile.name,size: this.fileSizeUnit(uploadFile.size),check:false})
-          }
-        }
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
+    <meta charset="UTF-8" />
+    <title>My Crawler</title>
+    <style>
+      body {
+        height: 100%;
+        width: 100%;
       }
-    })
-  </script>
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-container justify-center>
+          <v-layout>
+            <v-file-input multiple outlined dense label="File input" id="uploadFileList" @change="handleUpload()"></v-file-input>
+            <v-btn id="upload" depressed color="primary"> 何かが起こる </v-btn>
+          </v-layout>
+          <v-card>
+            <v-card-title>
+              <v-text-field v-model="searchKeyWord" append-icon="mdi-magnify" label="Search" single-line hide-details> </v-text-field>
+            </v-card-title>
+            <!-- https://vuetifyjs.com/en/components/data-tables/#crud-actions -->
+            <v-data-table :headers="tableHeaderList" :items="tableDataList" :search="searchKeyWord">
+              <template v-slot:item.action="{ item }">
+                <v-btn color="green"> プレビュー </v-btn>
+              </template>
+            </v-data-table>
+          </v-card>
+        </v-container>
+      </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script>
+      new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data: function () {
+          return {
+            searchKeyWord: '',
+            tableDataList: [],
+            tableHeaderList: [
+              { text: 'FileName', align: 'left', value: 'fileName' },
+              { text: 'Size', align: 'left', value: 'size' },
+              { text: 'Preview', align: 'center', value: 'action' },
+            ],
+          }
+        },
+        methods: {
+          fileSizeUnit(size) {
+            // 1 KB = 1024 Byte
+            const kb = 1024
+            const mb = Math.pow(kb, 2)
+            const gb = Math.pow(kb, 3)
+            const tb = Math.pow(kb, 4)
+            const pb = Math.pow(kb, 5)
+            const round = (size, unit) => {
+              return Math.round((size / unit) * 100.0) / 100.0
+            }
+
+            if (size >= pb) {
+              return round(size, pb) + 'PB'
+            } else if (size >= tb) {
+              return round(size, tb) + 'TB'
+            } else if (size >= gb) {
+              return round(size, gb) + 'GB'
+            } else if (size >= mb) {
+              return round(size, mb) + 'MB'
+            } else if (size >= kb) {
+              return round(size, kb) + 'KB'
+            }
+            return size + 'バイト'
+          },
+          handleUpload() {
+            this.tableDataList = []
+            let uploadFileList = document.getElementById('uploadFileList').files
+            for (let index = 0; index < uploadFileList.length; index++) {
+              let uploadFile = uploadFileList[index]
+              console.log(uploadFile)
+              console.log({
+                fileName: uploadFile.name,
+                size: this.fileSizeUnit(uploadFile.size),
+                check: false,
+              })
+              this.tableDataList.push({
+                fileName: uploadFile.name,
+                size: this.fileSizeUnit(uploadFile.size),
+                check: false,
+              })
+            }
+          },
+        },
+      })
+    </script>
   </body>
 </html>

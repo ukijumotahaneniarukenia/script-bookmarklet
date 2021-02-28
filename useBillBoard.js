@@ -8,45 +8,36 @@
 async function setContentSecurityPolicy() {
   // void型のreturnのイメージ
   return new Promise((resolve, reject) => {
-    let meta = document.createElement("meta");
-    meta.setAttribute("http-equiv", "Content-Security-Policy");
-    meta.setAttribute(
-      "content",
-      "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'"
-    );
-    document.head.appendChild(meta);
-    resolve("setContentSecurityPolicy is OK");
-  });
+    let meta = document.createElement('meta')
+    meta.setAttribute('http-equiv', 'Content-Security-Policy')
+    meta.setAttribute('content', "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'")
+    document.head.appendChild(meta)
+    resolve('setContentSecurityPolicy is OK')
+  })
 }
 
 async function includeExternalLibrary() {
   return new Promise((resolve, reject) => {
-    let scriptLibrary = document.createElement("script");
-    scriptLibrary.setAttribute("type", "text/javascript");
-    scriptLibrary.setAttribute(
-      "src",
-      "https://naver.github.io/billboard.js/release/latest/dist/billboard.pkgd.js"
-    );
-    document.head.appendChild(scriptLibrary);
+    let scriptLibrary = document.createElement('script')
+    scriptLibrary.setAttribute('type', 'text/javascript')
+    scriptLibrary.setAttribute('src', 'https://naver.github.io/billboard.js/release/latest/dist/billboard.pkgd.js')
+    document.head.appendChild(scriptLibrary)
 
-    let linkLibrary = document.createElement("link");
-    linkLibrary.setAttribute("rel", "stylesheet");
-    linkLibrary.setAttribute(
-      "href",
-      "https://naver.github.io/billboard.js/release/latest/dist/theme/insight.css"
-    );
-    document.head.appendChild(linkLibrary);
-    resolve("includeExternalLibrary is OK");
-  });
+    let linkLibrary = document.createElement('link')
+    linkLibrary.setAttribute('rel', 'stylesheet')
+    linkLibrary.setAttribute('href', 'https://naver.github.io/billboard.js/release/latest/dist/theme/insight.css')
+    document.head.appendChild(linkLibrary)
+    resolve('includeExternalLibrary is OK')
+  })
 }
 
 async function createTargetDom() {
   return new Promise((resolve, reject) => {
-    let targetDom = document.createElement("div");
-    targetDom.setAttribute("id", "bubbleChart");
-    document.body.appendChild(targetDom);
-    resolve("createTargetDom is OK");
-  });
+    let targetDom = document.createElement('div')
+    targetDom.setAttribute('id', 'bubbleChart')
+    document.body.appendChild(targetDom)
+    resolve('createTargetDom is OK')
+  })
 }
 
 async function renderChart() {
@@ -55,11 +46,11 @@ async function renderChart() {
       var chart = bb.generate({
         data: {
           columns: [
-            ["data1", 30, 350, 200, 380, 150, 250, 50, 80, 55, 220],
-            ["data2", 130, 100, 10, 200, 80, 50, 200, 123, 185, 98],
-            ["data3", 230, 153, 85, 300, 250, 120, 5, 84, 99, 289],
+            ['data1', 30, 350, 200, 380, 150, 250, 50, 80, 55, 220],
+            ['data2', 130, 100, 10, 200, 80, 50, 200, 123, 185, 98],
+            ['data3', 230, 153, 85, 300, 250, 120, 5, 84, 99, 289],
           ],
-          type: "bubble", // for ESM specify as: bubble()
+          type: 'bubble', // for ESM specify as: bubble()
           labels: true,
         },
         bubble: {
@@ -67,57 +58,57 @@ async function renderChart() {
         },
         axis: {
           x: {
-            type: "category",
+            type: 'category',
           },
           y: {
             max: 450,
           },
         },
-        bindto: "#bubbleChart",
-      });
+        bindto: '#bubbleChart',
+      })
 
       setTimeout(function () {
         chart.load({
-          columns: [["data1", 100, 50, 150, 200, 100, 350, 58, 210, 80, 126]],
-        });
-      }, 1000);
+          columns: [['data1', 100, 50, 150, 200, 100, 350, 58, 210, 80, 126]],
+        })
+      }, 1000)
 
       setTimeout(function () {
         chart.load({
-          columns: [["data2", 305, 350, 55, 25, 335, 29, 258, 310, 180, 226]],
-        });
-      }, 2000);
+          columns: [['data2', 305, 350, 55, 25, 335, 29, 258, 310, 180, 226]],
+        })
+      }, 2000)
 
       setTimeout(function () {
         chart.load({
-          columns: [["data3", 223, 121, 259, 247, 53, 159, 95, 111, 307, 337]],
-        });
-      }, 3000);
-      resolve("renderChart is OK");
-    }, 3000);
-  });
+          columns: [['data3', 223, 121, 259, 247, 53, 159, 95, 111, 307, 337]],
+        })
+      }, 3000)
+      resolve('renderChart is OK')
+    }, 3000)
+  })
 }
 
 async function main() {
   setContentSecurityPolicy()
     .then((res) => {
-      console.log(res);
-      return includeExternalLibrary();
+      console.log(res)
+      return includeExternalLibrary()
     })
     .then((res) => {
-      console.log(res);
-      return createTargetDom();
+      console.log(res)
+      return createTargetDom()
     })
     .then((res) => {
-      console.log(res);
-      return renderChart();
+      console.log(res)
+      return renderChart()
     })
     .catch((res) => {
-      console.log(res);
+      console.log(res)
     })
     .finally(() => {
-      console.log("Done");
-    });
+      console.log('Done')
+    })
 }
 
-main();
+main()

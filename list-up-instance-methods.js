@@ -1,6 +1,6 @@
 function getClass(className) {
   // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/eval#Don't_use_eval_needlessly!
-  return Function("return (" + className + ")")();
+  return Function('return (' + className + ')')()
 }
 
 async function listUpInstanceMethods(className) {
@@ -9,7 +9,7 @@ async function listUpInstanceMethods(className) {
   // listUpInstanceMethods("String")
   // listUpInstanceMethods("Window")
   // listUpInstanceMethods("Math")
-  let resultList = new Set();
+  let resultList = new Set()
   let targetClass = getClass(className)
   let targetInstance
   try {
@@ -25,13 +25,14 @@ async function listUpInstanceMethods(className) {
   let instanceMethodsNameList = Object.getOwnPropertyNames(Object.getPrototypeOf(targetInstance))
 
   for (let idx = 0; idx < instanceMethodsNameList.length; idx++) {
-    resultList.add(instanceMethodsNameList[idx]);
+    resultList.add(instanceMethodsNameList[idx])
   }
 
-  return Array.from(resultList);
+  return Array.from(resultList)
 }
 
+let targetClassName = prompt('List Up Instance Methods. Please Input Class Name. Ex.) Date Array String Window Math')
 
-let targetClassName = prompt("List Up Instance Methods. Please Input Class Name. Ex.) Date Array String Window Math");
-
-listUpInstanceMethods(targetClassName).then(function(resultList){console.log(resultList)})
+listUpInstanceMethods(targetClassName).then(function (resultList) {
+  console.log(resultList)
+})

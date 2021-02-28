@@ -2,34 +2,31 @@
   <head>
     <script>
       document.addEventListener(
-        "DOMContentLoaded",
+        'DOMContentLoaded',
         function () {
           // 親フレームのイベント
-          document.addEventListener("mousemove", onMouseMove);
+          document.addEventListener('mousemove', onMouseMove)
 
           // 子フレームのイベント
-          let iframeElements = document.getElementsByTagName("iframe");
+          let iframeElements = document.getElementsByTagName('iframe')
           for (let i = 0; i < iframeElements.length; i++) {
             iframeElements[i].addEventListener(
-              "load",
+              'load',
               (function (element) {
                 return function () {
-                  element.contentWindow.document.addEventListener(
-                    "mousemove",
-                    onMouseMove
-                  );
-                };
+                  element.contentWindow.document.addEventListener('mousemove', onMouseMove)
+                }
               })(iframeElements[i]),
               false
-            );
+            )
           }
 
           function onMouseMove() {
-            console.log("マウス動いた！");
+            console.log('マウス動いた！')
           }
         },
         false
-      );
+      )
     </script>
   </head>
   <body>

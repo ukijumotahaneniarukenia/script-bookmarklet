@@ -1,10 +1,12 @@
-let targetUrl = prompt('Please Input Url');
+let targetUrl = prompt('Please Input Url')
 
 console.log(targetUrl)
 
 async function getData(targetUrl) {
-  const response = await fetch(targetUrl);
-  return response.json();
+  const response = await fetch(targetUrl)
+  return response.json()
 }
 
-getData(targetUrl).then(data => {console.log(data)})
+getData(targetUrl).then((data) => {
+  console.log(data)
+})

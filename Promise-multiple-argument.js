@@ -2,89 +2,89 @@
 
 let initPromise = new Promise((resolve, reject) => {
   setTimeout(() => {
-    resolve(["うんこ", "もりもり", "森鴎外"]);
-  }, 1000);
-});
+    resolve(['うんこ', 'もりもり', '森鴎外'])
+  }, 1000)
+})
 
 initPromise
   .then((itemList) => {
-    console.log(itemList[0]); // うんこ
-    console.log(itemList[1]); // もりもり
-    console.log(itemList[2]); // 森鴎外
+    console.log(itemList[0]) // うんこ
+    console.log(itemList[1]) // もりもり
+    console.log(itemList[2]) // 森鴎外
   })
   .finally(() => {
-    console.log("teardown finally 1");
-  });
+    console.log('teardown finally 1')
+  })
 
 initPromise = new Promise((resolve, reject) => {
-  let itemList = ["うんこ", "もりもり", "森鴎外"];
+  let itemList = ['うんこ', 'もりもり', '森鴎外']
   setTimeout(() => {
-    resolve(itemList);
-  }, 1000);
-});
+    resolve(itemList)
+  }, 1000)
+})
 
 initPromise
   .then((itemList) => {
     let itemCnt = itemList.length
     for (let index = 0; index < itemCnt; index++) {
-      const item = itemList[index];
+      const item = itemList[index]
       console.log(item)
     }
   })
   .finally(() => {
-    console.log("teardown finally 2");
-  });
+    console.log('teardown finally 2')
+  })
 
 // 一度プロミスを解決すると再割当てが必要
 initPromise = new Promise((resolve, reject) => {
-  let itemList = ["うんこ", "もりもり", "森鴎外"];
+  let itemList = ['うんこ', 'もりもり', '森鴎外']
   setTimeout(() => {
-    resolve(itemList);
-  }, 1000);
-});
+    resolve(itemList)
+  }, 1000)
+})
 
 initPromise
   .then((itemList) => {
-    console.log(itemList[0]); // うんこ
-    console.log(itemList[1]); // もりもり
-    console.log(itemList[2]); // 森鴎外
+    console.log(itemList[0]) // うんこ
+    console.log(itemList[1]) // もりもり
+    console.log(itemList[2]) // 森鴎外
   })
   .finally(() => {
-    console.log("teardown finally 3");
-  });
+    console.log('teardown finally 3')
+  })
 
 initPromise = new Promise((resolve, reject) => {
   let item = {
-    unko: "うんこ",
-    morimori: "もりもり",
-    ougai: "森鴎外",
-  };
+    unko: 'うんこ',
+    morimori: 'もりもり',
+    ougai: '森鴎外',
+  }
   setTimeout(() => {
-    resolve(item);
-  }, 1000);
-});
+    resolve(item)
+  }, 1000)
+})
 
 initPromise
   .then((item) => {
-    console.log(item["unko"]); // うんこ
-    console.log(item["morimori"]); // もりもり
-    console.log(item["ougai"]); // 森鴎外
+    console.log(item['unko']) // うんこ
+    console.log(item['morimori']) // もりもり
+    console.log(item['ougai']) // 森鴎外
   })
   .finally(() => {
-    console.log("teardown finally 4");
-  });
+    console.log('teardown finally 4')
+  })
 
 // 一度プロミスを解決すると再割当てが必要
 initPromise = new Promise((resolve, reject) => {
   let item = {
-    unko: "うんこ",
-    morimori: "もりもり",
-    ougai: "森鴎外",
-  };
+    unko: 'うんこ',
+    morimori: 'もりもり',
+    ougai: '森鴎外',
+  }
   setTimeout(() => {
-    resolve(item);
-  }, 1000);
-});
+    resolve(item)
+  }, 1000)
+})
 
 initPromise
   .then((item) => {
@@ -93,5 +93,5 @@ initPromise
     })
   })
   .finally(() => {
-    console.log("teardown finally 5");
-  });
+    console.log('teardown finally 5')
+  })

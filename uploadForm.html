@@ -12,19 +12,19 @@
     </form>
     <div id="showUploadFileList"></div>
     <script type="module">
-      import isUtf8 from "./node_modules/isutf8/dist/index.esm.js";
+      import isUtf8 from './node_modules/isutf8/dist/index.esm.js'
 
-      function readFile(uploadFile, callBack){
+      function readFile(uploadFile, callBack) {
         let fileReader = new FileReader()
         fileReader.onload = callBack // 読み込み完了時に呼ぶコールバック関数をイベントハンドラ関数として設定
         fileReader.readAsArrayBuffer(uploadFile) // ファイル読み込み
       }
       function getFileList() {
-        let uploadFileDom = document.getElementById("uploadFileList");
-        let uploadFileList = Array.from(uploadFileDom.files);
-        let columnList = ["name", "size", "type"];
+        let uploadFileDom = document.getElementById('uploadFileList')
+        let uploadFileList = Array.from(uploadFileDom.files)
+        let columnList = ['name', 'size', 'type']
         uploadFileList.map((uploadFile) => {
-          readFile(uploadFile, (e)=>{
+          readFile(uploadFile, (e) => {
             console.log(uploadFile)
             console.log(e.target.result)
             console.log(Buffer.from(e.target.result).String(16))
@@ -33,50 +33,45 @@
             console.log(isUtf8(e.target.result))
             // nodejs の実行エンジンならbufferは組み込みで存在
             console.log(isUtf8(Buffer.from(e.target.result).String(16)))
-
           })
         })
         // setFileList(uploadFileList, columnList);
       }
       function setFileList(targetUploadFileList, targetColumnList) {
-        let targetTable = document.createElement("table");
-        targetTable.setAttribute("border", "1");
-        let targetTableHeader = document.createElement("thead");
-        let targetTableBody = document.createElement("tbody");
-        let targetColumnListCount = targetColumnList.length;
-        let targetUploadFileListCount = targetUploadFileList.length;
+        let targetTable = document.createElement('table')
+        targetTable.setAttribute('border', '1')
+        let targetTableHeader = document.createElement('thead')
+        let targetTableBody = document.createElement('tbody')
+        let targetColumnListCount = targetColumnList.length
+        let targetUploadFileListCount = targetUploadFileList.length
         for (let fileIdx = 0; fileIdx < targetUploadFileListCount; fileIdx++) {
-          let uploadFile = targetUploadFileList[fileIdx];
-          let targetTableHeaderRow = document.createElement("tr");
-          let targetTableBodyRow = document.createElement("tr");
-          for (
-            let columnIdx = 0;
-            columnIdx < targetColumnListCount;
-            columnIdx++
-          ) {
-            let columnName = targetColumnList[columnIdx];
+          let uploadFile = targetUploadFileList[fileIdx]
+          let targetTableHeaderRow = document.createElement('tr')
+          let targetTableBodyRow = document.createElement('tr')
+          for (let columnIdx = 0; columnIdx < targetColumnListCount; columnIdx++) {
+            let columnName = targetColumnList[columnIdx]
 
             if (fileIdx === 0) {
-              let targetTableHeaderRowData = document.createElement("td");
-              targetTableHeaderRowData.textContent = columnName;
-              targetTableHeaderRow.appendChild(targetTableHeaderRowData);
-              targetTableHeader.appendChild(targetTableHeaderRow);
+              let targetTableHeaderRowData = document.createElement('td')
+              targetTableHeaderRowData.textContent = columnName
+              targetTableHeaderRow.appendChild(targetTableHeaderRowData)
+              targetTableHeader.appendChild(targetTableHeaderRow)
             }
 
-            let targetTableBodyRowData = document.createElement("td");
-            targetTableBodyRowData.textContent = uploadFile[columnName];
-            targetTableBodyRow.appendChild(targetTableBodyRowData);
-            targetTableBody.appendChild(targetTableBodyRow);
+            let targetTableBodyRowData = document.createElement('td')
+            targetTableBodyRowData.textContent = uploadFile[columnName]
+            targetTableBodyRow.appendChild(targetTableBodyRowData)
+            targetTableBody.appendChild(targetTableBodyRow)
           }
         }
-        targetTable.appendChild(targetTableHeader);
-        targetTable.appendChild(targetTableBody);
-        document.getElementById("showUploadFileList").innerHTML = "";
-        document.getElementById("showUploadFileList").appendChild(targetTable);
+        targetTable.appendChild(targetTableHeader)
+        targetTable.appendChild(targetTableBody)
+        document.getElementById('showUploadFileList').innerHTML = ''
+        document.getElementById('showUploadFileList').appendChild(targetTable)
       }
-      let targetDom = document.getElementById("uploadFileList");
+      let targetDom = document.getElementById('uploadFileList')
 
-      targetDom.addEventListener("change", getFileList);
+      targetDom.addEventListener('change', getFileList)
     </script>
   </body>
 </html>

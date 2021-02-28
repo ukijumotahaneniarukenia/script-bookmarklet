@@ -4,7 +4,6 @@ let initPromise = new Promise((resolve, reject) => {
   }, 1000)
 })
 
-
 await initPromise
 
 initPromise // 上記でプロミスを解決しているので、init itemは２回でない

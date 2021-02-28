@@ -2,47 +2,45 @@
 // Promiseのコンテキストで繰り返し制御構造を実現
 
 // 初期化宣言 このPromiseを持ち回ることがポイント
-let initPromise = Promise.resolve();
+let initPromise = Promise.resolve()
 
-let startIdx = 0;
-let endIdx = 5;
+let startIdx = 0
+let endIdx = 5
 for (let idx = startIdx; idx < endIdx; idx++) {
   taskAll(idx)
 }
-initPromise
-.then(function(){
+initPromise.then(function () {
   return new Promise(function (resolve, reject) {
     // ループ完了後に実行したい処理
-    console.log('teardown last finally');
-    resolve();
-  });
+    console.log('teardown last finally')
+    resolve()
+  })
 })
 
 // ラッパー
-function taskAll(idx){
+function taskAll(idx) {
   initPromise = initPromise
     .then(task1.bind(this, idx))
     .then(task2)
     .finally(() => {
       console.log('teardown by for item')
-    })
-  ; // ループ継続時に再代入し続けることでメソッドチェーンを実現
+    }) // ループ継続時に再代入し続けることでメソッドチェーンを実現
 }
 
 function task1(item) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log("task1 : " + item);
-      resolve(item); // 単一の引数を渡す
-    }, 1000);
-  });
+      console.log('task1 : ' + item)
+      resolve(item) // 単一の引数を渡す
+    }, 1000)
+  })
 }
 
 function task2(item) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log("task2 : " + item);
-      resolve();
-    }, 1000);
-  });
+      console.log('task2 : ' + item)
+      resolve()
+    }, 1000)
+  })
 }

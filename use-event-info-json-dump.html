@@ -10,29 +10,24 @@
     <!-- https://dojotoolkit.org/download/ -->
     <!-- http://jsfiddle.net/user/fiddles/all/ -->
     <!-- https://dojotoolkit.org/reference-guide/1.7/dojox/json/ref.html -->
-    <script
-      src="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"
-      data-dojo-config="async: true"
-    ></script>
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js" data-dojo-config="async: true"></script>
 
     <script>
       function eventCatchLogger(targetEvent, targetEventName) {
-        console.log(targetEventName, targetEvent);
-        require(["dojox/json/ref"], function () {
-          let jsonEvent = dojox.json.ref.toJson(targetEvent); // serialize me
-          console.log(jsonEvent); // 出力できなかった
-          let objectEvent = dojox.json.ref.fromJson(jsonEvent);
-          console.log(objectEvent); // 出力できなかった
-        });
+        console.log(targetEventName, targetEvent)
+        require(['dojox/json/ref'], function () {
+          let jsonEvent = dojox.json.ref.toJson(targetEvent) // serialize me
+          console.log(jsonEvent) // 出力できなかった
+          let objectEvent = dojox.json.ref.fromJson(jsonEvent)
+          console.log(objectEvent) // 出力できなかった
+        })
       }
-      let allEventList = Object.keys(window).filter((key) => /^on/.test(key));
+      let allEventList = Object.keys(window).filter((key) => /^on/.test(key))
 
       allEventList.map((eventNameFullName) => {
-        const eventName = eventNameFullName.slice(2);
-        document.body.addEventListener(eventName, (event) =>
-          eventCatchLogger(event, eventName)
-        );
-      });
+        const eventName = eventNameFullName.slice(2)
+        document.body.addEventListener(eventName, (event) => eventCatchLogger(event, eventName))
+      })
     </script>
   </body>
 </html>

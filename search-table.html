@@ -1,78 +1,75 @@
 <!DOCTYPE html>
 <html lang="ja">
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
+    <meta charset="UTF-8" />
+    <title>JSONファイル検索ページ</title>
+    <style>
+      body {
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+  </head>
 
-<head>
-  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet" />
-  <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui" />
-  <meta charset="UTF-8" />
-  <title>JSONファイル検索ページ</title>
-  <style>
-    body {
-      height: 100%;
-      width: 100%;
-    }
-  </style>
-</head>
+  <body>
+    <div id="app">
+      <v-app>
+        <form action="" method="post">
+          <input @change="setBodyList" type="file" name="uploadFileList" id="uploadFileList" multiple />
+        </form>
+        <v-card>
+          <v-card-title>
+            <v-text-field v-model="searchKeyWord" append-icon="mdi-magnify" label="Search" single-line hide-details> </v-text-field>
+          </v-card-title>
+          <v-data-table :headers="headerList" :items="bodyList" :search="searchKeyWord"></v-data-table>
+        </v-card>
+      </v-app>
+    </div>
 
-<body>
-  <div id="app">
-    <v-app>
-      <form action="" method="post">
-        <input @change="setBodyList" type="file" name="uploadFileList" id="uploadFileList" multiple />
-      </form>
-      <v-card>
-        <v-card-title>
-          <v-text-field v-model="searchKeyWord" append-icon="mdi-magnify" label="Search" single-line hide-details>
-          </v-text-field>
-        </v-card-title>
-        <v-data-table :headers="headerList" :items="bodyList" :search="searchKeyWord"></v-data-table>
-      </v-card>
-    </v-app>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
-  <script>
-    function readFile(uploadFile, callBack) {
-      let fileReader = new FileReader();
-      fileReader.onload = callBack; // 読み込み完了時に呼ぶコールバック関数をイベントハンドラ関数として設定
-      fileReader.readAsText(uploadFile); // ファイル読み込み
-    }
-    new Vue({
-      el: "#app",
-      vuetify: new Vuetify(),
-      data: function () {
-        return {
-          searchKeyWord: "",
-          targetInstanceName: "",
-          headerList: [],
-          bodyList: [],
-        };
-      },
-      methods: {
-        setBodyList: function () {
-          let uploadFileDom = document.getElementById("uploadFileList");
-          let uploadFileList = Array.from(uploadFileDom.files);
-          uploadFileList.map((item) => {
-            readFile(item, (e) => {
-              this.bodyList = JSON.parse(e.target.result);
-              this.setHeaderList(this.bodyList);
-            });
-          });
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script>
+      function readFile(uploadFile, callBack) {
+        let fileReader = new FileReader()
+        fileReader.onload = callBack // 読み込み完了時に呼ぶコールバック関数をイベントハンドラ関数として設定
+        fileReader.readAsText(uploadFile) // ファイル読み込み
+      }
+      new Vue({
+        el: '#app',
+        vuetify: new Vuetify(),
+        data: function () {
+          return {
+            searchKeyWord: '',
+            targetInstanceName: '',
+            headerList: [],
+            bodyList: [],
+          }
         },
-        setHeaderList: function (itemList) {
-          this.headerList = Object.keys(itemList[0]).map((itemName) => {
-            return {
-              'text': itemName.charAt(0).toUpperCase() + itemName.slice(1),
-              'value': itemName
-            }
-          })
-        }
-      },
-    });
-  </script>
-</body>
-
+        methods: {
+          setBodyList: function () {
+            let uploadFileDom = document.getElementById('uploadFileList')
+            let uploadFileList = Array.from(uploadFileDom.files)
+            uploadFileList.map((item) => {
+              readFile(item, (e) => {
+                this.bodyList = JSON.parse(e.target.result)
+                this.setHeaderList(this.bodyList)
+              })
+            })
+          },
+          setHeaderList: function (itemList) {
+            this.headerList = Object.keys(itemList[0]).map((itemName) => {
+              return {
+                text: itemName.charAt(0).toUpperCase() + itemName.slice(1),
+                value: itemName,
+              }
+            })
+          },
+        },
+      })
+    </script>
+  </body>
 </html>

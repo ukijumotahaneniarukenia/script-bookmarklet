@@ -1,35 +1,33 @@
 <!DOCTYPE html>
 <html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
+  <body>
+    <p>ボタンをクリックしてください</p>
 
-<body>
-  <p>ボタンをクリックしてください</p>
+    <div>
+      <input type="button" id="btnA" value="buttonA" />
+      <input type="button" id="btnB" value="buttonB" />
+    </div>
 
-  <div>
-    <input type="button" id="btnA" value="buttonA">
-    <input type="button" id="btnB" value="buttonB">
-  </div>
+    <script>
+      let btnA = document.getElementById('btnA')
+      let btnB = document.getElementById('btnB')
 
-  <script>
-    let btnA = document.getElementById('btnA');
-    let btnB = document.getElementById('btnB');
+      btnA.addEventListener('click', (event) => {
+        console.log('buttonA:' + event.isTrusted)
 
-    btnA.addEventListener('click', (event)  => {
-      console.log('buttonA:' + event.isTrusted);
+        let newevent = new Event('click')
+        btnB.dispatchEvent(newevent)
+      })
 
-      let newevent = new Event('click');
-      btnB.dispatchEvent(newevent);
-    });
-
-    btnB.addEventListener('click', (event)  => {
-      console.log('buttonB:' + event.isTrusted);
-    });
-  </script>
-</body>
-
+      btnB.addEventListener('click', (event) => {
+        console.log('buttonB:' + event.isTrusted)
+      })
+    </script>
+  </body>
 </html>

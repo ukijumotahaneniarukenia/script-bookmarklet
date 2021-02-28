@@ -3,8 +3,8 @@
 // https://stackoverflow.com/questions/20951014/getting-selection-colors-in-javascript
 async function setUpColorizeSelectedText() {
   return new Promise((resolve, reject) => {
-    let style = document.createElement("style");
-    style.setAttribute("type", "text/css");
+    let style = document.createElement('style')
+    style.setAttribute('type', 'text/css')
     style.innerText = `
     ::selection {
       background: burlywood;
@@ -13,9 +13,9 @@ async function setUpColorizeSelectedText() {
       background: burlywood;
     };
     `
-    document.head.append(style);
-    resolve("setUpColorizeSelectedText is OK");
-  });
+    document.head.append(style)
+    resolve('setUpColorizeSelectedText is OK')
+  })
 }
 
-await setUpColorizeSelectedText();
+await setUpColorizeSelectedText()

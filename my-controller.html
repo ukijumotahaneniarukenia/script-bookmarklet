@@ -1,14 +1,8 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8" />
     <title>JUST ANOTHER NAK5 PRESS</title>
@@ -35,7 +29,7 @@
     <style>
       /* https://google.github.io/material-design-icons/ */
       .material-icons {
-        font-family: "Material Icons";
+        font-family: 'Material Icons';
         font-weight: normal;
         font-style: normal;
         font-size: 24px; /* Preferred icon size */
@@ -56,7 +50,7 @@
         -moz-osx-font-smoothing: grayscale;
 
         /* Support for IE. */
-        font-feature-settings: "liga";
+        font-feature-settings: 'liga';
       }
       .material-icons.md-18 {
         font-size: 18px;
@@ -79,13 +73,8 @@
         <div id="my-modal">
           <div id="my-modal-header">MY CONTROLLER</div>
           <div style="margin: 5px">
-            <button
-              @click="hoge($event)"
-              class="button is-outlined is-rounded is-info is-fullwidth"
-            >
-              <span class="material-icons md-24" style="margin-right: 5px"
-                >music_note</span
-              >
+            <button @click="hoge($event)" class="button is-outlined is-rounded is-info is-fullwidth">
+              <span class="material-icons md-24" style="margin-right: 5px">music_note</span>
               Info
             </button>
           </div>
@@ -154,63 +143,60 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
     <script>
       new Vue({
-        el: "#app",
+        el: '#app',
         data: function () {
-          return {};
+          return {}
         },
         mounted() {
-          this.dragElement(document.getElementById("my-modal"));
-          Array.from(document.querySelectorAll("*")).map((targetDom) => {
-            targetDom.addEventListener("mouseover", this.hoge);
-            window.addEventListener("scroll", this.hoge);
-          });
+          this.dragElement(document.getElementById('my-modal'))
+          Array.from(document.querySelectorAll('*')).map((targetDom) => {
+            targetDom.addEventListener('mouseover', this.hoge)
+            window.addEventListener('scroll', this.hoge)
+          })
         },
         methods: {
           hoge(event) {
-            console.log("hoge");
-            Array.from(document.querySelectorAll("iframe")).map((item) => {
-              item.parentNode.removeChild(item);
-            });
-            console.log(event);
+            console.log('hoge')
+            Array.from(document.querySelectorAll('iframe')).map((item) => {
+              item.parentNode.removeChild(item)
+            })
+            console.log(event)
           },
           dragElement(targetElement) {
             let moveX = 0,
               moveY = 0,
               prevClientX = 0,
-              prevClientY = 0;
-            if (document.getElementById(targetElement.id + "header")) {
-              document.getElementById(
-                targetElement.id + "header"
-              ).onmousedown = dragStart;
+              prevClientY = 0
+            if (document.getElementById(targetElement.id + 'header')) {
+              document.getElementById(targetElement.id + 'header').onmousedown = dragStart
             } else {
-              targetElement.onmousedown = dragStart;
+              targetElement.onmousedown = dragStart
             }
             function dragStart(event) {
-              event = event || window.event;
-              event.preventDefault();
-              prevClientX = event.clientX;
-              prevClientY = event.clientY;
-              document.onmouseup = dragEnd;
-              document.onmousemove = dragOver;
+              event = event || window.event
+              event.preventDefault()
+              prevClientX = event.clientX
+              prevClientY = event.clientY
+              document.onmouseup = dragEnd
+              document.onmousemove = dragOver
             }
             function dragOver(event) {
-              event = event || window.event;
-              event.preventDefault();
-              moveX = prevClientX - event.clientX;
-              moveY = prevClientY - event.clientY;
-              prevClientX = event.clientX;
-              prevClientY = event.clientY;
-              targetElement.style.top = targetElement.offsetTop - moveY + "px";
-              targetElement.style.left =
-                targetElement.offsetLeft - moveX + "px";
+              event = event || window.event
+              event.preventDefault()
+              moveX = prevClientX - event.clientX
+              moveY = prevClientY - event.clientY
+              prevClientX = event.clientX
+              prevClientY = event.clientY
+              targetElement.style.top = targetElement.offsetTop - moveY + 'px'
+              targetElement.style.left = targetElement.offsetLeft - moveX + 'px'
             }
             function dragEnd() {
-              document.onmouseup = null;
-              document.onmousemove = null;
+              document.onmouseup = null
+              document.onmousemove = null
             }
           },
         },
-      });
+      })
     </script>
   </body>
 </html>

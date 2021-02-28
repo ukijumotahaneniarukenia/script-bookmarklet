@@ -2,14 +2,13 @@
 
 async function changeLocation() {
   return new Promise((resolve, reject) => {
-    window.location =
-      "http://validator.w3.org/check?uri=" + escape(window.location);
-    resolve();
-  });
+    window.location = 'http://validator.w3.org/check?uri=' + escape(window.location)
+    resolve()
+  })
 }
 
 async function main() {
-  await changeLocation();
+  await changeLocation()
 }
 
-main();
+main()

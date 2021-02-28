@@ -1,4 +1,4 @@
-node標準の型補完を導入
+node 標準の型補完を導入
 
 ```
 $ mkdir -p $HOME/script-bookmarklet/type-manage
@@ -11,7 +11,7 @@ $ npm install --save @types/d3
 $ npm install --save @types/node-schedule
 ```
 
-index.d.tsのファイルパスを調査
+index.d.ts のファイルパスを調査
 
 ```
 $ find -type f | grep index.d.ts | sort
@@ -27,7 +27,7 @@ type-manage/node_modules/@types/node/index.d.ts
 type-manage/node_modules/@types/echarts/index.d.ts
 ```
 
-jsスクリプトの先頭に以下を追加
+js スクリプトの先頭に以下を追加
 
 ```
 /// <reference path="./type-manage/node_modules/@types/node/index.d.ts" />

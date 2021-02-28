@@ -117,108 +117,64 @@
   <body>
     <div id="slide-item-wrapper-1">
       <div id="hoge" style="height: 10000px">
-          <img
-          id="slide-item-1"
-          src="./cafe-portrait-3878x5817.jpg"
-          alt="cafe"
-          class="slide-item"
-        />
+        <img id="slide-item-1" src="./cafe-portrait-3878x5817.jpg" alt="cafe" class="slide-item" />
       </div>
-      <div
-        id="text-content-1f6ac20a-b082-4260-8022-99f6b8e12356"
-        class="text-content text-content-group"
-      >
-        It is a long established fact that a reader will be distracted by the
-        readable content of a page when looking at its layout. The point of
+      <div id="text-content-1f6ac20a-b082-4260-8022-99f6b8e12356" class="text-content text-content-group">
+        It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of
         using Lorem Ipsum is
       </div>
-      <div
-        id="text-content-9811af09-01ee-4e4d-985a-b0c60aef7fa"
-        class="text-content-reverse text-content-group"
-      >
-        Contrary to popular belief, Lorem Ipsum is not simply random text. It
-        has roots in a piece
+      <div id="text-content-9811af09-01ee-4e4d-985a-b0c60aef7fa" class="text-content-reverse text-content-group">
+        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece
       </div>
-      <div
-        id="text-content-a132b163-5016-45a5-a334-415f7e5769fa"
-        class="text-content-reverse text-content-group"
-      >
-        y dummy text of the printing and typesetting industry. Lorem Ipsum has
-        been the industry's standard dummy text ever since the 1500s, when an
+      <div id="text-content-a132b163-5016-45a5-a334-415f7e5769fa" class="text-content-reverse text-content-group">
+        y dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an
         unknow
       </div>
     </div>
     <script>
       function removeTailUnit(targetPixcel) {
-        return Number(targetPixcel.replace(/px$/,""))
+        return Number(targetPixcel.replace(/px$/, ''))
       }
-      let targetSlideInfoMap = new Map();
+      let targetSlideInfoMap = new Map()
       // 各アイテムのトップ間の距離が大事 zoom outする時間で大体1500pxぐらいはスクロールできる
       let targetSlideTextContentInfoList = [
         {
-          domId: "text-content-1f6ac20a-b082-4260-8022-99f6b8e12356",
+          domId: 'text-content-1f6ac20a-b082-4260-8022-99f6b8e12356',
           top: 1900,
-          zoomMode: "zoom-bottom",
+          zoomMode: 'zoom-bottom',
         },
         {
-          domId: "text-content-9811af09-01ee-4e4d-985a-b0c60aef7fa",
+          domId: 'text-content-9811af09-01ee-4e4d-985a-b0c60aef7fa',
           top: 3500,
-          zoomMode: "zoom-top",
+          zoomMode: 'zoom-top',
         },
         {
-          domId: "text-content-a132b163-5016-45a5-a334-415f7e5769fa",
+          domId: 'text-content-a132b163-5016-45a5-a334-415f7e5769fa',
           top: 5100,
-          zoomMode: "zoom-top-right",
+          zoomMode: 'zoom-top-right',
         },
-      ];
-      targetSlideInfoMap.set("slide-item-1", targetSlideTextContentInfoList);
-      window.addEventListener("scroll", (event) => {
-        for (const [
-          targetSlideId,
-          targetSlideTextContentIdList,
-        ] of targetSlideInfoMap.entries()) {
-          const targetSlideDom = document.getElementById(targetSlideId);
-          for (
-            let index = 0;
-            index < targetSlideTextContentInfoList.length;
-            index++
-          ) {
-            const targetSlideTextContentInfo =
-              targetSlideTextContentInfoList[index];
-            const targetSlideTextContentDom = document.getElementById(
-              targetSlideTextContentInfo.domId
-            );
-            targetSlideTextContentDom.style.setProperty(
-              `--${targetSlideTextContentInfo.domId}-top`,
-              targetSlideTextContentInfo.top + "px"
-            );
-            let targetTextContentDomInfo = targetSlideTextContentDom.getBoundingClientRect();
+      ]
+      targetSlideInfoMap.set('slide-item-1', targetSlideTextContentInfoList)
+      window.addEventListener('scroll', (event) => {
+        for (const [targetSlideId, targetSlideTextContentIdList] of targetSlideInfoMap.entries()) {
+          const targetSlideDom = document.getElementById(targetSlideId)
+          for (let index = 0; index < targetSlideTextContentInfoList.length; index++) {
+            const targetSlideTextContentInfo = targetSlideTextContentInfoList[index]
+            const targetSlideTextContentDom = document.getElementById(targetSlideTextContentInfo.domId)
+            targetSlideTextContentDom.style.setProperty(`--${targetSlideTextContentInfo.domId}-top`, targetSlideTextContentInfo.top + 'px')
+            let targetTextContentDomInfo = targetSlideTextContentDom.getBoundingClientRect()
             if (window.innerHeight > Math.abs(targetTextContentDomInfo.y)) {
-              console.log(
-                targetSlideTextContentInfo.domId,
-                "add",
-                targetTextContentDomInfo
-              );
-              targetSlideDom.classList.add(targetSlideTextContentInfo.zoomMode);
+              console.log(targetSlideTextContentInfo.domId, 'add', targetTextContentDomInfo)
+              targetSlideDom.classList.add(targetSlideTextContentInfo.zoomMode)
             }
-            if (
-              window.innerHeight <=
-              Math.abs(targetTextContentDomInfo.y) +
-                targetTextContentDomInfo.height
-            ) {
-              console.log(
-                targetSlideTextContentInfo.domId,
-                "remove",
-                targetTextContentDomInfo
-              );
-              targetSlideDom.classList.remove(
-                targetSlideTextContentInfo.zoomMode
-              );
+            if (window.innerHeight <= Math.abs(targetTextContentDomInfo.y) + targetTextContentDomInfo.height) {
+              console.log(targetSlideTextContentInfo.domId, 'remove', targetTextContentDomInfo)
+              targetSlideDom.classList.remove(targetSlideTextContentInfo.zoomMode)
             }
           }
         }
-      });
-      window.scrollTo(0, 1);
+      })
+      window.scrollTo(0, 1)
     </script>
   </body>
 </html>

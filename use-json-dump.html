@@ -9,10 +9,7 @@
     <!-- https://dojotoolkit.org/download/ -->
     <!-- http://jsfiddle.net/user/fiddles/all/ -->
     <!-- https://dojotoolkit.org/reference-guide/1.7/dojox/json/ref.html -->
-    <script
-      src="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"
-      data-dojo-config="async: true"
-    ></script>
+    <script src="//ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js" data-dojo-config="async: true"></script>
 
     <script>
       let y = {
@@ -20,37 +17,36 @@
         quux: 5,
         array: [
           {
-            does: "work",
+            does: 'work',
             too: [4, 5, 6],
           },
           {
-            really: "yes",
+            really: 'yes',
           },
         ],
-      };
+      }
       let ME = {
-        name: "Kris",
-        father: { name: "Bill" },
-        mother: { name: "Karen" },
-      };
-      require(["dojox/json/ref"], function () {
+        name: 'Kris',
+        father: { name: 'Bill' },
+        mother: { name: 'Karen' },
+      }
+      require(['dojox/json/ref'], function () {
         let me = {
-          name: "Kris",
-          father: { name: "Bill" },
-          mother: { name: "Karen" },
-        };
-        let jsonMe = dojox.json.ref.toJson(me); // serialize me
-        console.log(jsonMe);
-        let jsonWindow = dojox.json.ref.toJson(window); // serialize me
-        console.log(jsonWindow); // 出力できる
-        let objectWindow = dojox.json.ref.fromJson(jsonWindow);
+          name: 'Kris',
+          father: { name: 'Bill' },
+          mother: { name: 'Karen' },
+        }
+        let jsonMe = dojox.json.ref.toJson(me) // serialize me
+        console.log(jsonMe)
+        let jsonWindow = dojox.json.ref.toJson(window) // serialize me
+        console.log(jsonWindow) // 出力できる
+        let objectWindow = dojox.json.ref.fromJson(jsonWindow)
         console.log(objectWindow) // 出力できる
-        let jsonReflect = dojox.json.ref.toJson(Reflect); // serialize me
-        console.log(jsonReflect); // 出力できる
-        let objectReflect = dojox.json.ref.fromJson(jsonReflect);
+        let jsonReflect = dojox.json.ref.toJson(Reflect) // serialize me
+        console.log(jsonReflect) // 出力できる
+        let objectReflect = dojox.json.ref.fromJson(jsonReflect)
         console.log(objectReflect) // 出力できる
-
-      });
+      })
       console.log(JSON.stringify(ME))
       console.log(JSON.stringify(y))
       console.log(window)

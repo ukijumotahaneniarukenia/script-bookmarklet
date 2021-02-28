@@ -2,10 +2,10 @@
 // Promiseのコンテキストで繰り返し制御構造を実現
 
 // 初期化宣言 このPromiseを持ち回ることがポイント
-let initPromise = Promise.resolve();
+let initPromise = Promise.resolve()
 
-let startIdx = 0;
-let endIdx = 5;
+let startIdx = 0
+let endIdx = 5
 // for (let idx = startIdx; idx < endIdx; idx++) {
 //   initPromise = initPromise
 //     .then(task1.bind(this, idx))
@@ -15,25 +15,25 @@ let endIdx = 5;
 
 // 再代入せずに実現
 for (let idx = startIdx; idx < endIdx; idx++) {
-  await task1(idx);
-  await task2(idx);
+  await task1(idx)
+  await task2(idx)
 }
 
 // ループで実行する処理
 function task1(item) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log("task1 : " + item);
-      resolve(item); // 単一の引数を渡す
-    }, 1000);
-  });
+      console.log('task1 : ' + item)
+      resolve(item) // 単一の引数を渡す
+    }, 1000)
+  })
 }
 
 function task2(item) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      console.log("task2 : " + item);
-      resolve();
-    }, 1000);
-  });
+      console.log('task2 : ' + item)
+      resolve()
+    }, 1000)
+  })
 }

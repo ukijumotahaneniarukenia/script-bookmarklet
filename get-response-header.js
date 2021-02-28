@@ -1,7 +1,7 @@
-let targetUrl = prompt("Input Url");
+let targetUrl = prompt('Input Url')
 
-let response = await fetch(targetUrl);
+let response = await fetch(targetUrl)
 
 for (let [k, v] of response.headers) {
-  console.log(k, v);
+  console.log(k, v)
 }

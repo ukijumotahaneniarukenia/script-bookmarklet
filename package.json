@@ -5,6 +5,8 @@
     "dojo": "^1.16.3",
     "dojox": "^1.16.3",
     "is-utf8": "^0.2.1",
-    "isutf8": "^3.1.1"
-  }
+    "isutf8": "^3.1.1",
+    "prettier": "^2.2.1"
+  },
+  "devDependencies": {}
 }

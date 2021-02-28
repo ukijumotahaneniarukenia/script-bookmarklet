@@ -23,21 +23,21 @@
       <img id="slide-item" src="./cafe-portrait-3878x5817.jpg" alt="" />
     </div>
     <script>
-      const zoomElement = document.getElementById("slide-item");
-      let zoom = 1;
-      const ZOOM_SPEED = 0.005;
+      const zoomElement = document.getElementById('slide-item')
+      let zoom = 1
+      const ZOOM_SPEED = 0.005
 
-      window.addEventListener("scroll", function (e) {
-        zoomElement.addEventListener("wheel", event => {
-        if (event.wheelDeltaY < 0) {
-          // up to down scroll
-          zoomElement.style.transform = `scale(${(zoom += ZOOM_SPEED)})`;
-        } else {
-          // down to up scroll
-          zoomElement.style.transform = `scale(${(zoom -= ZOOM_SPEED)})`;
-        }
+      window.addEventListener('scroll', function (e) {
+        zoomElement.addEventListener('wheel', (event) => {
+          if (event.wheelDeltaY < 0) {
+            // up to down scroll
+            zoomElement.style.transform = `scale(${(zoom += ZOOM_SPEED)})`
+          } else {
+            // down to up scroll
+            zoomElement.style.transform = `scale(${(zoom -= ZOOM_SPEED)})`
+          }
         })
-      });
+      })
     </script>
   </body>
 </html>

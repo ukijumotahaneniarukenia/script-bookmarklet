@@ -1,21 +1,15 @@
 <!DOCTYPE html>
 <html lang="ja">
   <head>
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css" rel="stylesheet" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta charset="UTF-8" />
     <title>JUST ANOTHER NAK5 PRESS</title>
     <style>
       /* https://google.github.io/material-design-icons/ */
       .material-icons {
-        font-family: "Material Icons";
+        font-family: 'Material Icons';
         font-weight: normal;
         font-style: normal;
         font-size: 24px; /* Preferred icon size */
@@ -36,7 +30,7 @@
         -moz-osx-font-smoothing: grayscale;
 
         /* Support for IE. */
-        font-feature-settings: "liga";
+        font-feature-settings: 'liga';
       }
       .material-icons.md-18 {
         font-size: 18px;
@@ -55,96 +49,85 @@
 
   <body>
     <div>
-      <button
-        id="add-unko"
-        class="button is-outlined is-rounded is-info is-fullwidth"
-      >
-        <span class="material-icons md-24" style="margin-right: 5px"
-          >music_note</span
-        >
+      <button id="add-unko" class="button is-outlined is-rounded is-info is-fullwidth">
+        <span class="material-icons md-24" style="margin-right: 5px">music_note</span>
         Unko
       </button>
-      <button
-        id="add-unko2"
-        class="button is-outlined is-rounded is-info is-fullwidth"
-      >
-        <span class="material-icons md-24" style="margin-right: 5px"
-          >music_note</span
-        >
+      <button id="add-unko2" class="button is-outlined is-rounded is-info is-fullwidth">
+        <span class="material-icons md-24" style="margin-right: 5px">music_note</span>
         Unko2
       </button>
-      <button
-        id="dynamic-add-unko"
-        class="button is-outlined is-rounded is-info is-fullwidth"
-      >
-        <span class="material-icons md-24" style="margin-right: 5px"
-          >music_note</span
-        >
+      <button id="dynamic-add-unko" class="button is-outlined is-rounded is-info is-fullwidth">
+        <span class="material-icons md-24" style="margin-right: 5px">music_note</span>
         Dynamic Unko
       </button>
-      <button
-        id="async-await-add-unko"
-        class="button is-outlined is-rounded is-info is-fullwidth"
-      >
-        <span class="material-icons md-24" style="margin-right: 5px"
-          >music_note</span
-        >
+      <button id="async-await-add-unko" class="button is-outlined is-rounded is-info is-fullwidth">
+        <span class="material-icons md-24" style="margin-right: 5px">music_note</span>
         Async Await Unko
       </button>
-      <button
-        id="lazy-add-unko"
-        class="button is-outlined is-rounded is-info is-fullwidth"
-      >
-        <span class="material-icons md-24" style="margin-right: 5px"
-          >music_note</span
-        >
+      <button id="lazy-add-unko" class="button is-outlined is-rounded is-info is-fullwidth">
+        <span class="material-icons md-24" style="margin-right: 5px">music_note</span>
         Lazy Unko
       </button>
     </div>
     <script type="module">
-      import { Unko } from "./sampleESmodule.js";
-      const unkoInstance = new Unko();
-      const addUnkoButtonDom = document.getElementById("add-unko")
-      addUnkoButtonDom.addEventListener("click", (event) => {unkoInstance.addUnko(event,unkoInstance.unko())})
-    </script>
-    <script>
-      import("./sampleESmodule.js").then(module =>{
-        const unkoInstance = new module.Unko()
-        return Promise.resolve(unkoInstance)
-      }).then(instance => {
-        const dynamicAddUnkoButtonDom = document.getElementById("dynamic-add-unko")
-        dynamicAddUnkoButtonDom.addEventListener("click", (event) => {instance.addUnko(event,"Dynamic" + instance.unko())})
+      import { Unko } from './sampleESmodule.js'
+      const unkoInstance = new Unko()
+      const addUnkoButtonDom = document.getElementById('add-unko')
+      addUnkoButtonDom.addEventListener('click', (event) => {
+        unkoInstance.addUnko(event, unkoInstance.unko())
       })
     </script>
     <script>
+      import('./sampleESmodule.js')
+        .then((module) => {
+          const unkoInstance = new module.Unko()
+          return Promise.resolve(unkoInstance)
+        })
+        .then((instance) => {
+          const dynamicAddUnkoButtonDom = document.getElementById('dynamic-add-unko')
+          dynamicAddUnkoButtonDom.addEventListener('click', (event) => {
+            instance.addUnko(event, 'Dynamic' + instance.unko())
+          })
+        })
+    </script>
+    <script>
       async function wrapper() {
-        const module = await import("./sampleESmodule.js")
+        const module = await import('./sampleESmodule.js')
         const unkoInstance = new module.Unko()
-        const asyncAwaitAddUnkoButtonDom = document.getElementById("async-await-add-unko")
-        asyncAwaitAddUnkoButtonDom.addEventListener("click", (event) => {unkoInstance.addUnko(event,"Async Await" + unkoInstance.unko())})
+        const asyncAwaitAddUnkoButtonDom = document.getElementById('async-await-add-unko')
+        asyncAwaitAddUnkoButtonDom.addEventListener('click', (event) => {
+          unkoInstance.addUnko(event, 'Async Await' + unkoInstance.unko())
+        })
       }
       wrapper()
     </script>
     <script>
-      function lazyUnko(waitTimeSeconds=3) {
-        setTimeout(()=> {
-          import("./sampleESmodule.js").then(module =>{
-            const unkoInstance = new module.Unko()
-            return Promise.resolve(unkoInstance)
-          }).then(instance => {
-            const lazyAddUnkoButtonDom = document.getElementById("lazy-add-unko")
-            lazyAddUnkoButtonDom.addEventListener("click", (event) => {instance.addUnko(event,"Lazy" + instance.unko())})
-          })
+      function lazyUnko(waitTimeSeconds = 3) {
+        setTimeout(() => {
+          import('./sampleESmodule.js')
+            .then((module) => {
+              const unkoInstance = new module.Unko()
+              return Promise.resolve(unkoInstance)
+            })
+            .then((instance) => {
+              const lazyAddUnkoButtonDom = document.getElementById('lazy-add-unko')
+              lazyAddUnkoButtonDom.addEventListener('click', (event) => {
+                instance.addUnko(event, 'Lazy' + instance.unko())
+              })
+            })
         }, 1000 * waitTimeSeconds)
       }
       lazyUnko(9) //イベントの貼り付けを遅らせることができる なぞ
     </script>
     <script type="module">
-      import { Unko, Unko2 } from "./sampleESmodule2.js";
-      const unkoInstance = new Unko();
-      const unko2Instance = new Unko2();
-      const addUnko2ButtonDom = document.getElementById("add-unko2")
-      addUnko2ButtonDom.addEventListener("click", (event) => {unko2Instance.addUnko2(event,unkoInstance.unko() + unko2Instance.unko2())})
+      import { Unko, Unko2 } from './sampleESmodule2.js'
+      const unkoInstance = new Unko()
+      const unko2Instance = new Unko2()
+      const addUnko2ButtonDom = document.getElementById('add-unko2')
+      addUnko2ButtonDom.addEventListener('click', (event) => {
+        unko2Instance.addUnko2(event, unkoInstance.unko() + unko2Instance.unko2())
+      })
     </script>
   </body>
 </html>

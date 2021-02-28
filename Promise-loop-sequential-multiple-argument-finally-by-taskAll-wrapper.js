@@ -2,39 +2,37 @@
 // Promiseのコンテキストで繰り返し制御構造を実現
 
 // 初期化宣言 このPromiseを持ち回ることがポイント
-let initPromise = Promise.resolve();
+let initPromise = Promise.resolve()
 
-let startIdx = 0;
-let endIdx = 5;
-let isSkip = false; // 変数を持ち回るときなどは便利
+let startIdx = 0
+let endIdx = 5
+let isSkip = false // 変数を持ち回るときなどは便利
 
 for (let idx = startIdx; idx < endIdx; idx++) {
   let item = {
     idx: idx,
-    isSkip: isSkip
+    isSkip: isSkip,
   }
   taskAll(item)
 }
-initPromise
-.then(function(){
+initPromise.then(function () {
   return new Promise(function (resolve, reject) {
     // ループ完了後に実行したい処理
-    console.log('teardown last finally');
-    resolve();
-  });
+    console.log('teardown last finally')
+    resolve()
+  })
 })
 
 // ラッパー
-function taskAll(item){
-  let idx = item["idx"]
-  let isSkip = item["isSkip"]
+function taskAll(item) {
+  let idx = item['idx']
+  let isSkip = item['isSkip']
   initPromise = initPromise
     .then(task1.bind(this, [idx, isSkip]))
     .then(task2)
     .finally(() => {
       console.log('teardown by for item')
-    })
-  ; // ループ継続時に再代入し続けることでメソッドチェーンを実現
+    }) // ループ継続時に再代入し続けることでメソッドチェーンを実現
 }
 
 function task1(itemList) {
@@ -42,13 +40,13 @@ function task1(itemList) {
     let idx = itemList[0]
     let isSkip = itemList[1]
     setTimeout(() => {
-      console.log("task1 : " + idx);
+      console.log('task1 : ' + idx)
       if (idx % 2 === 0) {
-        isSkip = true;
+        isSkip = true
       }
-      resolve([idx, isSkip]); // 複数引数を渡す
-    }, 1000);
-  });
+      resolve([idx, isSkip]) // 複数引数を渡す
+    }, 1000)
+  })
 }
 
 function task2(itemList) {
@@ -57,11 +55,11 @@ function task2(itemList) {
     let isSkip = itemList[1]
     setTimeout(() => {
       if (isSkip) {
-        console.log("task2 is skip!![%d]", idx);
+        console.log('task2 is skip!![%d]', idx)
       } else {
-        console.log("task2 : " + idx);
+        console.log('task2 : ' + idx)
       }
-      resolve();
-    }, 1000);
-  });
+      resolve()
+    }, 1000)
+  })
 }

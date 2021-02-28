@@ -7,26 +7,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Document</title>
-    <script
-      src="https://requirejs.org/docs/release/2.3.6/minified/require.js"
-      type="text/javascript"
-    ></script>
+    <script src="https://requirejs.org/docs/release/2.3.6/minified/require.js" type="text/javascript"></script>
   </head>
   <body>
     <h1 id="remotemodule">loading...</h1>
     <script>
       require.config({
         paths: {
-          remotemodule: "https://raggedlostcone.nithinthampi.repl.co/",
+          remotemodule: 'https://raggedlostcone.nithinthampi.repl.co/',
         },
-      });
+      })
 
-      require(["remotemodule"], function (loaded_script) {
-        console.log(loaded_script);
-        document.getElementById(
-          "remotemodule"
-        ).innerText = loaded_script.model();
-      });
+      require(['remotemodule'], function (loaded_script) {
+        console.log(loaded_script)
+        document.getElementById('remotemodule').innerText = loaded_script.model()
+      })
     </script>
   </body>
 </html>

@@ -10,79 +10,73 @@
 async function setContentSecurityPolicy() {
   // void型のreturnのイメージ
   return new Promise((resolve, reject) => {
-    let meta = document.createElement("meta");
-    meta.setAttribute("http-equiv", "Content-Security-Policy");
-    meta.setAttribute(
-      "content",
-      "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'"
-    );
-    document.head.appendChild(meta);
-    resolve("setContentSecurityPolicy is OK");
-  });
+    let meta = document.createElement('meta')
+    meta.setAttribute('http-equiv', 'Content-Security-Policy')
+    meta.setAttribute('content', "default-src *; style-src 'self' http://* 'unsafe-inline'; script-src 'self' http://* 'unsafe-inline' 'unsafe-eval'")
+    document.head.appendChild(meta)
+    resolve('setContentSecurityPolicy is OK')
+  })
 }
 
 async function includeExternalLibrary() {
   return new Promise((resolve, reject) => {
-    let scriptLibrary = document.createElement("script");
-    scriptLibrary.setAttribute("type", "text/javascript");
-    scriptLibrary.setAttribute(
-      "src",
-      "https://cdnjs.cloudflare.com/ajax/libs/echarts/4.8.0/echarts.min.js"
-    );
-    document.head.appendChild(scriptLibrary);
-    resolve("includeExternalLibrary is OK");
-  });
+    let scriptLibrary = document.createElement('script')
+    scriptLibrary.setAttribute('type', 'text/javascript')
+    scriptLibrary.setAttribute('src', 'https://cdnjs.cloudflare.com/ajax/libs/echarts/4.8.0/echarts.min.js')
+    document.head.appendChild(scriptLibrary)
+    resolve('includeExternalLibrary is OK')
+  })
 }
 
 async function createTargetDom() {
   return new Promise((resolve, reject) => {
-    let targetDom = document.createElement("div");
-    targetDom.setAttribute("id", "targetElement");
-    targetDom.setAttribute("style", "width: 600px;height:400px;");
-    document.body.appendChild(targetDom);
-    resolve("createTargetDom is OK");
-  });
+    let targetDom = document.createElement('div')
+    targetDom.setAttribute('id', 'targetElement')
+    targetDom.setAttribute('style', 'width: 600px;height:400px;')
+    document.body.appendChild(targetDom)
+    resolve('createTargetDom is OK')
+  })
 }
 
 async function renderChart() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      let targetChart = echarts.init(document.getElementById("targetElement"))
+      let targetChart = echarts.init(document.getElementById('targetElement'))
       targetChart.setOption({
         series: {
-          type: "pie",
+          type: 'pie',
           data: [
-            { name: "A", value: 1212 },
-            { name: "B", value: 2323 },
-            { name: "C", value: 1919 },
+            { name: 'A', value: 1212 },
+            { name: 'B', value: 2323 },
+            { name: 'C', value: 1919 },
           ],
         },
-      });
-      resolve("renderChart is OK");
-    }, 3000);
-  });
+      })
+      resolve('renderChart is OK')
+    }, 3000)
+  })
 }
 
 async function main() {
   setContentSecurityPolicy()
     .then((res) => {
-      console.log(res);
-      return includeExternalLibrary();
+      console.log(res)
+      return includeExternalLibrary()
     })
     .then((res) => {
-      console.log(res);
-      return createTargetDom();
+      console.log(res)
+      return createTargetDom()
     })
     .then((res) => {
-      console.log(res);
-      return renderChart();
+      console.log(res)
+      return renderChart()
     })
     .catch((res) => {
-      console.log(res);
+      console.log(res)
     })
     .finally(() => {
-      console.log("Done");
-    });
+      console.log('Done')
+    })
 }
 
-main();
+main()

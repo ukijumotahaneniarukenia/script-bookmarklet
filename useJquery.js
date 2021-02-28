@@ -9,8 +9,6 @@ document.head.appendChild(scriptLibrary)
 console.log(window.jQuery)
 console.log($)
 
-jQuery("body").css("background","orange")
+jQuery('body').css('background', 'orange')
 
-
-$("body").css("background","whitesmoke")
-
+$('body').css('background', 'whitesmoke')
