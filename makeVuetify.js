@@ -6,7 +6,7 @@ let injectLinkLibraryList = [
 
 for (let libIdx = 0; libIdx < injectLinkLibraryList.length; libIdx++) {
   let linkLibraryUrl = injectLinkLibraryList[libIdx]
-  linkLibrary = document.createElement('link')
+  let linkLibrary = document.createElement('link')
   linkLibrary.setAttribute('rel', 'stylesheet')
   linkLibrary.setAttribute('href', linkLibraryUrl)
   document.head.appendChild(linkLibrary)

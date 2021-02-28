@@ -8,6 +8,6 @@ console.log(registeredEventList)
 // 指定したオブジェクトに登録されているすべてのイベントリスナーをリストアップ
 let targetDom = document.querySelector('form')
 
-let registeredEventList = getEventListeners(targetDom)
+let registeredEventList2 = getEventListeners(targetDom)
 
-console.log(registeredEventList)
+console.log(registeredEventList2)
