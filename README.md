@@ -1,4 +1,6 @@
 # script-bookmarklet
+- cssでエラトステネス
+  - https://takamos.ooo/css-prime-number/
 
 - web component pure実装サンプル集
   - https://webparts.cman.jp/string/back/
