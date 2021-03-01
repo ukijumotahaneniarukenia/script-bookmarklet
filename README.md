@@ -1,5 +1,11 @@
 # script-bookmarklet
 
+- デバイスサイズの向き検知
+  - https://stackoverflow.com/questions/4917664/detect-viewport-orientation-if-orientation-is-portrait-display-alert-message-ad
+
+- 複雑なイベントハンドラの実行順序制御例
+  - https://stackoverflow.com/questions/15101243/how-should-i-make-complex-sequential-events-in-javascript
+
 - ビデオはloadメソッドを呼ぶとイベント発火をいろいろかくにんできる
   - https://stackoverflow.com/questions/13864795/wait-until-an-html5-video-loads
 
