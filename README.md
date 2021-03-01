@@ -1,5 +1,11 @@
 # script-bookmarklet
 
+- ビデオはloadメソッドを呼ぶとイベント発火をいろいろかくにんできる
+  - https://stackoverflow.com/questions/13864795/wait-until-an-html5-video-loads
+
+- イベントの完了を待ち合わせするためにプロミスでラップハンドリングするとハンディに制御できそう async function for statement await
+  - https://qiita.com/sin_tanaka/items/b17a099d2a6a5e9a94b7
+
 - dom に割りついている CSS プロパティリストを取得できる 便利
 
   - https://stackoverflow.com/questions/7251804/css-javascript-get-a-list-of-css-custom-attributes
