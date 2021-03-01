@@ -1,7 +1,7 @@
 # script-bookmarklet
 
 - web component pure実装サンプル集
-  - https://twitter.com/simeji_pro/status/1365920195919904770?s=21
+  - https://webparts.cman.jp/string/back/
 
 - デバイスサイズの向き検知
   - https://stackoverflow.com/questions/4917664/detect-viewport-orientation-if-orientation-is-portrait-display-alert-message-ad
