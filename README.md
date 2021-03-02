@@ -1,4 +1,11 @@
 # script-bookmarklet
+- Web Component
+  - https://techtekt.persol-career.co.jp/entry/tech/200707_01
+  - https://ja.javascript.info/webcomponents-intro
+  - https://laboradian.com/web-components-samples/
+  - https://developer.mozilla.org/ja/docs/Web/API/CustomElementRegistry
+  - https://nulab.com/ja/blog/cacoo/web-components/
+
 - cssでエラトステネス
   - https://takamos.ooo/css-prime-number/
 
