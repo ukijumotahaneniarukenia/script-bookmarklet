@@ -1,4 +1,9 @@
 # script-bookmarklet
+- コーデックの調べ方
+  - https://stackoverflow.com/questions/22996665/unable-to-get-mediasource-working-with-mp4-format-in-chrome
+  - http://var.blog.jp/archives/82006076.html
+  - https://medium.com/@JackPu/how-js-get-video-codec-548a33cf7454
+
 - Web Component
   - https://techtekt.persol-career.co.jp/entry/tech/200707_01
   - https://ja.javascript.info/webcomponents-intro
