@@ -1,5 +1,14 @@
 # script-bookmarklet
 
+- モバイル向けフレームワーク
+  - https://ja.onsen.io/
+
+- 各ベンダ開発ブログ
+  - https://dev.opera.com/
+
+- cssセレクタ
+  - https://www.w3schools.com/cssref/css_selectors.asp
+
 - Vue Composition
   - https://qiita.com/ryo2132/items/f055679e9974dbc3f977#comments
 
