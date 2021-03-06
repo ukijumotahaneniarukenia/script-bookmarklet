@@ -1,14 +1,10 @@
 function getClass(className) {
   // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/eval#Don't_use_eval_needlessly!
+  // http://nmi.jp/archives/488
   return Function('return (' + className + ')')()
 }
 
-async function listUpInstanceMethods(className) {
-  // listUpInstanceMethods("Date")
-  // listUpInstanceMethods("Array")
-  // listUpInstanceMethods("String")
-  // listUpInstanceMethods("Window")
-  // listUpInstanceMethods("Math")
+function listUpInstanceMethods(className) {
   let resultList = new Set()
   let targetClass = getClass(className)
   let targetInstance
@@ -31,8 +27,20 @@ async function listUpInstanceMethods(className) {
   return Array.from(resultList)
 }
 
-let targetClassName = prompt('List Up Instance Methods. Please Input Class Name. Ex.) Date Array String Window Math')
+function main(targetClassName) {
+  let eventList = listUpInstanceMethods(targetClassName).filter((key) => /^on/.test(key))
+  if (eventList.length === 0) {
+    eventList = listUpInstanceMethods(targetClassName)
+  }
+  console.log(eventList)
+}
 
-listUpInstanceMethods(targetClassName).then(function (resultList) {
-  console.log(resultList)
-})
+// https://developer.mozilla.org/ja/docs/Web/API/GlobalEventHandlers
+// main('HTMLElement')
+// main('window')
+// main('Document')
+// main('Math')
+// main('Date')
+// main('Array')
+// main('String')
+main('XMLHttpRequest')
