@@ -51,35 +51,45 @@ function getDomAttachedCssText() {
   let cssStyleSheetList = document.styleSheets
   let cssStyleRules = null
   let resultList = []
+  let resultExcludeList = []
   for (let i in cssStyleSheetList) {
-    if ((typeof cssStyleSheetList[i] === 'object' && cssStyleSheetList[i].rules) || cssStyleSheetList[i].cssRules) {
-      cssStyleRules = cssStyleSheetList[i].rules || cssStyleSheetList[i].cssRules
-      for (let j in cssStyleRules) {
-        if (
-          typeof cssStyleRules[j] === 'object' &&
-          cssStyleRules[j].selectorText !== '' &&
-          cssStyleRules[j].selectorText !== null &&
-          cssStyleRules[j].selectorText !== undefined
-        ) {
-          let targetDom = document.querySelector(`${cssStyleRules[j].selectorText}`)
-          if (targetDom !== null) {
-            // ブラウザが評価可能なセレクタのみ追加
-            resultList.push({
-              selectorText: cssStyleRules[j].selectorText,
-              selectorDom: targetDom,
-              cssText: cssStyleRules[j].cssText,
-              cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
-              cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
-            })
+    if (typeof cssStyleSheetList[i] === 'object' && cssStyleSheetList[i].href === null) {
+      if (cssStyleSheetList[i].rules || cssStyleSheetList[i].cssRules) {
+        // 外部ライブラリのCSSファイル以外を処理対象にする
+        cssStyleRules = cssStyleSheetList[i].rules || cssStyleSheetList[i].cssRules
+        for (let j in cssStyleRules) {
+          if (
+            typeof cssStyleRules[j] === 'object' &&
+            cssStyleRules[j].selectorText !== '' &&
+            cssStyleRules[j].selectorText !== null &&
+            cssStyleRules[j].selectorText !== undefined
+          ) {
+            let targetDom = document.querySelector(`${cssStyleRules[j].selectorText}`)
+            if (targetDom !== null) {
+              // ブラウザが評価可能なセレクタのみ追加
+              resultList.push({
+                selectorText: cssStyleRules[j].selectorText,
+                selectorDom: targetDom,
+                cssText: cssStyleRules[j].cssText,
+                cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
+                cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
+              })
+            }
           }
         }
       }
+    } else {
+      if (cssStyleSheetList[i].href !== undefined) {
+        resultExcludeList.push({
+          cssExternalLibrary: cssStyleSheetList[i].href,
+        })
+      }
     }
   }
-  return sortList(resultList)
+  return [resultExcludeList, sortList(resultList)]
 }
 
-let resultInfoList = getDomAttachedCssText()
+let [resultExcludeList, resultInfoList] = getDomAttachedCssText()
 let displayResultInfoList = []
 for (let resultInfoIndex = 0; resultInfoIndex < resultInfoList.length; resultInfoIndex++) {
   const resultInfo = resultInfoList[resultInfoIndex]
@@ -105,3 +115,4 @@ for (let resultInfoIndex = 0; resultInfoIndex < resultInfoList.length; resultInf
 
 // selectorDom ないし cssPropertyName ないし selectorText でソート
 console.table(displayResultInfoList)
+console.log('cssExternalLibraryList', resultExcludeList)
