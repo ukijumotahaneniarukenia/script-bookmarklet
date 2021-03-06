@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- Tab UIすごい
+  - https://web.dev/building-a-tabs-component/
+
 - UI参考になる
   - https://wave.video/
   - https://wave.video/blog/royalty-free-music/
