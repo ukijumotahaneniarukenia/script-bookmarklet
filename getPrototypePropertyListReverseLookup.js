@@ -1,7 +1,7 @@
 function getClass(className) {
   // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/eval#Don't_use_eval_needlessly!
   // http://nmi.jp/archives/488
-  return Function('return (' + className + ')')()
+  return new Function('return (' + className + ')')()
 }
 
 function listUpInstanceMethods(className) {
@@ -35,11 +35,9 @@ function main(targetClassName) {
 }
 
 // https://developer.mozilla.org/ja/docs/Web/API/GlobalEventHandlers
-main('UIEvent')
-
+//https://developer.mozilla.org/ja/docs/Web/API#interfaces
 // ドキュメントの読み方ではコンストラクタがあるかないかで分類
 // あればnewできて、なければnewできない
-//https://developer.mozilla.org/ja/docs/Web/API#interfaces
-main('OrientationSensor')
+main('UIEvent')
 main('Navigator')
 main('MediaStream')

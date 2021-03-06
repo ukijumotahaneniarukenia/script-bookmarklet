@@ -1,6 +1,7 @@
 function getClass(className) {
   // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/eval#Don't_use_eval_needlessly!
-  return Function('return (' + className + ')')()
+  // http://nmi.jp/archives/488
+  return new Function('return (' + className + ')')()
 }
 
 function listUpStaticMethods(className) {
