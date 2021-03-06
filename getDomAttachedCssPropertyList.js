@@ -1,3 +1,21 @@
+// おすすめの実行サイト
+// https://mailchimp.com/
+function sortList(targetList) {
+  // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+  targetList.sort((a, b) => {
+    let selectorTextA = a.selectorText.toUpperCase() // 大文字と小文字を無視する
+    let selectorTextB = b.selectorText.toUpperCase() // 大文字と小文字を無視する
+    if (selectorTextA < selectorTextB) {
+      return -1
+    }
+    if (selectorTextA > selectorTextB) {
+      return 1
+    }
+    return 0
+  })
+  return targetList
+}
+
 function getDomAttachedCssPropertyList() {
   // https://stackoverflow.com/questions/7251804/cssStyleSheetList-javascript-get-a-list-of-cssStyleSheetList-custom-attributes
   let cssStyleSheetList = document.styleSheets
@@ -13,14 +31,19 @@ function getDomAttachedCssPropertyList() {
           cssStyleRules[j].selectorText !== null &&
           cssStyleRules[j].selectorText !== undefined
         ) {
-          resultList.push({
-            selectorText: cssStyleRules[j].selectorText,
-            cssText: cssStyleRules[j].cssText,
-          })
+          let targetDom = document.querySelector(`${cssStyleRules[j].selectorText}`)
+          if (targetDom !== null) {
+            // ブラウザが評価可能なセレクタのみ追加
+            resultList.push({
+              selectorText: cssStyleRules[j].selectorText,
+              selectorDom: targetDom,
+              cssText: cssStyleRules[j].cssText,
+            })
+          }
         }
       }
     }
   }
-  return resultList
+  return sortList(resultList)
 }
 getDomAttachedCssPropertyList()
