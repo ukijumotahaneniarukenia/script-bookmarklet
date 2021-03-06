@@ -31,12 +31,13 @@ function getDomAttachedCssPropertyList() {
           cssStyleRules[j].selectorText !== null &&
           cssStyleRules[j].selectorText !== undefined
         ) {
-          let targetDom = document.querySelector(`${cssStyleRules[j].selectorText}`)
-          if (targetDom !== null) {
+          let targetDomList = [...document.querySelectorAll(`${cssStyleRules[j].selectorText}`)]
+          if (targetDomList.length !== 0) {
             // ブラウザが評価可能なセレクタのみ追加
             resultList.push({
               selectorText: cssStyleRules[j].selectorText,
-              selectorDom: targetDom,
+              selectorDomListCount: targetDomList.length,
+              selectorDomList: targetDomList,
               cssText: cssStyleRules[j].cssText,
             })
           }
@@ -46,4 +47,8 @@ function getDomAttachedCssPropertyList() {
   }
   return sortList(resultList)
 }
-getDomAttachedCssPropertyList()
+
+let resultInfo = getDomAttachedCssPropertyList()
+
+// console.log(resultInfo)
+console.table(resultInfo)
