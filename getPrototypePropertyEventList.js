@@ -27,4 +27,5 @@ function main(targetKeyword) {
   return sortMapKey(resultMap)
 }
 
-main('duration')
+// main('duration')
+main('loadstart')
