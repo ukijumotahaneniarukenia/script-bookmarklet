@@ -42,4 +42,5 @@ function main(targetPrototypeName) {
 // main('HTMLVideoElement')
 // main('HTMLScriptElement')
 // main('HTMLMediaElement')
-main('Range')
+// main('Range')
+main('MouseEvent')

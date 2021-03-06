@@ -1,5 +1,9 @@
 # script-bookmarklet
 
+- UI参考になる
+  - https://wave.video/
+  - https://wave.video/blog/royalty-free-music/
+
 - モバイル向けフレームワーク
   - https://ja.onsen.io/
 

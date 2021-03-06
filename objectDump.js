@@ -1,4 +1,3 @@
-
 // https://stackoverflow.com/questions/15312529/resolve-circular-references-from-json-object
 // オブジェクトの全プロパティを取得する関数が必要
 // https://ja.javascript.info/getting-all-properties
