@@ -13,6 +13,9 @@
     - layoutグループ配下から無心ですすめる
       - https://tailwindcss.com/docs/container
     - https://qiita.com/cubenoy22/items/3ccce86cf128c96a079d
+    - primerでもいいかもって思ってきた
+      - https://primer.style/css/components/timeline
+      - https://qiita.com/shierote/items/047dd9ab483b4a7bec6f
   - アウトプットイメージ
     - https://github.com/avigoldman/css-groups
 
