@@ -1,5 +1,10 @@
 # script-bookmarklet
 
+- Cssプロパティのグルーピングはtailwindcssから逆算したほうが早そうで便利そう
+  - https://tailwindcss.com/
+  - アウトプットイメージ
+    - https://github.com/avigoldman/css-groups
+
 - Cssリンタを使った逆算
   - https://qiita.com/oh_rusty_nail/items/12e5783a9630a6905b1e
 
