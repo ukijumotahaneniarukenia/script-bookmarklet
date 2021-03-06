@@ -3,6 +3,9 @@
 - Cssプロパティのグルーピングはtailwindcssから逆算したほうが早そうで便利そう
   - https://tailwindcss.com/
   - Vueで試したら思い通りにできそうなので、この方針で一旦進める
+    - https://tailwindcomponents.com/components
+    - layoutグループ配下から無心ですすめる
+      - https://tailwindcss.com/docs/container
     - https://qiita.com/cubenoy22/items/3ccce86cf128c96a079d
   - アウトプットイメージ
     - https://github.com/avigoldman/css-groups
