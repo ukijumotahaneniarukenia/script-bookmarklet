@@ -5,8 +5,8 @@ function getEventList(targetPrototypeObject) {
   return Object.keys(targetPrototypeObject).filter((key) => /^on/.test(key))
 }
 
-function getPrototypeName(prototypeObject) {
-  return prototypeObject.toString().slice(8).slice(0, -1)
+function getPrototypeName(targetPrototypeObject) {
+  return targetPrototypeObject.toString().slice(8).slice(0, -1)
 }
 
 // https://stackoverflow.com/questions/31158902/is-it-possible-to-sort-a-es6-map-object/51242261
