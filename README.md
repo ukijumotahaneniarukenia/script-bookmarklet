@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- cssセレクタ
+  - w3schools.com/cssref/css_selectors.asp
+
 - Vue Composition
   - https://qiita.com/ryo2132/items/f055679e9974dbc3f977#comments
 
