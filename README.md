@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- dom継承関係図 参考になりそう
+  - https://stackoverflow.com/questions/39344977/the-dom-inheritance-structure
+
 - Cssプロパティのグルーピングはtailwindcssから逆算したほうが早そうで便利そう
   - https://tailwindcss.com/
   - Vueで試したら思い通りにできそうなので、この方針で一旦進める
