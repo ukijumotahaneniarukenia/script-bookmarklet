@@ -12,6 +12,7 @@
 
 - cssセレクタ
   - https://www.w3schools.com/cssref/css_selectors.asp
+  - https://css-tricks.com/almanac/selectors/
 
 - Vue Composition
   - https://qiita.com/ryo2132/items/f055679e9974dbc3f977#comments
