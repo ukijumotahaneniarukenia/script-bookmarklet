@@ -1,4 +1,21 @@
 # script-bookmarklet
+
+- Vue Composition
+  - https://qiita.com/ryo2132/items/f055679e9974dbc3f977#comments
+
+
+- コーデックの調べ方
+  - https://stackoverflow.com/questions/22996665/unable-to-get-mediasource-working-with-mp4-format-in-chrome
+  - http://var.blog.jp/archives/82006076.html
+  - https://medium.com/@JackPu/how-js-get-video-codec-548a33cf7454
+
+- Web Component
+  - https://techtekt.persol-career.co.jp/entry/tech/200707_01
+  - https://ja.javascript.info/webcomponents-intro
+  - https://laboradian.com/web-components-samples/
+  - https://developer.mozilla.org/ja/docs/Web/API/CustomElementRegistry
+  - https://nulab.com/ja/blog/cacoo/web-components/
+
 - cssでエラトステネス
   - https://takamos.ooo/css-prime-number/
 
