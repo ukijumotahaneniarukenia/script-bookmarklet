@@ -90,11 +90,12 @@ for (let resultInfoIndex = 0; resultInfoIndex < resultInfoList.length; resultInf
     if (resultInfo.cssDefinedPropertyList.includes(cssPropertyName)) {
       // developer defined css property value
       displayResultInfoList.push({
-        selectorDom: resultInfo.selectorDom,
-        cssDefinedPropertyList: resultInfo.cssDefinedPropertyList,
-        cssBlockText: resultInfo.cssBlockText,
+        selectorText: resultInfo.selectorText,
         cssPropertyName: cssPropertyName,
         cssPropertyValue: cssPropertyValue,
+        cssBlockText: resultInfo.cssBlockText,
+        selectorDom: resultInfo.selectorDom,
+        cssDefinedPropertyList: resultInfo.cssDefinedPropertyList,
       })
     } else {
       // brawser default css property value
@@ -102,5 +103,5 @@ for (let resultInfoIndex = 0; resultInfoIndex < resultInfoList.length; resultInf
   }
 }
 
-// selectorDomでソート
+// selectorDom ないし cssPropertyName ないし selectorText でソート
 console.table(displayResultInfoList)
