@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- deep dom
+  - https://github.com/dontcallmedom/webidlpedia
+
 - dom継承関係図 参考になりそう
   - https://stackoverflow.com/questions/39344977/the-dom-inheritance-structure
 
