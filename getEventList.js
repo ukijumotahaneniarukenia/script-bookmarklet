@@ -1,57 +1,44 @@
 // 元ネタ https://www.perimeterx.com/tech-blog/2019/list-every-event-that-exists-in-the-browser/
 // テキストベース https://medium.com/@weizmangal/list-every-event-that-exists-in-the-browser-b771579d9b04
 
-function _isEvent(prop) {
-  if (0 !== prop.indexOf('on')) {
-    return false
-  }
-
-  return true
+function getEventList(targetPrototypeObject) {
+  return Object.keys(targetPrototypeObject).filter((key) => /^on/.test(key))
 }
 
-function _getEvents(obj) {
-  var result = []
-
-  for (var prop in obj) {
-    if (_isEvent(prop)) {
-      prop = prop.substr(2) // remove "on" at the beginning
-      result.push(prop)
-    }
-  }
-
-  return result
+function getPrototypeName(prototypeObject) {
+  return prototypeObject.toString().slice(8).slice(0, -1)
 }
 
-function getEvents() {
-  const result = {}
+// https://stackoverflow.com/questions/31158902/is-it-possible-to-sort-a-es6-map-object/51242261
+function sortMapKey(targetMap) {
+  return new Map([...targetMap.entries()].sort())
+}
 
-  result['window'] = _getEvents(window, hasOwnProperty)
+function main() {
+  let resultMap = new Map()
 
-  const arr = Object.getOwnPropertyNames(window)
+  let windowDefinedPropertyList = Object.getOwnPropertyNames(window)
 
-  for (let i = 0; i < arr.length; i++) {
-    const element = arr[i]
-
-    let resultArray = []
+  for (let i = 0; i < windowDefinedPropertyList.length; i++) {
+    const windowDefinedProperty = windowDefinedPropertyList[i]
 
     try {
-      const obj = window[element]
+      const windowDefinedObject = window[windowDefinedProperty]
 
-      if (!obj || !obj['prototype']) {
+      if (!windowDefinedObject || !windowDefinedObject['prototype']) {
+        // windowにオブジェクトが未定義済みないしはプロトタイプが存在しないものはスキップ
         continue
       }
 
-      let proto = obj['prototype']
+      let prototypeObject = windowDefinedObject['prototype']
 
-      resultArray = _getEvents(proto)
-    } catch (err) {
-      // console.error(`failed to get events of %o`, element);
-    }
-
-    result[element] = resultArray
+      let eventList = getEventList(prototypeObject)
+      if (eventList.length !== 0) {
+        resultMap.set(getPrototypeName(prototypeObject), getEventList(prototypeObject))
+      }
+    } catch (error) {}
   }
-
-  return result
+  return sortMapKey(resultMap)
 }
 
-getEvents()
+main()
