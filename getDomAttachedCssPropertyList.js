@@ -1,5 +1,13 @@
 // おすすめの実行サイト
 // https://mailchimp.com/
+function getCssPropertyValue(targetDom, targetCssPropertyName) {
+  return window.getComputedStyle(targetDom).getPropertyValue(targetCssPropertyName)
+}
+
+function getCssPropertyNameList(targetDom) {
+  return Array.from(window.getComputedStyle(targetDom))
+}
+
 function sortList(targetList) {
   // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
   targetList.sort((a, b) => {
@@ -14,6 +22,28 @@ function sortList(targetList) {
     return 0
   })
   return targetList
+}
+
+function extractCssBlockText(targetCssText) {
+  let regexp = new RegExp(/\{.*\}/g)
+  let matchResult = { ...targetCssText.match(regexp) }
+  return matchResult[0]
+}
+
+function extractCssPropertyList(targetCssBlockText) {
+  return targetCssBlockText
+    .replace(/\s/g, '')
+    .replace(/\{/, '')
+    .replace(/\}/, '')
+    .split(/;/)
+    .map((item) => {
+      return item.split(/:/).filter((item2) => {
+        return item2.length !== 0
+      })[0]
+    })
+    .filter((item) => {
+      return item
+    })
 }
 
 function getDomAttachedCssText() {
@@ -31,14 +61,15 @@ function getDomAttachedCssText() {
           cssStyleRules[j].selectorText !== null &&
           cssStyleRules[j].selectorText !== undefined
         ) {
-          let targetDomList = [...document.querySelectorAll(`${cssStyleRules[j].selectorText}`)]
-          if (targetDomList.length !== 0) {
+          let targetDom = document.querySelector(`${cssStyleRules[j].selectorText}`)
+          if (targetDom !== null) {
             // ブラウザが評価可能なセレクタのみ追加
             resultList.push({
               selectorText: cssStyleRules[j].selectorText,
-              selectorDomListCount: targetDomList.length,
-              selectorDomList: targetDomList,
+              selectorDom: targetDom,
               cssText: cssStyleRules[j].cssText,
+              cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
+              cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
             })
           }
         }
@@ -48,7 +79,28 @@ function getDomAttachedCssText() {
   return sortList(resultList)
 }
 
-let resultInfo = getDomAttachedCssText()
+let resultInfoList = getDomAttachedCssText()
+let displayResultInfoList = []
+for (let resultInfoIndex = 0; resultInfoIndex < resultInfoList.length; resultInfoIndex++) {
+  const resultInfo = resultInfoList[resultInfoIndex]
+  let cssPropertyNameList = getCssPropertyNameList(resultInfo.selectorDom)
+  for (let cssPropertyNameIndex = 0; cssPropertyNameIndex < cssPropertyNameList.length; cssPropertyNameIndex++) {
+    const cssPropertyName = cssPropertyNameList[cssPropertyNameIndex]
+    const cssPropertyValue = getCssPropertyValue(resultInfo.selectorDom, cssPropertyName)
+    if (resultInfo.cssDefinedPropertyList.includes(cssPropertyName)) {
+      // developer defined css property value
+      displayResultInfoList.push({
+        selectorDom: resultInfo.selectorDom,
+        cssDefinedPropertyList: resultInfo.cssDefinedPropertyList,
+        cssBlockText: resultInfo.cssBlockText,
+        cssPropertyName: cssPropertyName,
+        cssPropertyValue: cssPropertyValue,
+      })
+    } else {
+      // brawser default css property value
+    }
+  }
+}
 
-// console.log(resultInfo)
-console.table(resultInfo)
+// selectorDomでソート
+console.table(displayResultInfoList)
