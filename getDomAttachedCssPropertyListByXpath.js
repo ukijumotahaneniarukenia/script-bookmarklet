@@ -133,6 +133,7 @@ function getDomAttachedCssText(targetXpath) {
             cssStyleRules[j].selectorText !== undefined
           ) {
             let targetDom = document.querySelector(`${cssStyleRules[j].selectorText}`)
+            // TODO ここでDOMに割ついているセレクタを再帰的に取得するし、リストにマージする
             let regexp = new RegExp(escapeXpath(targetXpath) + '(.*?)', 'g')
             if (targetDom !== null && getXpath(targetDom).match(regexp) !== null) {
               // ブラウザが評価可能なセレクタかつ指定したXPATHに前方一致するセレクタのみ追加
@@ -179,7 +180,9 @@ function getDomAttachedCssText(targetXpath) {
                 cssDefinedPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
               })
             }
-
+            // ここはCSSプロパティを割りつけることができる疑似要素、疑似クラスごとに追記していく感じになる
+            // https://developer.mozilla.org/ja/docs/Web/CSS/Pseudo-elements#index_of_standard_pseudo-elements
+            // https://developer.mozilla.org/ja/docs/Web/CSS/Pseudo-classes#index_of_standard_pseudo-classes
             if (cssStyleRules[j].selectorText === ':root') {
               // https://developer.mozilla.org/ja/docs/Web/CSS/:root
               resultList.push({
@@ -321,8 +324,9 @@ function main(targetXpath) {
 }
 
 // おすすめの実行サイト
-// 若干漏れているが判明 → 再帰的にセレクタ取得してないだけか
+// 若干漏れているが判明 → DOMに割ついているセレクタを再帰的に取得してないだけか
 // chrome拡張のcopy stylesで取得したstyles propertyの結果と比較
 
+// 外部ライブラリのCSSファイルを参照している場合はCHROMEのNetworkタブから該当CSSファイルを選択し、プレビューモードでCSSをコピーしてDOMのheadタグ内の任意のstyleタグに埋め込んでから実行
 // https://tailwindcss.com/docs
 main('/html/body/div[1]/div[2]/div/div[2]/div/div[1]/div[2]/div[3]/div[1]')
