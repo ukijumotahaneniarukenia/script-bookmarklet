@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- 外部CSSファイルをブラウザ上でコピってDOMに手動でstyleタグに追加する
+  - https://css-tricks.com/can-you-view-print-stylesheets-applied-directly-in-the-browser/
+
 - deep dom
 
   - https://github.com/dontcallmedom/webidlpedia
