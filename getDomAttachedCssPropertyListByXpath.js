@@ -123,6 +123,19 @@ function escapeXpath(targetXpath) {
   return targetXpath.replace(/\//g, '\\/').replace(/\[/g, '\\[').replace(/\]/g, '\\]')
 }
 
+function mergePropertyInfo(targetPropertyInfoList, targetPropertyName) {
+  let resultInfo = ''
+  for (let index = 0; index < targetPropertyInfoList.length; index++) {
+    const targetPropertyInfo = targetPropertyInfoList[index]
+    if (index === 0) {
+      resultInfo = resultInfo + targetPropertyInfo[targetPropertyName]
+    } else {
+      resultInfo = resultInfo + '\n' + targetPropertyInfo[targetPropertyName]
+    }
+  }
+  return resultInfo
+}
+
 function main(targetXpath) {
   let [resultExcludeList, resultInfoList] = getDomAttachedCssText(targetXpath)
   let displayResultInfoList = []
@@ -145,7 +158,7 @@ function main(targetXpath) {
           cssDefinedPropertyList: resultInfo.cssDefinedPropertyList,
         })
       } else {
-        // brawser default css property value
+        // browser default css property value
       }
     }
   }
@@ -153,6 +166,7 @@ function main(targetXpath) {
   let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
   console.log('targetDom', targetDom)
   console.table(displayResultInfoList)
+  console.log(mergePropertyInfo(displayResultInfoList, 'cssText'))
   console.log('cssExternalLibraryList', resultExcludeList)
 }
 
