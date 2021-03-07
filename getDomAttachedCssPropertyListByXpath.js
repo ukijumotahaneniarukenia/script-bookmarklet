@@ -133,7 +133,7 @@ function getDomAttachedCssText(targetXpath) {
             cssStyleRules[j].selectorText !== undefined
           ) {
             let targetDom = document.querySelector(`${cssStyleRules[j].selectorText}`)
-            // TODO ここでDOMに割ついているセレクタを再帰的に取得するし、リストにマージする
+            // TODO ここでDOMに割ついているセレクタを再帰的に取得し、逆引きしながらリストにマージする
             let regexp = new RegExp(escapeXpath(targetXpath) + '(.*?)', 'g')
             if (targetDom !== null && getXpath(targetDom).match(regexp) !== null) {
               // ブラウザが評価可能なセレクタかつ指定したXPATHに前方一致するセレクタのみ追加
