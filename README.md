@@ -1,76 +1,93 @@
 # script-bookmarklet
 
 - deep dom
+
   - https://github.com/dontcallmedom/webidlpedia
 
-- dom継承関係図 参考になりそう
+- dom 継承関係図 参考になりそう
+
   - https://stackoverflow.com/questions/39344977/the-dom-inheritance-structure
 
-- Cssプロパティのグルーピングはtailwindcssから逆算したほうが早そうで便利そう
+- Css プロパティのグルーピングは tailwindcss から逆算したほうが早そうで便利そう
+
   - https://tailwindcss.com/
-  - Vueで試したら思い通りにできそうなので、この方針で一旦進める
+  - Vue で試したら思い通りにできそうなので、この方針で一旦進める
     - https://tailwindcomponents.com/components
-    - layoutグループ配下から無心ですすめる
+    - layout グループ配下から無心ですすめる
       - https://tailwindcss.com/docs/container
     - https://qiita.com/cubenoy22/items/3ccce86cf128c96a079d
-    - primerでもいいかもって思ってきた
+    - primer でもいいかもって思ってきた
       - https://primer.style/css/components/timeline
       - https://qiita.com/shierote/items/047dd9ab483b4a7bec6f
   - アウトプットイメージ
     - https://github.com/avigoldman/css-groups
 
-- Cssリンタを使った逆算
+- Css リンタを使った逆算
+
   - https://qiita.com/oh_rusty_nail/items/12e5783a9630a6905b1e
 
-- Tab UIすごい
+- Tab UI すごい
+
   - https://web.dev/building-a-tabs-component/
 
-- UI参考になる
+- UI 参考になる
+
   - https://wave.video/
   - https://wave.video/blog/royalty-free-music/
 
 - モバイル向けフレームワーク
+
   - https://ja.onsen.io/
 
 - 各ベンダ開発ブログ
+
   - https://dev.opera.com/
 
-- cssセレクタ
+- css セレクタ
+
   - https://www.w3schools.com/cssref/css_selectors.asp
   - https://css-tricks.com/almanac/selectors/
 
 - Vue Composition
+
   - https://qiita.com/ryo2132/items/f055679e9974dbc3f977#comments
 
-
 - コーデックの調べ方
+
   - https://stackoverflow.com/questions/22996665/unable-to-get-mediasource-working-with-mp4-format-in-chrome
   - http://var.blog.jp/archives/82006076.html
   - https://medium.com/@JackPu/how-js-get-video-codec-548a33cf7454
 
 - Web Component
+
   - https://techtekt.persol-career.co.jp/entry/tech/200707_01
   - https://ja.javascript.info/webcomponents-intro
   - https://laboradian.com/web-components-samples/
   - https://developer.mozilla.org/ja/docs/Web/API/CustomElementRegistry
   - https://nulab.com/ja/blog/cacoo/web-components/
 
-- cssでエラトステネス
+- css でエラトステネス
+
   - https://takamos.ooo/css-prime-number/
 
-- web component pure実装サンプル集
+- web component pure 実装サンプル集
+
   - https://webparts.cman.jp/string/back/
 
 - デバイスサイズの向き検知
+
   - https://stackoverflow.com/questions/4917664/detect-viewport-orientation-if-orientation-is-portrait-display-alert-message-ad
 
 - 複雑なイベントハンドラの実行順序制御例
+
   - https://stackoverflow.com/questions/15101243/how-should-i-make-complex-sequential-events-in-javascript
 
-- ビデオはloadメソッドを呼ぶとイベント発火をいろいろかくにんできる
+- ビデオは load メソッドを呼ぶとイベント発火をいろいろかくにんできる
+
   - https://stackoverflow.com/questions/13864795/wait-until-an-html5-video-loads
 
 - イベントの完了を待ち合わせするためにプロミスでラップハンドリングするとハンディに制御できそう async function for statement await
+
   - https://qiita.com/sin_tanaka/items/b17a099d2a6a5e9a94b7
 
 - dom に割りついている CSS プロパティリストを取得できる 便利

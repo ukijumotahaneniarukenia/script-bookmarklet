@@ -1,5 +1,5 @@
-|Selector|Example|description|
-|:-:|:-:|:-:|
-|.class|.intro|introクラス属性を持つ要素すべてを選択します|
-|[hogehoge]:not([hogehoge="hogehogeValue"])|[data-module-id]:not([data-module-id="articleText"])|data-module-id属性を持つ要素のうちdata-module-id属性の値がarticleTextでない要素すべてを選択します|
-|.class:not([class^="classNamePrefix"]):not([class*="classNameKeyword"])|.signUp:not([class^="background"]):not([class*=" background"])|signUpクラスを持つ要素のうちclass属性の接頭辞がbackgroundでないかつclass属性の値にbackgroundが含まれない要素すべてを選択します|
+|                                Selector                                 |                            Example                             |                                                               description                                                               |
+| :---------------------------------------------------------------------: | :------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------: |
+|                                 .class                                  |                             .intro                             |                                              intro クラス属性を持つ要素すべてを選択します                                               |
+|               [hogehoge]:not([hogehoge="hogehogeValue"])                |      [data-module-id]:not([data-module-id="articleText"])      |                 data-module-id 属性を持つ要素のうち data-module-id 属性の値が articleText でない要素すべてを選択します                  |
+| .class:not([class^="classNamePrefix"]):not([class*="classNameKeyword"]) | .signUp:not([class^="background"]):not([class*=" background"]) | signUp クラスを持つ要素のうち class 属性の接頭辞が background でないかつ class 属性の値に background が含まれない要素すべてを選択します |
