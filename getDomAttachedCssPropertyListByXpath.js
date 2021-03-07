@@ -2,6 +2,26 @@ function getCssPropertyValue(targetDom, targetCssPropertyName) {
   return window.getComputedStyle(targetDom).getPropertyValue(targetCssPropertyName)
 }
 
+function isExistsDefaultCssPropertyName(targetCssPropertyName) {
+  let allCssPropertyList = Array.from(
+    new Set(
+      [window.document.body.parentNode, window.document.body]
+        .map((item) => {
+          return getCssPropertyNameList(item)
+        })
+        .flat()
+    )
+  )
+  let matchCount = allCssPropertyList.filter((item) => {
+    return item === targetCssPropertyName
+  }).length
+
+  if (matchCount !== 0) {
+    return true
+  }
+  return false
+}
+
 function getCssPropertyNameList(targetDom) {
   return Array.from(window.getComputedStyle(targetDom))
 }
@@ -30,7 +50,6 @@ function extractCssBlockText(targetCssText) {
 
 function extractCssPropertyList(targetCssBlockText) {
   return targetCssBlockText
-    .replace(/\s/g, '')
     .replace(/\{/, '')
     .replace(/\}/, '')
     .split(/;/)
@@ -39,8 +58,29 @@ function extractCssPropertyList(targetCssBlockText) {
         return item2.length !== 0
       })[0]
     })
+    .map((item) => {
+      return item.trim()
+    })
     .filter((item) => {
-      return item
+      return item.length !== 0
+    })
+}
+
+function extractCssPropertyInfoList(targetCssBlockText) {
+  return targetCssBlockText
+    .replace(/\{/, '')
+    .replace(/\}/, '')
+    .split(/;/)
+    .map((item) => {
+      return item.split(/:/).filter((item2) => {
+        return item2.length !== 0
+      })
+    })
+    .filter((item) => {
+      return item[0].trim().length !== 0
+    })
+    .map((item) => {
+      return { propertyName: item[0].trim(), propertyValue: item[1].trim() }
     })
 }
 
@@ -103,6 +143,95 @@ function getDomAttachedCssText(targetXpath) {
                 cssText: cssStyleRules[j].cssText,
                 cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
                 cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
+                cssDefinedPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
+              })
+            }
+            if (cssStyleRules[j].selectorText === 'html') {
+              resultList.push({
+                selectorText: cssStyleRules[j].selectorText,
+                selectorDom: '',
+                xpath: '',
+                cssText: cssStyleRules[j].cssText,
+                cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
+                cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
+                cssDefinedPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
+              })
+            }
+            if (cssStyleRules[j].selectorText === 'body') {
+              resultList.push({
+                selectorText: cssStyleRules[j].selectorText,
+                selectorDom: '',
+                xpath: '',
+                cssText: cssStyleRules[j].cssText,
+                cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
+                cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
+                cssDefinedPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
+              })
+            }
+            if (cssStyleRules[j].selectorText === '*') {
+              resultList.push({
+                selectorText: cssStyleRules[j].selectorText,
+                selectorDom: '',
+                xpath: '',
+                cssText: cssStyleRules[j].cssText,
+                cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
+                cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
+                cssDefinedPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
+              })
+            }
+            if (cssStyleRules[j].selectorText === ':root') {
+              resultList.push({
+                selectorText: cssStyleRules[j].selectorText,
+                selectorDom: '',
+                xpath: '',
+                cssText: cssStyleRules[j].cssText,
+                cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
+                cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
+                cssDefinedPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
+              })
+            }
+            if (cssStyleRules[j].selectorText === ':before') {
+              resultList.push({
+                selectorText: cssStyleRules[j].selectorText,
+                selectorDom: '',
+                xpath: '',
+                cssText: cssStyleRules[j].cssText,
+                cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
+                cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
+                cssDefinedPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
+              })
+            }
+            if (cssStyleRules[j].selectorText === ':after') {
+              resultList.push({
+                selectorText: cssStyleRules[j].selectorText,
+                selectorDom: '',
+                xpath: '',
+                cssText: cssStyleRules[j].cssText,
+                cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
+                cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
+                cssDefinedPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
+              })
+            }
+            if (cssStyleRules[j].selectorText === '::before') {
+              resultList.push({
+                selectorText: cssStyleRules[j].selectorText,
+                selectorDom: '',
+                xpath: '',
+                cssText: cssStyleRules[j].cssText,
+                cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
+                cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
+                cssDefinedPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
+              })
+            }
+            if (cssStyleRules[j].selectorText === '::after') {
+              resultList.push({
+                selectorText: cssStyleRules[j].selectorText,
+                selectorDom: '',
+                xpath: '',
+                cssText: cssStyleRules[j].cssText,
+                cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
+                cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
+                cssDefinedPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
               })
             }
           }
@@ -136,29 +265,54 @@ function mergePropertyInfo(targetPropertyInfoList, targetPropertyName) {
   return resultInfo
 }
 
+function categorizedCssProperty(targetCssBlockText) {
+  let cssPropertyInfoList = extractCssPropertyInfoList(targetCssBlockText)
+  for (let index = 0; index < cssPropertyInfoList.length; index++) {
+    const cssPropertyInfo = cssPropertyInfoList[index]
+    console.log(cssPropertyInfo)
+  }
+}
+
 function main(targetXpath) {
   let [resultExcludeList, resultInfoList] = getDomAttachedCssText(targetXpath)
   let displayResultInfoList = []
   for (let resultInfoIndex = 0; resultInfoIndex < resultInfoList.length; resultInfoIndex++) {
     const resultInfo = resultInfoList[resultInfoIndex]
-    let cssPropertyNameList = getCssPropertyNameList(resultInfo.selectorDom)
-    for (let cssPropertyNameIndex = 0; cssPropertyNameIndex < cssPropertyNameList.length; cssPropertyNameIndex++) {
-      const cssPropertyName = cssPropertyNameList[cssPropertyNameIndex]
-      const cssPropertyValue = getCssPropertyValue(resultInfo.selectorDom, cssPropertyName)
-      if (resultInfo.cssDefinedPropertyList.includes(cssPropertyName)) {
-        // developer defined css property value
+    let cssPropertyNameList = []
+    if (resultInfo.xpath !== '') {
+      cssPropertyNameList = getCssPropertyNameList(resultInfo.selectorDom)
+      for (let cssPropertyNameIndex = 0; cssPropertyNameIndex < cssPropertyNameList.length; cssPropertyNameIndex++) {
+        const cssPropertyName = cssPropertyNameList[cssPropertyNameIndex]
+        let cssPropertyValue = getCssPropertyValue(resultInfo.selectorDom, cssPropertyName)
+        if (resultInfo.cssDefinedPropertyList.includes(cssPropertyName)) {
+          displayResultInfoList.push({
+            cssPropertyType: 'browserDefaultCssProperty',
+            selectorText: resultInfo.selectorText,
+            cssPropertyName: cssPropertyName,
+            cssPropertyValue: cssPropertyValue,
+            cssText: resultInfo.cssText,
+            cssBlockText: resultInfo.cssBlockText,
+            xpath: resultInfo.xpath,
+            selectorDom: resultInfo.selectorDom,
+            cssDefinedPropertyList: resultInfo.cssDefinedPropertyList,
+          })
+        }
+      }
+    } else {
+      for (let index = 0; index < resultInfo.cssDefinedPropertyInfoList.length; index++) {
+        const cssDefinedPropertyName = resultInfo.cssDefinedPropertyInfoList[index].propertyName
+        const cssDefinedPropertyValue = resultInfo.cssDefinedPropertyInfoList[index].propertyValue
         displayResultInfoList.push({
+          cssPropertyType: isExistsDefaultCssPropertyName(cssDefinedPropertyName) ? 'browserDefaultCssProperty' : 'userDefinedCssProperty',
           selectorText: resultInfo.selectorText,
-          cssPropertyName: cssPropertyName,
-          cssPropertyValue: cssPropertyValue,
+          cssPropertyName: cssDefinedPropertyName,
+          cssPropertyValue: cssDefinedPropertyValue,
           cssText: resultInfo.cssText,
           cssBlockText: resultInfo.cssBlockText,
           xpath: resultInfo.xpath,
           selectorDom: resultInfo.selectorDom,
           cssDefinedPropertyList: resultInfo.cssDefinedPropertyList,
         })
-      } else {
-        // browser default css property value
       }
     }
   }
@@ -172,4 +326,9 @@ function main(targetXpath) {
 
 // おすすめの実行サイト
 // https://tailwindcss.com/docs
+
+// 対象のXPATH以外にHTMLタグ、BODYタグ、全称セレクタ、疑似クラスBEFORE、疑似クラスAFTER、疑似クラスROOTを含める必要がある
+// https://developer.mozilla.org/ja/docs/Web/CSS/:root
+// https://developer.mozilla.org/ja/docs/Web/CSS/::after
+// https://developer.mozilla.org/ja/docs/Web/CSS/::before
 main('/html/body/div[1]/div[2]/div/div[2]/div/div[1]/div[2]/div[3]/div[1]')
