@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="rounded-t-xl overflow-hidden bg-gradient-to-r from-emerald-50 to-teal-100 p-10">
+      <img class="float-right mt-2 mr-0 mb-4 ml-10 h-32" src="" />
+      <p class="text-emerald-500 font-flow text-justify font-medium" data-metatip="true">ultrices condimentum velit. Proin v</p>
+    </div>
+    <script>
+      function extractClassList(targetDom, resultList, classAttributeInfoList) {
+        let targetDomChildList = Array.from(targetDom.childNodes)
+        if (targetDomChildList.length === 0) {
+          return resultList
+        }
+        for (let index = 0; index < targetDomChildList.length; index++) {
+          const targetDomChild = targetDomChildList[index]
+          if (targetDomChild.nodeName !== '#text' && targetDomChild.nodeName !== '#comment') {
+            classAttributeInfoList.push({
+              dom: targetDomChild,
+              classList: targetDomChild.getAttribute('class').split(/ /),
+            })
+          } else {
+            classAttributeInfoList.push({
+              dom: targetDomChild,
+              classList: '',
+            })
+          }
+          resultList.push(targetDomChild)
+          extractClassList(targetDomChild, resultList, classAttributeInfoList)
+        }
+      }
+
+      function executeExtractClassList(targetDom) {
+        let resultList = new Array()
+        let classAttributeInfoList = new Array()
+        extractClassList(targetDom, resultList, classAttributeInfoList)
+        // console.log(resultList)
+        console.log(classAttributeInfoList)
+      }
+
+      let targetXpath = '/html/body/div'
+      let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
+      executeExtractClassList(targetDom)
+    </script>
+  </body>
+</html>
