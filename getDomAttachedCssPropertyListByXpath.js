@@ -321,5 +321,8 @@ function main(targetXpath) {
 }
 
 // おすすめの実行サイト
+// 若干漏れているが判明 → 再帰的にセレクタ取得してないだけか
+// chrome拡張のcopy stylesで取得したstyles propertyの結果と比較
+
 // https://tailwindcss.com/docs
 main('/html/body/div[1]/div[2]/div/div[2]/div/div[1]/div[2]/div[3]/div[1]')
