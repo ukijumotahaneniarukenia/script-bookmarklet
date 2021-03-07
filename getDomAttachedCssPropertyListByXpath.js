@@ -179,7 +179,9 @@ function getDomAttachedCssText(targetXpath) {
                 cssDefinedPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
               })
             }
+
             if (cssStyleRules[j].selectorText === ':root') {
+              // https://developer.mozilla.org/ja/docs/Web/CSS/:root
               resultList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
@@ -191,6 +193,7 @@ function getDomAttachedCssText(targetXpath) {
               })
             }
             if (cssStyleRules[j].selectorText === ':before') {
+              // https://developer.mozilla.org/ja/docs/Web/CSS/::before
               resultList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
@@ -202,6 +205,7 @@ function getDomAttachedCssText(targetXpath) {
               })
             }
             if (cssStyleRules[j].selectorText === ':after') {
+              // https://developer.mozilla.org/ja/docs/Web/CSS/::after
               resultList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
@@ -213,6 +217,7 @@ function getDomAttachedCssText(targetXpath) {
               })
             }
             if (cssStyleRules[j].selectorText === '::before') {
+              // https://developer.mozilla.org/ja/docs/Web/CSS/::before
               resultList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
@@ -224,6 +229,7 @@ function getDomAttachedCssText(targetXpath) {
               })
             }
             if (cssStyleRules[j].selectorText === '::after') {
+              // https://developer.mozilla.org/ja/docs/Web/CSS/::after
               resultList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
@@ -253,24 +259,13 @@ function escapeXpath(targetXpath) {
 }
 
 function mergePropertyInfo(targetPropertyInfoList, targetPropertyName) {
-  let resultInfo = ''
-  for (let index = 0; index < targetPropertyInfoList.length; index++) {
-    const targetPropertyInfo = targetPropertyInfoList[index]
-    if (index === 0) {
-      resultInfo = resultInfo + targetPropertyInfo[targetPropertyName]
-    } else {
-      resultInfo = resultInfo + '\n' + targetPropertyInfo[targetPropertyName]
-    }
-  }
-  return resultInfo
-}
-
-function categorizedCssProperty(targetCssBlockText) {
-  let cssPropertyInfoList = extractCssPropertyInfoList(targetCssBlockText)
-  for (let index = 0; index < cssPropertyInfoList.length; index++) {
-    const cssPropertyInfo = cssPropertyInfoList[index]
-    console.log(cssPropertyInfo)
-  }
+  return Array.from(
+    new Set(
+      targetPropertyInfoList.map((item) => {
+        return item[targetPropertyName]
+      })
+    )
+  ).join('\n')
 }
 
 function main(targetXpath) {
@@ -303,6 +298,7 @@ function main(targetXpath) {
         const cssDefinedPropertyName = resultInfo.cssDefinedPropertyInfoList[index].propertyName
         const cssDefinedPropertyValue = resultInfo.cssDefinedPropertyInfoList[index].propertyValue
         displayResultInfoList.push({
+          // なるほどmarginなどはエイリアス名の扱いか Array.from(window.getComputedStyle(window.document.body)).filter(item=>{return item==="margin"})
           cssPropertyType: isExistsDefaultCssPropertyName(cssDefinedPropertyName) ? 'browserDefaultCssProperty' : 'userDefinedCssProperty',
           selectorText: resultInfo.selectorText,
           cssPropertyName: cssDefinedPropertyName,
@@ -326,9 +322,4 @@ function main(targetXpath) {
 
 // おすすめの実行サイト
 // https://tailwindcss.com/docs
-
-// 対象のXPATH以外にHTMLタグ、BODYタグ、全称セレクタ、疑似クラスBEFORE、疑似クラスAFTER、疑似クラスROOTを含める必要がある
-// https://developer.mozilla.org/ja/docs/Web/CSS/:root
-// https://developer.mozilla.org/ja/docs/Web/CSS/::after
-// https://developer.mozilla.org/ja/docs/Web/CSS/::before
 main('/html/body/div[1]/div[2]/div/div[2]/div/div[1]/div[2]/div[3]/div[1]')
