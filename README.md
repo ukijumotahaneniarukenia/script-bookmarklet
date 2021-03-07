@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- DOMにスタイル割り付ける
+  - https://davidwalsh.name/css-variables-javascript
+
 - 外部CSSファイルをブラウザ上でコピってDOMに手動でstyleタグに追加する
   - https://css-tricks.com/can-you-view-print-stylesheets-applied-directly-in-the-browser/
 
@@ -12,16 +15,12 @@
   - https://stackoverflow.com/questions/39344977/the-dom-inheritance-structure
 
 - Css プロパティのグルーピングは tailwindcss から逆算したほうが早そうで便利そう
-
-  - https://tailwindcss.com/
-  - Vue で試したら思い通りにできそうなので、この方針で一旦進める
-    - https://tailwindcomponents.com/components
-    - layout グループ配下から無心ですすめる
-      - https://tailwindcss.com/docs/container
+  - 各フレームワークごとにコンポーネント単位で串チェックするとパターン見えてきそう
+    - https://tailwindcss.com/
+    - https://tailwindcss.com/docs/container
     - https://qiita.com/cubenoy22/items/3ccce86cf128c96a079d
-    - primer でもいいかもって思ってきた
-      - https://primer.style/css/components/timeline
-      - https://qiita.com/shierote/items/047dd9ab483b4a7bec6f
+    - https://primer.style/css/components/timeline
+    - https://qiita.com/shierote/items/047dd9ab483b4a7bec6f
   - アウトプットイメージ
     - https://github.com/avigoldman/css-groups
 
