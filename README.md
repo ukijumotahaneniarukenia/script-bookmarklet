@@ -1,5 +1,11 @@
 # script-bookmarklet
 
+- 胸熱な実装
+  - https://gist.github.com/PaulKinlan/6284142
+  - 便利そうなファンクション名だ
+    - createTreeWalker
+    - getMatchedCSSRules
+
 - DOMにスタイル割り付ける
   - https://davidwalsh.name/css-variables-javascript
 
