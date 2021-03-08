@@ -125,11 +125,13 @@ function extractClassList(targetDom, resultList, classAttributeInfoList) {
       classAttributeInfoList.push({
         dom: targetDomChild,
         classList: targetDomChild.getAttribute('class').split(/ /),
+        xpath: getXpath(targetDomChild),
       })
     } else {
       classAttributeInfoList.push({
         dom: targetDomChild,
         classList: '',
+        xpath: '',
       })
     }
     resultList.push(targetDomChild)
@@ -138,18 +140,19 @@ function extractClassList(targetDom, resultList, classAttributeInfoList) {
 }
 
 function executeExtractClassList(targetDom) {
-  // TODO xpathも複数件組み立ててreturnしたい
-  let resultList = new Array() // fake list
+  let resultXpathList = new Array() // fake list
   let classAttributeInfoList = new Array()
-  extractClassList(targetDom, resultList, classAttributeInfoList)
-  resultList = []
+  extractClassList(targetDom, resultXpathList, classAttributeInfoList)
+  resultXpathList = []
+  let resultClassList = []
   for (let index = 0; index < classAttributeInfoList.length; index++) {
     const classAttributeInfo = classAttributeInfoList[index]
-    if (classAttributeInfo['classList'] !== '') {
-      resultList = resultList.concat(classAttributeInfo['classList'])
+    if (classAttributeInfo['classList'] !== '' && classAttributeInfo['xpath'] !== '') {
+      resultClassList = resultClassList.concat(classAttributeInfo['classList'])
+      resultXpathList = resultXpathList.concat(classAttributeInfo['xpath'])
     }
   }
-  return resultList
+  return [resultClassList, resultXpathList]
 }
 
 function getDomAttachedCssText(targetXpath) {
@@ -172,15 +175,15 @@ function getDomAttachedCssText(targetXpath) {
           ) {
             {
               let entryDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
-              let tmpList = executeExtractClassList(entryDom).filter((item) => {
+              let [resultClassList, resultXpathList] = executeExtractClassList(entryDom)
+              let tmpList = resultClassList.filter((item) => {
                 return cssStyleRules[j].selectorText.indexOf(item) !== -1
               })
               if (tmpList.length !== 0) {
-                // TODO ここでDOMに割ついているセレクタを再帰的に取得し、クラス名からプロパティを逆引きしながらリストにマージする
                 resultList.push({
                   selectorText: cssStyleRules[j].selectorText,
                   selectorDom: entryDom,
-                  xpath: targetXpath,
+                  xpath: resultXpathList.concat(targetXpath),
                   cssText: cssStyleRules[j].cssText,
                   cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
                   cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
@@ -380,7 +383,6 @@ function main(targetXpath) {
 }
 
 // おすすめの実行サイト
-// 若干漏れているが判明 → DOMに割ついているセレクタを再帰的に取得してないだけか
 // chrome拡張のcopy stylesで取得したstyles propertyの結果と比較
 
 // 外部ライブラリのCSSファイルを参照している場合はCHROMEのNetworkタブから該当CSSファイルを選択し、プレビューモードでCSSをコピーしてDOMのheadタグ内の任意のstyleタグに埋め込んでから実行
