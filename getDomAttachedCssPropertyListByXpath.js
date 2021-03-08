@@ -44,8 +44,8 @@ function sortList(targetList) {
 
 function extractCssBlockText(targetCssText) {
   let regexp = new RegExp(/\{.*\}/g)
-  let matchResult = { ...targetCssText.match(regexp) }
-  return matchResult[0]
+  let matchResultList = { ...targetCssText.match(regexp) }
+  return matchResultList[0]
 }
 
 function extractCssPropertyList(targetCssBlockText) {
@@ -114,6 +114,57 @@ function getXpath(targetDom) {
   }
 }
 
+function extractPureCssSelector(targetSelectorText) {
+  let regexp = new RegExp(/[a-zA-Z0-9\-]+/g)
+  let matchResultList = { ...targetSelectorText.match(regexp) }
+  return matchResultList
+}
+
+function extractCssSelector(targetSelectorText) {
+  // https://www.w3schools.com/cssref/css_selectors.asp
+  // 実現できる範囲で実装範囲を調整
+  let regexp = new RegExp(/[a-zA-Z0-9\-\.#>,+]+/g)
+  let matchResultList = { ...targetSelectorText.match(regexp) }
+  return matchResultList
+}
+
+function extractClassList(targetDom, resultList, classAttributeInfoList) {
+  let targetDomChildList = Array.from(targetDom.childNodes)
+  if (targetDomChildList.length === 0) {
+    return resultList
+  }
+  for (let index = 0; index < targetDomChildList.length; index++) {
+    const targetDomChild = targetDomChildList[index]
+    if (targetDomChild.nodeName !== '#text' && targetDomChild.nodeName !== '#comment') {
+      classAttributeInfoList.push({
+        dom: targetDomChild,
+        classList: targetDomChild.getAttribute('class').split(/ /),
+      })
+    } else {
+      classAttributeInfoList.push({
+        dom: targetDomChild,
+        classList: '',
+      })
+    }
+    resultList.push(targetDomChild)
+    extractClassList(targetDomChild, resultList, classAttributeInfoList)
+  }
+}
+
+function executeExtractClassList(targetDom) {
+  let resultList = new Array() // fake list
+  let classAttributeInfoList = new Array()
+  extractClassList(targetDom, resultList, classAttributeInfoList)
+  resultList = []
+  for (let index = 0; index < classAttributeInfoList.length; index++) {
+    const classAttributeInfo = classAttributeInfoList[index]
+    if (classAttributeInfo['classList'] !== '') {
+      resultList = resultList.concat(classAttributeInfo['classList'])
+    }
+  }
+  return resultList
+}
+
 function getDomAttachedCssText(targetXpath) {
   // https://stackoverflow.com/questions/7251804/cssStyleSheetList-javascript-get-a-list-of-cssStyleSheetList-custom-attributes
   let cssStyleSheetList = document.styleSheets
@@ -133,10 +184,18 @@ function getDomAttachedCssText(targetXpath) {
             cssStyleRules[j].selectorText !== undefined
           ) {
             let targetDom = document.querySelector(`${cssStyleRules[j].selectorText}`)
-            // TODO ここでDOMに割ついているセレクタを再帰的に取得し、逆引きしながらリストにマージする
+            // TODO ここでDOMに割ついているセレクタを再帰的に取得し、クラス名からプロパティを逆引きしながらリストにマージする
             let regexp = new RegExp(escapeXpath(targetXpath) + '(.*?)', 'g')
             if (targetDom !== null && getXpath(targetDom).match(regexp) !== null) {
               // ブラウザが評価可能なセレクタかつ指定したXPATHに前方一致するセレクタのみ追加
+              console.log(
+                extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
+                cssStyleRules[j].cssText,
+                cssStyleRules[j].selectorText,
+                extractCssSelector(cssStyleRules[j].selectorText),
+                extractPureCssSelector(cssStyleRules[j].selectorText),
+                executeExtractClassList(targetDom),
+              )
               resultList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: targetDom,
