@@ -160,11 +160,22 @@ function executeExtractClassList(targetDom) {
   return [resultClassList, resultXpathList]
 }
 
+function isNotExistSelector(targetResultInfoList, targetSelectorText) {
+  let isExist = false
+  for (let index = 0; index < targetResultInfoList.length; index++) {
+    const targetResultInfo = targetResultInfoList[index]
+    if (targetResultInfo.selectorText === targetSelectorText) {
+      isExist = isExist || true
+    }
+  }
+  return !isExist
+}
+
 function getDomAttachedCssText(targetXpath) {
   // https://stackoverflow.com/questions/7251804/cssStyleSheetList-javascript-get-a-list-of-cssStyleSheetList-custom-attributes
   let cssStyleSheetList = document.styleSheets
   let cssStyleRules = null
-  let resultList = []
+  let resultInfoList = []
   let resultExcludeList = []
   for (let i in cssStyleSheetList) {
     if (typeof cssStyleSheetList[i] === 'object' && cssStyleSheetList[i].href === null) {
@@ -185,11 +196,10 @@ function getDomAttachedCssText(targetXpath) {
                 return cssStyleRules[j].selectorText.indexOf(item) !== -1
               })
               if (tmpList.length !== 0) {
-                // TODO セレクタの存在チェックしてから追加すればほぼOK
-                resultList.push({
+                resultInfoList.push({
                   selectorText: cssStyleRules[j].selectorText,
                   selectorDom: entryDom,
-                  xpath: resultXpathList,
+                  xpath: resultXpathList, // TODO できればここフラットにする
                   cssText: cssStyleRules[j].cssText,
                   cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
                   cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
@@ -200,9 +210,13 @@ function getDomAttachedCssText(targetXpath) {
 
             let targetDom = document.querySelector(`${cssStyleRules[j].selectorText}`)
             let regexp = new RegExp(escapeXpath(targetXpath) + '(.*?)', 'g')
-            if (targetDom !== null && getXpath(targetDom).match(regexp) !== null) {
+            if (
+              targetDom !== null &&
+              getXpath(targetDom).match(regexp) !== null &&
+              isNotExistSelector(resultInfoList, cssStyleRules[j].selectorText)
+            ) {
               // ブラウザが評価可能なセレクタかつ指定したXPATHに前方一致するセレクタのみ追加
-              resultList.push({
+              resultInfoList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: targetDom,
                 xpath: getXpath(targetDom),
@@ -213,7 +227,7 @@ function getDomAttachedCssText(targetXpath) {
               })
             }
             if (cssStyleRules[j].selectorText === 'html') {
-              resultList.push({
+              resultInfoList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
                 xpath: '',
@@ -224,7 +238,7 @@ function getDomAttachedCssText(targetXpath) {
               })
             }
             if (cssStyleRules[j].selectorText === 'body') {
-              resultList.push({
+              resultInfoList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
                 xpath: '',
@@ -235,7 +249,7 @@ function getDomAttachedCssText(targetXpath) {
               })
             }
             if (cssStyleRules[j].selectorText === '*') {
-              resultList.push({
+              resultInfoList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
                 xpath: '',
@@ -250,7 +264,7 @@ function getDomAttachedCssText(targetXpath) {
             // https://developer.mozilla.org/ja/docs/Web/CSS/Pseudo-classes#index_of_standard_pseudo-classes
             if (cssStyleRules[j].selectorText === ':root') {
               // https://developer.mozilla.org/ja/docs/Web/CSS/:root
-              resultList.push({
+              resultInfoList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
                 xpath: '',
@@ -262,7 +276,7 @@ function getDomAttachedCssText(targetXpath) {
             }
             if (cssStyleRules[j].selectorText === ':before') {
               // https://developer.mozilla.org/ja/docs/Web/CSS/::before
-              resultList.push({
+              resultInfoList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
                 xpath: '',
@@ -274,7 +288,7 @@ function getDomAttachedCssText(targetXpath) {
             }
             if (cssStyleRules[j].selectorText === ':after') {
               // https://developer.mozilla.org/ja/docs/Web/CSS/::after
-              resultList.push({
+              resultInfoList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
                 xpath: '',
@@ -286,7 +300,7 @@ function getDomAttachedCssText(targetXpath) {
             }
             if (cssStyleRules[j].selectorText === '::before') {
               // https://developer.mozilla.org/ja/docs/Web/CSS/::before
-              resultList.push({
+              resultInfoList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
                 xpath: '',
@@ -298,7 +312,7 @@ function getDomAttachedCssText(targetXpath) {
             }
             if (cssStyleRules[j].selectorText === '::after') {
               // https://developer.mozilla.org/ja/docs/Web/CSS/::after
-              resultList.push({
+              resultInfoList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: '',
                 xpath: '',
@@ -319,7 +333,7 @@ function getDomAttachedCssText(targetXpath) {
       }
     }
   }
-  return [resultExcludeList, sortList(resultList)]
+  return [resultExcludeList, sortList(resultInfoList)]
 }
 
 function escapeXpath(targetXpath) {
