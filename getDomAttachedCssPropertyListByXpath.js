@@ -80,7 +80,7 @@ function extractCssPropertyInfoList(targetCssBlockText) {
       return item[0].trim().length !== 0
     })
     .map((item) => {
-      return { propertyName: item[0].trim(), propertyValue: item[1].trim() }
+      return { propertyName: item[0].trim(), propertyValue: item.splice(1).join().trim() }
     })
 }
 
@@ -121,7 +121,7 @@ function extractClassList(targetDom, resultList, classAttributeInfoList) {
   }
   for (let index = 0; index < targetDomChildList.length; index++) {
     const targetDomChild = targetDomChildList[index]
-    if (targetDomChild.nodeName !== '#text' && targetDomChild.nodeName !== '#comment') {
+    if (targetDomChild.nodeName !== '#text' && targetDomChild.nodeName !== '#comment' && targetDomChild.getAttribute('class') !== null) {
       classAttributeInfoList.push({
         dom: targetDomChild,
         classList: targetDomChild.getAttribute('class').split(/ /),
@@ -424,3 +424,6 @@ function main(targetXpath) {
 // 外部ライブラリのCSSファイルを参照している場合はCHROMEのNetworkタブから該当CSSファイルを選択し、プレビューモードでCSSをコピーしてDOMのheadタグ内の任意のstyleタグに埋め込んでから実行
 // https://tailwindcss.com/docs
 main('/html/body/div[1]/div[2]/div/div[2]/div/div[1]/div[2]/div[3]/div[1]')
+
+// https://mailchimp.com/pricing/
+// main('/html/body/main/div/div/div[1]/div[2]/div[1]')
