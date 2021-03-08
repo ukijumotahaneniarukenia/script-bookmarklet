@@ -142,6 +142,11 @@ function extractClassList(targetDom, resultList, classAttributeInfoList) {
 function executeExtractClassList(targetDom) {
   let resultXpathList = new Array() // fake list
   let classAttributeInfoList = new Array()
+  classAttributeInfoList.push({
+    dom: targetDom,
+    classList: targetDom.getAttribute('class').split(/ /),
+    xpath: getXpath(targetDom),
+  })
   extractClassList(targetDom, resultXpathList, classAttributeInfoList)
   resultXpathList = []
   let resultClassList = []
@@ -180,10 +185,11 @@ function getDomAttachedCssText(targetXpath) {
                 return cssStyleRules[j].selectorText.indexOf(item) !== -1
               })
               if (tmpList.length !== 0) {
+                // TODO セレクタの存在チェックしてから追加すればほぼOK
                 resultList.push({
                   selectorText: cssStyleRules[j].selectorText,
                   selectorDom: entryDom,
-                  xpath: resultXpathList.concat(targetXpath),
+                  xpath: resultXpathList,
                   cssText: cssStyleRules[j].cssText,
                   cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
                   cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
@@ -354,6 +360,22 @@ function main(targetXpath) {
             cssDefinedPropertyList: resultInfo.cssDefinedPropertyList,
           })
         }
+      }
+      for (let index = 0; index < resultInfo.cssDefinedPropertyInfoList.length; index++) {
+        const cssDefinedPropertyName = resultInfo.cssDefinedPropertyInfoList[index].propertyName
+        const cssDefinedPropertyValue = resultInfo.cssDefinedPropertyInfoList[index].propertyValue
+        displayResultInfoList.push({
+          // なるほどmarginなどはエイリアス名の扱いか Array.from(window.getComputedStyle(window.document.body)).filter(item=>{return item==="margin"})
+          cssPropertyType: isExistsDefaultCssPropertyName(cssDefinedPropertyName) ? 'browserDefaultCssProperty' : 'userDefinedCssProperty',
+          selectorText: resultInfo.selectorText,
+          cssPropertyName: cssDefinedPropertyName,
+          cssPropertyValue: cssDefinedPropertyValue,
+          cssText: resultInfo.cssText,
+          cssBlockText: resultInfo.cssBlockText,
+          xpath: resultInfo.xpath,
+          selectorDom: resultInfo.selectorDom,
+          cssDefinedPropertyList: resultInfo.cssDefinedPropertyList,
+        })
       }
     } else {
       for (let index = 0; index < resultInfo.cssDefinedPropertyInfoList.length; index++) {
