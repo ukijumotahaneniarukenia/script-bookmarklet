@@ -114,20 +114,6 @@ function getXpath(targetDom) {
   }
 }
 
-function extractPureCssSelector(targetSelectorText) {
-  let regexp = new RegExp(/[a-zA-Z0-9\-]+/g)
-  let matchResultList = { ...targetSelectorText.match(regexp) }
-  return matchResultList
-}
-
-function extractCssSelector(targetSelectorText) {
-  // https://www.w3schools.com/cssref/css_selectors.asp
-  // 実現できる範囲で実装範囲を調整
-  let regexp = new RegExp(/[a-zA-Z0-9\-\.#>,+]+/g)
-  let matchResultList = { ...targetSelectorText.match(regexp) }
-  return matchResultList
-}
-
 function extractClassList(targetDom, resultList, classAttributeInfoList) {
   let targetDomChildList = Array.from(targetDom.childNodes)
   if (targetDomChildList.length === 0) {
@@ -152,6 +138,7 @@ function extractClassList(targetDom, resultList, classAttributeInfoList) {
 }
 
 function executeExtractClassList(targetDom) {
+  // TODO xpathも複数件組み立ててreturnしたい
   let resultList = new Array() // fake list
   let classAttributeInfoList = new Array()
   extractClassList(targetDom, resultList, classAttributeInfoList)
@@ -183,19 +170,29 @@ function getDomAttachedCssText(targetXpath) {
             cssStyleRules[j].selectorText !== null &&
             cssStyleRules[j].selectorText !== undefined
           ) {
+            {
+              let entryDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
+              let tmpList = executeExtractClassList(entryDom).filter((item) => {
+                return cssStyleRules[j].selectorText.indexOf(item) !== -1
+              })
+              if (tmpList.length !== 0) {
+                // TODO ここでDOMに割ついているセレクタを再帰的に取得し、クラス名からプロパティを逆引きしながらリストにマージする
+                resultList.push({
+                  selectorText: cssStyleRules[j].selectorText,
+                  selectorDom: entryDom,
+                  xpath: targetXpath,
+                  cssText: cssStyleRules[j].cssText,
+                  cssBlockText: extractCssBlockText(cssStyleRules[j].cssText),
+                  cssDefinedPropertyList: extractCssPropertyList(extractCssBlockText(cssStyleRules[j].cssText)),
+                  cssDefinedPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
+                })
+              }
+            }
+
             let targetDom = document.querySelector(`${cssStyleRules[j].selectorText}`)
-            // TODO ここでDOMに割ついているセレクタを再帰的に取得し、クラス名からプロパティを逆引きしながらリストにマージする
             let regexp = new RegExp(escapeXpath(targetXpath) + '(.*?)', 'g')
             if (targetDom !== null && getXpath(targetDom).match(regexp) !== null) {
               // ブラウザが評価可能なセレクタかつ指定したXPATHに前方一致するセレクタのみ追加
-              console.log(
-                extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
-                cssStyleRules[j].cssText,
-                cssStyleRules[j].selectorText,
-                extractCssSelector(cssStyleRules[j].selectorText),
-                extractPureCssSelector(cssStyleRules[j].selectorText),
-                executeExtractClassList(targetDom),
-              )
               resultList.push({
                 selectorText: cssStyleRules[j].selectorText,
                 selectorDom: targetDom,
