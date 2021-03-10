@@ -2,6 +2,7 @@
 
 - セレクタ点数
   - https://www.slideshare.net/mobile/yumi-uniq-ishizaki/css-13918388
+  - https://specificity.keegan.st/
 
 - 便利そう ポリフィルいろんなのある
   - https://stackoverflow.com/questions/574944/how-to-load-up-css-files-using-javascript
