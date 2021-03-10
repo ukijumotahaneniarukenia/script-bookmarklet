@@ -350,8 +350,37 @@ function mergePropertyInfo(targetPropertyInfoList, targetPropertyName) {
   ).join('\n')
 }
 
+function getCssContent(targetCssLinkUrl) {
+  return new Promise((resolve, reject) => {
+    fetch(targetCssLinkUrl)
+      .then((response) => {
+        return response.text()
+      })
+      .then((data) => {
+        resolve(data)
+      })
+  })
+}
+
+async function makeStyleDom(targetExternalCssLinkUrlInfoList) {
+  let result = ''
+  for (let index = 0; index < targetExternalCssLinkUrlInfoList.length; index++) {
+    const targetExternalCssLinkUrlInfo = targetExternalCssLinkUrlInfoList[index]
+    if (index === 0) {
+      result = result + (await getCssContent(targetExternalCssLinkUrlInfo.cssExternalLibrary))
+    } else {
+      result = result + '\n' + (await getCssContent(targetExternalCssLinkUrlInfo.cssExternalLibrary))
+    }
+  }
+  let targetDom = document.createElement('style')
+  targetDom.innerHTML = result
+  let targetAppendDom = document.getElementsByTagName('head')[0]
+  targetAppendDom.appendChild(targetDom)
+}
+
 function main(targetXpath) {
   let [resultExcludeList, resultInfoList] = getDomAttachedCssText(targetXpath)
+  makeStyleDom(resultExcludeList)
   let displayResultInfoList = []
   for (let resultInfoIndex = 0; resultInfoIndex < resultInfoList.length; resultInfoIndex++) {
     const resultInfo = resultInfoList[resultInfoIndex]
@@ -419,6 +448,5 @@ function main(targetXpath) {
 }
 
 // chrome拡張のcopy stylesで取得したstyles propertyの結果と比較
-// 外部ライブラリのCSSファイルを参照している場合はCHROMEのNetworkタブから該当CSSファイルを選択し、プレビューモードでCSSをコピーしてDOMのheadタグ内の任意のstyleタグに埋め込んでから実行
 let targetXpath = prompt('Input Xpath')
 main(targetXpath)
