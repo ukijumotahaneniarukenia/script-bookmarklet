@@ -418,12 +418,7 @@ function main(targetXpath) {
   console.log('cssExternalLibraryList', resultExcludeList)
 }
 
-// おすすめの実行サイト
 // chrome拡張のcopy stylesで取得したstyles propertyの結果と比較
-
 // 外部ライブラリのCSSファイルを参照している場合はCHROMEのNetworkタブから該当CSSファイルを選択し、プレビューモードでCSSをコピーしてDOMのheadタグ内の任意のstyleタグに埋め込んでから実行
-// https://tailwindcss.com/docs
-main('/html/body/div[1]/div[2]/div/div[2]/div/div[1]/div[2]/div[3]/div[1]')
-
-// https://mailchimp.com/pricing/
-// main('/html/body/main/div/div/div[1]/div[2]/div[1]')
+let targetXpath = prompt('Input Xpath')
+main(targetXpath)
