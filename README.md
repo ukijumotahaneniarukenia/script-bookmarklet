@@ -4,6 +4,7 @@
   - https://stackoverflow.com/questions/574944/how-to-load-up-css-files-using-javascript
   - https://stackoverflow.com/questions/2952667/find-all-css-rules-that-apply-to-an-element
   - https://gist.github.com/ssafejava/6605832
+  - http://www.brothercake.com/site/resources/scripts/cssutilities/
 
 - 胸熱な実装
   - https://gist.github.com/PaulKinlan/6284142
