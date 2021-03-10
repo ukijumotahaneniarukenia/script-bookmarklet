@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- 便利そう
+  - https://stackoverflow.com/questions/574944/how-to-load-up-css-files-using-javascript
+
 - 胸熱な実装
   - https://gist.github.com/PaulKinlan/6284142
   - 便利そうなファンクション名だ
