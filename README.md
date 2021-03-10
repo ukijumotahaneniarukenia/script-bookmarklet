@@ -1,7 +1,9 @@
 # script-bookmarklet
 
-- 便利そう
+- 便利そう ポリフィルいろんなのある
   - https://stackoverflow.com/questions/574944/how-to-load-up-css-files-using-javascript
+  - https://stackoverflow.com/questions/2952667/find-all-css-rules-that-apply-to-an-element
+  - https://gist.github.com/ssafejava/6605832
 
 - 胸熱な実装
   - https://gist.github.com/PaulKinlan/6284142
