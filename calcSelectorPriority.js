@@ -122,7 +122,7 @@ function traverseDom(targetDom, resultList, resultListMap) {
   }
 }
 
-// https://gist.github.com/ssafejava/6605832
+// https://gist.github.com/ssafejava/6605832#file-mozgetmatchedcssrules-js-L26
 function countPatternMatch(targetSelectorTokenItem, targetPattern) {
   let matchList = targetSelectorTokenItem.match(targetPattern)
   if (matchList === null) {
@@ -131,8 +131,8 @@ function countPatternMatch(targetSelectorTokenItem, targetPattern) {
   return matchList.length
 }
 
-// https://gist.github.com/ssafejava/6605832
-function calculateScore(targetSelector) {
+// https://gist.github.com/ssafejava/6605832#file-mozgetmatchedcssrules-js-L32
+function calculatePriorityScore(targetSelector) {
   let priorityScore = [0, 0, 0]
   let selectorTokenList = targetSelector.split(' ')
   let matchCount = null
@@ -184,12 +184,66 @@ function calculateScore(targetSelector) {
   return Number.parseInt(priorityScore.join(''))
 }
 
+function isEnableSelector(targetDom, targetSelector) {
+  if (targetDom.mozMatchesSelector !== undefined && targetDom.mozMatchesSelector(targetSelector)) {
+    return targetSelector
+  }
+  if (targetDom.matchesSelector !== undefined && targetDom.matchesSelector(targetSelector)) {
+    return targetSelector
+  }
+  if (targetDom.webkitMatchesSelector !== undefined && targetDom.webkitMatchesSelector(targetSelector)) {
+    return targetSelector
+  }
+  if (targetDom.oMatchesSelector !== undefined && targetDom.oMatchesSelector(targetSelector)) {
+    return targetSelector
+  }
+  if (targetDom.msMatchesSelector !== undefined && targetDom.msMatchesSelector(targetSelector)) {
+    return targetSelector
+  }
+  return null
+}
+
+// https://gist.github.com/ssafejava/6605832#file-mozgetmatchedcssrules-js-L70
+function specifyPriorityScore(targetDom, targetSelector) {
+  let selectorTokenList = targetSelector.split(',')
+  let currentPriorityScore = 0
+  let resultPriorityScore = 0
+  for (let index = 0; index < selectorTokenList.length; index++) {
+    const selectorToken = selectorTokenList[index]
+    if (isEnableSelector(targetDom, selectorToken)) {
+      currentPriorityScore = calculatePriorityScore(selectorToken)
+      resultPriorityScore = currentPriorityScore > resultPriorityScore ? currentPriorityScore : resultPriorityScore
+    }
+  }
+  return resultPriorityScore
+}
+
+// https://gist.github.com/ssafejava/6605832#file-mozgetmatchedcssrules-js-L82
+function sortByPriorityScore(targetDom, rules) {
+  // comparing function that sorts CSSStyleRules according to specificity of their `selectorText`
+  function compareSpecificity(a, b) {
+    return specifyPriorityScore(targetDom, b.selectorText) - specifyPriorityScore(targetDom, a.selectorText)
+  }
+
+  return rules.sort(compareSpecificity)
+}
+
 function executeTraverseDom(targetDom) {
   let tmpList = new Array()
   let domListMap = new Map()
   getSelectorList(targetDom, domListMap)
   traverseDom(targetDom, tmpList, domListMap)
   return Array.from(new Set(domListMap))
+}
+
+function reformatList(targetItemList) {
+  let resultList = []
+  for (let index = 0; index < targetItemList.length; index++) {
+    const targetItem = targetItemList[index]
+    targetItem[1]['xpath'] = targetItem[0]
+    resultList.push(targetItem[1])
+  }
+  return resultList
 }
 
 function main(targetXpath) {
@@ -199,12 +253,18 @@ function main(targetXpath) {
   let resultList = executeTraverseDom(targetDom)
 
   for (let index = 0; index < resultList.length; index++) {
-    const [xpath, domInfo] = resultList[index]
+    const [_, domInfo] = resultList[index]
     for (let index = 0; index < domInfo.selectorTextList.length; index++) {
       const selectorText = domInfo.selectorTextList[index]
-      console.log(xpath, selectorText, calculateScore(selectorText))
+      if (domInfo.selectorPriorityScoreList) {
+        domInfo.selectorPriorityScoreList.push(calculatePriorityScore(selectorText))
+      } else {
+        domInfo.selectorPriorityScoreList = [calculatePriorityScore(selectorText)]
+      }
     }
   }
+
+  return reformatList(resultList)
 }
 
 // https://gist.github.com/ssafejava/6605832
@@ -216,4 +276,6 @@ let PSEUDO_CLASSES_PATTERN = /(?<!:):(?!(not))[\w-]+(\(.*\))?/g
 let PSEUDO_ELEMENTS_PATTERN = /::(root|after|before|first-letter|first-line|selection)/g
 
 // https://specificity.keegan.st/
-main('/html/body/div[2]/div[1]/div[2]/span/div[1]')
+let resultList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]')
+
+console.log(resultList)
