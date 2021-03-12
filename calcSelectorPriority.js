@@ -133,52 +133,53 @@ function countPatternMatch(targetSelectorTokenItem, targetPattern) {
 
 // https://gist.github.com/ssafejava/6605832#file-mozgetmatchedcssrules-js-L32
 function calculatePriorityScore(targetSelector) {
+  // https://www.slideshare.net/yumi-uniq-ishizaki/css-13918388
   let priorityScore = [0, 0, 0]
   let selectorTokenList = targetSelector.split(' ')
   let matchCount = null
   for (let index = 0; index < selectorTokenList.length; index++) {
-    const selectorTokenItem = selectorTokenList[index]
-    // 疑似要素パタンマッチ
-    matchCount = countPatternMatch(selectorTokenItem, PSEUDO_ELEMENTS_PATTERN)
-    priorityScore[2] = matchCount
-    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
-    if (matchCount !== 0) {
-      selectorTokenItem.replace(PSEUDO_ELEMENTS_PATTERN, '')
-    }
-    // 疑似クラスパタンマッチ
-    matchCount = countPatternMatch(selectorTokenItem, PSEUDO_CLASSES_PATTERN)
-    priorityScore[1] = matchCount
-    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
-    if (matchCount !== 0) {
-      selectorTokenItem.replace(PSEUDO_CLASSES_PATTERN, '')
-    }
-    // 属性パタンマッチ
-    matchCount = countPatternMatch(selectorTokenItem, ATTR_PATTERN)
-    priorityScore[1] += matchCount
-    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
-    if (matchCount !== 0) {
-      selectorTokenItem.replace(ATTR_PATTERN, '')
-    }
+    let selectorTokenItem = selectorTokenList[index]
     // IDパタンマッチ
     matchCount = countPatternMatch(selectorTokenItem, ID_PATTERN)
-    priorityScore[0] = matchCount
+    priorityScore[0] += matchCount
     // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
     if (matchCount !== 0) {
-      selectorTokenItem.replace(ID_PATTERN, '')
+      selectorTokenItem = selectorTokenItem.replace(ID_PATTERN, '')
     }
     // クラスパタンマッチ
     matchCount = countPatternMatch(selectorTokenItem, CLASS_PATTERN)
     priorityScore[1] += matchCount
     // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
     if (matchCount !== 0) {
-      selectorTokenItem.replace(CLASS_PATTERN, '')
+      selectorTokenItem = selectorTokenItem.replace(CLASS_PATTERN, '')
+    }
+    // 属性パタンマッチ
+    matchCount = countPatternMatch(selectorTokenItem, ATTR_PATTERN)
+    priorityScore[1] += matchCount
+    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
+    if (matchCount !== 0) {
+      selectorTokenItem = selectorTokenItem.replace(ATTR_PATTERN, '')
+    }
+    // 疑似クラスパタンマッチ
+    matchCount = countPatternMatch(selectorTokenItem, PSEUDO_CLASSES_PATTERN)
+    priorityScore[1] += matchCount
+    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
+    if (matchCount !== 0) {
+      selectorTokenItem = selectorTokenItem.replace(PSEUDO_CLASSES_PATTERN, '')
     }
     // 要素パタンマッチ
     matchCount = countPatternMatch(selectorTokenItem, ELEMENT_PATTERN)
     priorityScore[2] += matchCount
     // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
     if (matchCount !== 0) {
-      selectorTokenItem.replace(ELEMENT_PATTERN, '')
+      selectorTokenItem = selectorTokenItem.replace(ELEMENT_PATTERN, '')
+    }
+    // 疑似要素パタンマッチ
+    matchCount = countPatternMatch(selectorTokenItem, PSEUDO_ELEMENTS_PATTERN)
+    priorityScore[2] += matchCount
+    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
+    if (matchCount !== 0) {
+      selectorTokenItem = selectorTokenItem.replace(PSEUDO_ELEMENTS_PATTERN, '')
     }
   }
   return Number.parseInt(priorityScore.join(''))
@@ -276,6 +277,7 @@ let PSEUDO_CLASSES_PATTERN = /(?<!:):(?!(not))[\w-]+(\(.*\))?/g
 let PSEUDO_ELEMENTS_PATTERN = /::(root|after|before|first-letter|first-line|selection)/g
 
 // https://specificity.keegan.st/
-let resultList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]')
+let resultInfoList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]')
+// let resultInfoList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]/dl/span[2]')
 
-console.log(resultList)
+console.log(resultInfoList)
