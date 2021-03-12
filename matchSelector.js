@@ -1,6 +1,6 @@
-let targetDom = document.createElement("div");
+let targetDom = document.createElement('div')
 
-targetDom.setAttribute("class", "hoge");
+targetDom.setAttribute('class', 'hoge')
 
 function matcher(targetDom, targetSelector) {
   if (targetDom.mozMatchesSelector !== undefined && targetDom.mozMatchesSelector(targetSelector)) {
