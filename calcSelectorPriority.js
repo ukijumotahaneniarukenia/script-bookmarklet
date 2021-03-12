@@ -1,4 +1,34 @@
-function getSelectorList(targetDom, resultList) {
+function getXpath(targetDom) {
+  // 最下位のタグから最上位のタグへさかのぼって処理する
+  if (targetDom && targetDom.parentNode) {
+    let xpath = getXpath(targetDom.parentNode) + '/' + targetDom.tagName
+    let sameHierarchyChildList = []
+    for (let childIndex = 0; childIndex < targetDom.parentNode.childNodes.length; childIndex++) {
+      // 対象のDOMが同一階層に複数存在する要素の一つである場合は何番目かを特定するため、親要素からみた子要素すべてのDOMを保持する
+      let childNode = targetDom.parentNode.childNodes[childIndex]
+
+      if (childNode.tagName == targetDom.tagName) {
+        sameHierarchyChildList.push(childNode)
+      }
+    }
+
+    if (1 < sameHierarchyChildList.length) {
+      // 同一階層に複数存在する要素の一つである場合、インデックス番号を付与する
+      for (let sameHierarchyChildIndex = 0; sameHierarchyChildIndex < sameHierarchyChildList.length; sameHierarchyChildIndex++) {
+        if (sameHierarchyChildList[sameHierarchyChildIndex] === targetDom) {
+          xpath += '[' + (sameHierarchyChildIndex + 1) + ']'
+          break // 対象のDOMに対して処理できればよいので、それ以外は処理対象外にする
+        }
+      }
+    }
+
+    return xpath.toLowerCase()
+  } else {
+    return ''
+  }
+}
+
+function getSelectorList(targetDom, resultListMap) {
   // https://stackoverflow.com/questions/7251804/cssStyleSheetList-javascript-get-a-list-of-cssStyleSheetList-custom-attributes
   let cssStyleSheetList = document.styleSheets
   let cssStyleRules = null
@@ -16,37 +46,49 @@ function getSelectorList(targetDom, resultList) {
             targetDom.nodeName !== '#comment'
           ) {
             if (targetDom.matches(cssStyleRules[j].selectorText)) {
-              resultList.push(cssStyleRules[j].selectorText)
+              let targetXpath = getXpath(targetDom)
+              if (resultListMap.has(targetXpath)) {
+                let targetResultInfo = resultListMap.get(targetXpath)
+                targetResultInfo.selectorTextList.push(cssStyleRules[j].selectorText)
+                targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+                resultListMap.set(targetXpath, targetResultInfo)
+              } else {
+                resultListMap.set(targetXpath, {
+                  selectorTextList: [cssStyleRules[j].selectorText],
+                  cssTextList: [cssStyleRules[j].cssText],
+                })
+              }
             }
           }
         }
       }
     }
   }
-  return resultList
+  return resultListMap
 }
 
-function traverseDom(targetDom, resultList, selectorList) {
+function traverseDom(targetDom, resultList, resultListMap) {
   let targetDomChildList = Array.from(targetDom.childNodes)
   if (targetDomChildList.length === 0) {
     return resultList
   }
   for (let index = 0; index < targetDomChildList.length; index++) {
     const targetDomChild = targetDomChildList[index]
-    getSelectorList(targetDomChild, selectorList)
+    getSelectorList(targetDomChild, resultListMap)
     resultList.push(targetDomChild)
-    traverseDom(targetDomChild, resultList, selectorList)
+    traverseDom(targetDomChild, resultList, resultListMap)
   }
 }
 
 function executeTraverseDom(targetDom) {
   let tmpList = new Array()
-  let selectorList = new Array()
-  getSelectorList(targetDom, selectorList)
-  traverseDom(targetDom, tmpList, selectorList)
-  return Array.from(new Set(selectorList))
+  let domListMap = new Map()
+  getSelectorList(targetDom, domListMap)
+  traverseDom(targetDom, tmpList, domListMap)
+  return Array.from(new Set(domListMap))
 }
 
+// https://specificity.keegan.st/
 let targetDom = document
   .evaluate('/html/body/div[2]/div[1]/div[2]/span/div[1]', document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
   .snapshotItem(0)
