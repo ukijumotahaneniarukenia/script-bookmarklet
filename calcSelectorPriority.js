@@ -67,6 +67,48 @@ function getSelectorList(targetDom, resultListMap) {
   return resultListMap
 }
 
+function getCssContent(targetCssLinkUrl) {
+  return new Promise((resolve, reject) => {
+    fetch(targetCssLinkUrl)
+      .then((response) => {
+        return response.text()
+      })
+      .then((data) => {
+        resolve(data)
+      })
+      .catch((error) => {
+        reject(error)
+      })
+  })
+}
+
+async function makeStyleDom(targetExternalCssLinkUrlList) {
+  let result = ''
+  for (let index = 0; index < targetExternalCssLinkUrlList.length; index++) {
+    const targetExternalCssLinkUrl = targetExternalCssLinkUrlList[index]
+    if (index === 0) {
+      result = result + (await getCssContent(targetExternalCssLinkUrl))
+    } else {
+      result = result + '\n' + (await getCssContent(targetExternalCssLinkUrl))
+    }
+  }
+  let targetDom = document.createElement('style')
+  targetDom.innerHTML = result
+  let targetAppendDom = document.getElementsByTagName('head')[0]
+  targetAppendDom.appendChild(targetDom)
+}
+
+function getExternalCssLinkUrlList() {
+  let cssStyleSheetList = document.styleSheets
+  let resultList = []
+  for (let i in cssStyleSheetList) {
+    if (typeof cssStyleSheetList[i] === 'object' && cssStyleSheetList[i].href !== null && cssStyleSheetList[i].href !== undefined) {
+      resultList.push(cssStyleSheetList[i].href)
+    }
+  }
+  return resultList
+}
+
 function traverseDom(targetDom, resultList, resultListMap) {
   let targetDomChildList = Array.from(targetDom.childNodes)
   if (targetDomChildList.length === 0) {
@@ -88,11 +130,14 @@ function executeTraverseDom(targetDom) {
   return Array.from(new Set(domListMap))
 }
 
+function main(targetXpath) {
+  makeStyleDom(getExternalCssLinkUrlList())
+  let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
+
+  let resultList = executeTraverseDom(targetDom)
+
+  console.log(resultList)
+}
+
+main('/html/body/div[2]/div[1]/div[2]/span/div[1]')
 // https://specificity.keegan.st/
-let targetDom = document
-  .evaluate('/html/body/div[2]/div[1]/div[2]/span/div[1]', document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null)
-  .snapshotItem(0)
-
-let resultList = executeTraverseDom(targetDom)
-
-console.log(resultList)
