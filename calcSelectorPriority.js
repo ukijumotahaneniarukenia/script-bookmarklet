@@ -220,13 +220,18 @@ function specifyPriorityScore(targetDom, targetSelector) {
 }
 
 // https://gist.github.com/ssafejava/6605832#file-mozgetmatchedcssrules-js-L82
-function sortByPriorityScore(targetDom, rules) {
-  // comparing function that sorts CSSStyleRules according to specificity of their `selectorText`
-  function compareSpecificity(a, b) {
-    return specifyPriorityScore(targetDom, b.selectorText) - specifyPriorityScore(targetDom, a.selectorText)
-  }
+function sortByPriorityScore(targetSelectorPriorityScoreList) {
+  return targetSelectorPriorityScoreList.sort((a, b) => {
+    return b - a
+  })
+}
 
-  return rules.sort(compareSpecificity)
+function executeSortByPriorityScore(targetItemList) {
+  for (let index = 0; index < targetItemList.length; index++) {
+    let targetItem = targetItemList[index]
+    sortByPriorityScore(targetItem.selectorPriorityScoreList)
+  }
+  return targetItemList
 }
 
 function executeTraverseDom(targetDom) {
@@ -237,12 +242,29 @@ function executeTraverseDom(targetDom) {
   return Array.from(new Set(domListMap))
 }
 
-function reformatList(targetItemList) {
+function addXpathInfo(targetItemList) {
   let resultList = []
   for (let index = 0; index < targetItemList.length; index++) {
     const targetItem = targetItemList[index]
     targetItem[1]['xpath'] = targetItem[0]
     resultList.push(targetItem[1])
+  }
+  return resultList
+}
+
+function reformat(targetItemList) {
+  let resultList = []
+  for (let index = 0; index < targetItemList.length; index++) {
+    const targetItem = targetItemList[index]
+    for (let index = 0; index < targetItem.selectorTextList.length; index++) {
+      let pushItem = {
+        xpath: targetItem.xpath,
+        cssText: targetItem.cssTextList[index],
+        selectorText: targetItem.selectorTextList[index],
+        selectorPriorityScore: targetItem.selectorPriorityScoreList[index],
+      }
+      resultList.push(pushItem)
+    }
   }
   return resultList
 }
@@ -265,7 +287,7 @@ function main(targetXpath) {
     }
   }
 
-  return reformatList(resultList)
+  return reformat(executeSortByPriorityScore(addXpathInfo(resultList)))
 }
 
 // https://gist.github.com/ssafejava/6605832
@@ -277,7 +299,7 @@ let PSEUDO_CLASSES_PATTERN = /(?<!:):(?!(not))[\w-]+(\(.*\))?/g
 let PSEUDO_ELEMENTS_PATTERN = /::(root|after|before|first-letter|first-line|selection)/g
 
 // https://specificity.keegan.st/
-let resultInfoList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]')
-// let resultInfoList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]/dl/span[2]')
+// let resultInfoList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]/div')
+let resultInfoList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]/dl/span[2]')
 
 console.log(resultInfoList)
