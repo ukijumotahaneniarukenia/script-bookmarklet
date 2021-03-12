@@ -128,7 +128,6 @@ function countPatternMatch(targetSelectorTokenItem, targetPattern) {
   if (matchList === null) {
     return 0
   }
-  console.log("matchList", matchList)
   return matchList.length
 }
 
@@ -136,15 +135,53 @@ function countPatternMatch(targetSelectorTokenItem, targetPattern) {
 function calculateScore(targetSelector) {
   let priorityScore = [0, 0, 0]
   let selectorTokenList = targetSelector.split(' ')
-  let match = null
+  let matchCount = null
   for (let index = 0; index < selectorTokenList.length; index++) {
     const selectorTokenItem = selectorTokenList[index]
-    // console.log(selectorTokenItem, countPatternMatch(selectorTokenItem, ELEMENT_PATTERN))
-    // console.log(selectorTokenItem, countPatternMatch(selectorTokenItem, ID_PATTERN))
-    // console.log(selectorTokenItem, countPatternMatch(selectorTokenItem, CLASS_PATTERN))
-    // console.log(selectorTokenItem, countPatternMatch(selectorTokenItem, PSEUDO_CLASSES_PATTERN))
-    console.log(selectorTokenItem, countPatternMatch(selectorTokenItem, PSEUDO_ELEMENTS_PATTERN))
+    // 疑似要素パタンマッチ
+    matchCount = countPatternMatch(selectorTokenItem, PSEUDO_ELEMENTS_PATTERN)
+    priorityScore[2] = matchCount
+    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
+    if (matchCount !== 0) {
+      selectorTokenItem.replace(PSEUDO_ELEMENTS_PATTERN, '')
+    }
+    // 疑似クラスパタンマッチ
+    matchCount = countPatternMatch(selectorTokenItem, PSEUDO_CLASSES_PATTERN)
+    priorityScore[1] = matchCount
+    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
+    if (matchCount !== 0) {
+      selectorTokenItem.replace(PSEUDO_CLASSES_PATTERN, '')
+    }
+    // 属性パタンマッチ
+    matchCount = countPatternMatch(selectorTokenItem, ATTR_PATTERN)
+    priorityScore[1] += matchCount
+    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
+    if (matchCount !== 0) {
+      selectorTokenItem.replace(ATTR_PATTERN, '')
+    }
+    // IDパタンマッチ
+    matchCount = countPatternMatch(selectorTokenItem, ID_PATTERN)
+    priorityScore[0] = matchCount
+    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
+    if (matchCount !== 0) {
+      selectorTokenItem.replace(ID_PATTERN, '')
+    }
+    // クラスパタンマッチ
+    matchCount = countPatternMatch(selectorTokenItem, CLASS_PATTERN)
+    priorityScore[1] += matchCount
+    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
+    if (matchCount !== 0) {
+      selectorTokenItem.replace(CLASS_PATTERN, '')
+    }
+    // 要素パタンマッチ
+    matchCount = countPatternMatch(selectorTokenItem, ELEMENT_PATTERN)
+    priorityScore[2] += matchCount
+    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
+    if (matchCount !== 0) {
+      selectorTokenItem.replace(ELEMENT_PATTERN, '')
+    }
   }
+  return Number.parseInt(priorityScore.join(''))
 }
 
 function executeTraverseDom(targetDom) {
