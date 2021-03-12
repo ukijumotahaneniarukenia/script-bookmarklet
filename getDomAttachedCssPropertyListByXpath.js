@@ -448,5 +448,10 @@ function main(targetXpath) {
 }
 
 // chrome拡張のcopy stylesで取得したstyles propertyの結果と比較
-let targetXpath = prompt('Input Xpath')
-main(targetXpath)
+// let targetXpath = prompt('Input Xpath')
+// main(targetXpath)
+
+// https://mailchimp.com/pricing/
+let resultInfoList = main('/html/body/main/section[1]/div/div/h1')
+
+// console.table(resultInfoList)

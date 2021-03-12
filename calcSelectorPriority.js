@@ -254,40 +254,74 @@ function addXpathInfo(targetItemList) {
 
 function reformat(targetItemList) {
   let resultList = []
-  for (let index = 0; index < targetItemList.length; index++) {
-    const targetItem = targetItemList[index]
-    for (let index = 0; index < targetItem.selectorTextList.length; index++) {
-      let pushItem = {
-        xpath: targetItem.xpath,
-        cssText: targetItem.cssTextList[index],
-        selectorText: targetItem.selectorTextList[index],
-        selectorPriorityScore: targetItem.selectorPriorityScoreList[index],
+  for (let i = 0; i < targetItemList.length; i++) {
+    const targetItem = targetItemList[i]
+    for (let j = 0; j < targetItem.selectorTextList.length; j++) {
+      let targetCssPropertyInfoList = extractCssPropertyInfoList(extractCssBlockText(targetItem.cssTextList[j]))
+      for (let k = 0; k < targetCssPropertyInfoList.length; k++) {
+        const cssPropertyInfo = targetCssPropertyInfoList[k]
+        let pushItem = {
+          xpath: targetItem.xpath,
+          cssText: targetItem.cssTextList[j],
+          cssBlockText: extractCssBlockText(targetItem.cssTextList[j]),
+          cssPropertyName: cssPropertyInfo.propertyName,
+          cssPropertyValue: cssPropertyInfo.propertyValue,
+          cssPropertyInfoList: targetCssPropertyInfoList,
+          selectorText: targetItem.selectorTextList[j],
+          selectorPriorityScore: targetItem.selectorPriorityScoreList[j],
+        }
+        resultList.push(pushItem)
       }
-      resultList.push(pushItem)
     }
   }
   return resultList
 }
 
+function extractCssBlockText(targetCssText) {
+  let regexp = new RegExp(/\{.*\}/g)
+  let matchResultList = { ...targetCssText.match(regexp) }
+  return matchResultList[0]
+}
+
+function extractCssPropertyInfoList(targetCssBlockText) {
+  return targetCssBlockText
+    .replace(/\{/, '')
+    .replace(/\}/, '')
+    .split(/;/)
+    .map((item) => {
+      return item.split(/:/).filter((item2) => {
+        return item2.length !== 0
+      })
+    })
+    .filter((item) => {
+      return item[0].trim().length !== 0
+    })
+    .map((item) => {
+      return { propertyName: item[0].trim(), propertyValue: item.splice(1).join().trim() }
+    })
+}
+
 function main(targetXpath) {
+  // サブフック
   makeStyleDom(getExternalCssLinkUrlList())
-  let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
-
-  let resultList = executeTraverseDom(targetDom)
-
-  for (let index = 0; index < resultList.length; index++) {
-    const [_, domInfo] = resultList[index]
-    for (let index = 0; index < domInfo.selectorTextList.length; index++) {
-      const selectorText = domInfo.selectorTextList[index]
-      if (domInfo.selectorPriorityScoreList) {
-        domInfo.selectorPriorityScoreList.push(calculatePriorityScore(selectorText))
-      } else {
-        domInfo.selectorPriorityScoreList = [calculatePriorityScore(selectorText)]
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
+      let resultList = executeTraverseDom(targetDom)
+      for (let index = 0; index < resultList.length; index++) {
+        const [_, domInfo] = resultList[index]
+        for (let index = 0; index < domInfo.selectorTextList.length; index++) {
+          const selectorText = domInfo.selectorTextList[index]
+          if (domInfo.selectorPriorityScoreList) {
+            domInfo.selectorPriorityScoreList.push(calculatePriorityScore(selectorText))
+          } else {
+            domInfo.selectorPriorityScoreList = [calculatePriorityScore(selectorText)]
+          }
+        }
       }
-    }
-  }
-
-  return reformat(executeSortByPriorityScore(addXpathInfo(resultList)))
+      resolve(reformat(executeSortByPriorityScore(addXpathInfo(resultList))))
+    }, 3000)
+  })
 }
 
 // https://gist.github.com/ssafejava/6605832
@@ -300,6 +334,9 @@ let PSEUDO_ELEMENTS_PATTERN = /::(root|after|before|first-letter|first-line|sele
 
 // https://specificity.keegan.st/
 // let resultInfoList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]/div')
-let resultInfoList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]/dl/span[2]')
+// let resultInfoList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]/dl/span[2]')
 
-console.log(resultInfoList)
+// https://mailchimp.com/pricing/
+let resultInfoList = await main('/html/body/main/section[1]/div/div/h1')
+
+console.table(resultInfoList)
