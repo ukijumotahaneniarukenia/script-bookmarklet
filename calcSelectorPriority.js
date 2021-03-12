@@ -122,6 +122,31 @@ function traverseDom(targetDom, resultList, resultListMap) {
   }
 }
 
+// https://gist.github.com/ssafejava/6605832
+function countPatternMatch(targetSelectorTokenItem, targetPattern) {
+  let matchList = targetSelectorTokenItem.match(targetPattern)
+  if (matchList === null) {
+    return 0
+  }
+  console.log("matchList", matchList)
+  return matchList.length
+}
+
+// https://gist.github.com/ssafejava/6605832
+function calculateScore(targetSelector) {
+  let priorityScore = [0, 0, 0]
+  let selectorTokenList = targetSelector.split(' ')
+  let match = null
+  for (let index = 0; index < selectorTokenList.length; index++) {
+    const selectorTokenItem = selectorTokenList[index]
+    // console.log(selectorTokenItem, countPatternMatch(selectorTokenItem, ELEMENT_PATTERN))
+    // console.log(selectorTokenItem, countPatternMatch(selectorTokenItem, ID_PATTERN))
+    // console.log(selectorTokenItem, countPatternMatch(selectorTokenItem, CLASS_PATTERN))
+    // console.log(selectorTokenItem, countPatternMatch(selectorTokenItem, PSEUDO_CLASSES_PATTERN))
+    console.log(selectorTokenItem, countPatternMatch(selectorTokenItem, PSEUDO_ELEMENTS_PATTERN))
+  }
+}
+
 function executeTraverseDom(targetDom) {
   let tmpList = new Array()
   let domListMap = new Map()
@@ -136,8 +161,22 @@ function main(targetXpath) {
 
   let resultList = executeTraverseDom(targetDom)
 
-  console.log(resultList)
+  for (let index = 0; index < resultList.length; index++) {
+    const [xpath, domInfo] = resultList[index]
+    for (let index = 0; index < domInfo.selectorTextList.length; index++) {
+      const selectorText = domInfo.selectorTextList[index]
+      console.log(xpath, selectorText, calculateScore(selectorText))
+    }
+  }
 }
 
-main('/html/body/div[2]/div[1]/div[2]/span/div[1]')
+// https://gist.github.com/ssafejava/6605832
+let ELEMENT_PATTERN = /[\w-]+/g
+let ID_PATTERN = /#[\w-]+/g
+let CLASS_PATTERN = /\.[\w-]+/g
+let ATTR_PATTERN = /\[[^\]]+\]/g
+let PSEUDO_CLASSES_PATTERN = /(?<!:):(?!(not))[\w-]+(\(.*\))?/g
+let PSEUDO_ELEMENTS_PATTERN = /::(root|after|before|first-letter|first-line|selection)/g
+
 // https://specificity.keegan.st/
+main('/html/body/div[2]/div[1]/div[2]/span/div[1]')
