@@ -37,27 +37,72 @@ function getSelectorList(targetDom, resultListMap) {
       if (cssStyleSheetList[i].rules || cssStyleSheetList[i].cssRules) {
         cssStyleRules = cssStyleSheetList[i].rules || cssStyleSheetList[i].cssRules
         for (let j in cssStyleRules) {
-          if (
-            typeof cssStyleRules[j] === 'object' &&
-            cssStyleRules[j].selectorText !== '' &&
-            cssStyleRules[j].selectorText !== null &&
-            cssStyleRules[j].selectorText !== undefined &&
-            targetDom.nodeName !== '#text' &&
-            targetDom.nodeName !== '#comment'
-          ) {
-            if (targetDom.matches(cssStyleRules[j].selectorText)) {
-              let targetXpath = getXpath(targetDom)
-              if (resultListMap.has(targetXpath)) {
-                let targetResultInfo = resultListMap.get(targetXpath)
-                targetResultInfo.selectorTextList.push(cssStyleRules[j].selectorText)
-                targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
-                resultListMap.set(targetXpath, targetResultInfo)
-              } else {
-                resultListMap.set(targetXpath, {
-                  selectorTextList: [cssStyleRules[j].selectorText],
-                  cssTextList: [cssStyleRules[j].cssText],
-                })
-              }
+          if (typeof cssStyleRules[j] === 'object' && targetDom.nodeName !== '#text' && targetDom.nodeName !== '#comment') {
+            console.log(cssStyleRules[j])
+            let targetCSsStyleType = cssStyleRules[j].type
+            switch (targetCSsStyleType) {
+              case cssStyleRules[j].CHARSET_RULE:
+                break
+              case cssStyleRules[j].FONT_FACE_RULE:
+                // 5
+                break
+              case cssStyleRules[j].KEYFRAMES_RULE:
+                break
+              case cssStyleRules[j].KEYFRAME_RULE:
+                break
+              case cssStyleRules[j].MEDIA_RULE:
+                // 4
+                if (cssStyleRules[j].media.length !== 0 && window.matchMedia(cssStyleRules[j].conditionText).media) {
+                  let targetXpath = getXpath(targetDom)
+                  if (resultListMap.has(targetXpath)) {
+                    let targetResultInfo = resultListMap.get(targetXpath)
+                    targetResultInfo.mediaList = targetResultInfo.mediaList.concat(Array.from(cssStyleRules[j].media))
+                    targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+                    resultListMap.set(targetXpath, targetResultInfo)
+                  } else {
+                    resultListMap.set(targetXpath, {
+                      mediaList: Array.from(cssStyleRules[j].media),
+                      cssTextList: [cssStyleRules[j].cssText],
+                    })
+                  }
+                }
+                break
+              case cssStyleRules[j].NAMESPACE_RULE:
+                break
+              case cssStyleRules[j].PAGE_RULE:
+                break
+              case cssStyleRules[j].STYLE_RULE:
+                // 1
+                if (
+                  cssStyleRules[j].selectorText !== '' &&
+                  cssStyleRules[j].selectorText !== null &&
+                  cssStyleRules[j].selectorText !== undefined &&
+                  targetDom.matches(cssStyleRules[j].selectorText)
+                ) {
+                  let targetXpath = getXpath(targetDom)
+                  if (resultListMap.has(targetXpath)) {
+                    let targetResultInfo = resultListMap.get(targetXpath)
+                    if (targetResultInfo.selectorTextList === undefined) {
+                      targetResultInfo = Object.assign(targetResultInfo, {
+                        selectorTextList: [cssStyleRules[j].selectorText],
+                      })
+                    } else {
+                      targetResultInfo.selectorTextList.push(cssStyleRules[j].selectorText)
+                    }
+                    targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+                    resultListMap.set(targetXpath, targetResultInfo)
+                  } else {
+                    resultListMap.set(targetXpath, {
+                      selectorTextList: [cssStyleRules[j].selectorText],
+                      cssTextList: [cssStyleRules[j].cssText],
+                    })
+                  }
+                }
+                break
+              case cssStyleRules[j].SUPPORTS_RULE:
+                break
+              default:
+                break
             }
           }
         }
@@ -308,18 +353,19 @@ function main(targetXpath) {
     setTimeout(() => {
       let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
       let resultList = executeTraverseDom(targetDom)
-      for (let index = 0; index < resultList.length; index++) {
-        const [_, domInfo] = resultList[index]
-        for (let index = 0; index < domInfo.selectorTextList.length; index++) {
-          const selectorText = domInfo.selectorTextList[index]
-          if (domInfo.selectorPriorityScoreList) {
-            domInfo.selectorPriorityScoreList.push(calculatePriorityScore(selectorText))
-          } else {
-            domInfo.selectorPriorityScoreList = [calculatePriorityScore(selectorText)]
-          }
-        }
-      }
-      resolve(reformat(executeSortByPriorityScore(addXpathInfo(resultList))))
+      console.log(resultList)
+      // for (let index = 0; index < resultList.length; index++) {
+      //   const [_, domInfo] = resultList[index]
+      //   for (let index = 0; index < domInfo.selectorTextList.length; index++) {
+      //     const selectorText = domInfo.selectorTextList[index]
+      //     if (domInfo.selectorPriorityScoreList) {
+      //       domInfo.selectorPriorityScoreList.push(calculatePriorityScore(selectorText))
+      //     } else {
+      //       domInfo.selectorPriorityScoreList = [calculatePriorityScore(selectorText)]
+      //     }
+      //   }
+      // }
+      // resolve(reformat(executeSortByPriorityScore(addXpathInfo(resultList))))
     }, 3000)
   })
 }
@@ -332,10 +378,8 @@ let ATTR_PATTERN = /\[[^\]]+\]/g
 let PSEUDO_CLASSES_PATTERN = /(?<!:):(?!(not))[\w-]+(\(.*\))?/g
 let PSEUDO_ELEMENTS_PATTERN = /::(root|after|before|first-letter|first-line|selection)/g
 
-// https://specificity.keegan.st/
 // https://mailchimp.com/pricing/
-// let resultInfoList = await main('/html/body/main/section[1]/div/div/h1')
-let resultInfoList = await main('/html/body/main/div/div/div[1]/div[2]/div[2]')
+let resultInfoList = await main('/html/body/main/div/div/div[1]/div[2]/div[1]/div[1]/div/a/p')
 
 let selectColumnList = ['xpath', 'cssPropertyName', 'cssPropertyValue', 'selectorPriorityScore']
 
