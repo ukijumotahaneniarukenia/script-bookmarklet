@@ -42,21 +42,21 @@ function getSelectorList(targetDom, resultListMap) {
             switch (targetCssStyleType) {
               case cssStyleRules[j].CHARSET_RULE:
                 break
-              case cssStyleRules[j].FONT_FACE_RULE:
-                // 5
-                if (cssStyleRules[j].cssText !== '' && cssStyleRules[j].cssText !== null && cssStyleRules[j].cssText !== undefined) {
-                  let targetXpath = getXpath(targetDom)
-                  if (resultListMap.has(targetXpath)) {
-                    let targetResultInfo = resultListMap.get(targetXpath)
-                    targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
-                    resultListMap.set(targetXpath, targetResultInfo)
-                  } else {
-                    resultListMap.set(targetXpath, {
-                      cssTextList: [cssStyleRules[j].cssText],
-                    })
-                  }
-                }
-                break
+              // case cssStyleRules[j].FONT_FACE_RULE:
+              //   // 5
+              //   if (cssStyleRules[j].cssText !== '' && cssStyleRules[j].cssText !== null && cssStyleRules[j].cssText !== undefined) {
+              //     let targetXpath = getXpath(targetDom)
+              //     if (resultListMap.has(targetXpath)) {
+              //       let targetResultInfo = resultListMap.get(targetXpath)
+              //       targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+              //       resultListMap.set(targetXpath, targetResultInfo)
+              //     } else {
+              //       resultListMap.set(targetXpath, {
+              //         cssTextList: [cssStyleRules[j].cssText],
+              //       })
+              //     }
+              //   }
+              //   break
               case cssStyleRules[j].KEYFRAMES_RULE:
                 break
               case cssStyleRules[j].KEYFRAME_RULE:
@@ -64,21 +64,48 @@ function getSelectorList(targetDom, resultListMap) {
               case cssStyleRules[j].MEDIA_RULE:
                 if (cssStyleRules[j].media.length !== 0 && window.matchMedia(cssStyleRules[j].conditionText).media) {
                   let targetXpath = getXpath(targetDom)
-                  console.log(
-                    // セレクタのみ抽出したい
-                    cssStyleRules[j].cssText
-                      .replace(`@media ${cssStyleRules[j].conditionText} `, '')
-                      .replace(/\n/g, 'うんこ')
-                      .replace(/^ +/, '')
-                      .replace(/ +$/, '')
-                      .replace(/^{/, '')
-                      .replace(/}$/, '')
-                      .replace(/うんこ/g, ';')
-                      .replace(/^;/, '')
-                  )
                   if (resultListMap.has(targetXpath)) {
                     let targetResultInfo = resultListMap.get(targetXpath)
-                    targetResultInfo.cssTextList.push(
+                    if (targetResultInfo.selectorTextList === undefined) {
+                      targetResultInfo = Object.assign(targetResultInfo, {
+                        selectorTextList: cssStyleRules[j].cssText
+                          .replace(`@media ${cssStyleRules[j].conditionText} `, '')
+                          .replace(/\n/g, 'うんこ')
+                          .replace(/^ +/, '')
+                          .replace(/ +$/, '')
+                          .replace(/^{/, '')
+                          .replace(/}$/, '')
+                          .replace(/うんこ/g, ';')
+                          .replace(/^;/, '')
+                          .split(/(?<=};)/)
+                          .map((item) => {
+                            return item.replace(/^ +/, '')
+                          })
+                          .map((item) => {
+                            return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
+                          }),
+                      })
+                    } else {
+                      targetResultInfo.selectorTextList = targetResultInfo.selectorTextList.concat(
+                        cssStyleRules[j].cssText
+                          .replace(`@media ${cssStyleRules[j].conditionText} `, '')
+                          .replace(/\n/g, 'うんこ')
+                          .replace(/^ +/, '')
+                          .replace(/ +$/, '')
+                          .replace(/^{/, '')
+                          .replace(/}$/, '')
+                          .replace(/うんこ/g, ';')
+                          .replace(/^;/, '')
+                          .split(/(?<=};)/)
+                          .map((item) => {
+                            return item.replace(/^ +/, '')
+                          })
+                          .map((item) => {
+                            return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
+                          })
+                      )
+                    }
+                    targetResultInfo.cssTextList = targetResultInfo.cssTextList.concat(
                       cssStyleRules[j].cssText
                         .replace(`@media ${cssStyleRules[j].conditionText} `, '')
                         .replace(/\n/g, 'うんこ')
@@ -87,11 +114,31 @@ function getSelectorList(targetDom, resultListMap) {
                         .replace(/^{/, '')
                         .replace(/}$/, '')
                         .replace(/うんこ/g, ';')
-                        .replace(/^;/, ''),
+                        .replace(/^;/, '')
+                        .split(/(?<=};)/)
+                        .map((item) => {
+                          return item.replace(/^ +/, '').replace(/;$/, '')
+                        })
                     )
                     resultListMap.set(targetXpath, targetResultInfo)
                   } else {
                     resultListMap.set(targetXpath, {
+                      selectorTextList: cssStyleRules[j].cssText
+                        .replace(`@media ${cssStyleRules[j].conditionText} `, '')
+                        .replace(/\n/g, 'うんこ')
+                        .replace(/^ +/, '')
+                        .replace(/ +$/, '')
+                        .replace(/^{/, '')
+                        .replace(/}$/, '')
+                        .replace(/うんこ/g, ';')
+                        .replace(/^;/, '')
+                        .split(/(?<=};)/)
+                        .map((item) => {
+                          return item.replace(/^ +/, '')
+                        })
+                        .map((item) => {
+                          return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
+                        }),
                       cssTextList: [
                         cssStyleRules[j].cssText
                           .replace(`@media ${cssStyleRules[j].conditionText} `, '')
@@ -101,7 +148,11 @@ function getSelectorList(targetDom, resultListMap) {
                           .replace(/^{/, '')
                           .replace(/}$/, '')
                           .replace(/うんこ/g, ';')
-                          .replace(/^;/, ''),
+                          .replace(/^;/, '')
+                          .split(/(?<=};)/)
+                          .map((item) => {
+                            return item.replace(/^ +/, '').replace(/;$/, '')
+                          }),
                       ],
                     })
                   }
