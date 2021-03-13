@@ -139,21 +139,19 @@ function getSelectorList(targetDom, resultListMap) {
                         .map((item) => {
                           return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
                         }),
-                      cssTextList: [
-                        cssStyleRules[j].cssText
-                          .replace(`@media ${cssStyleRules[j].conditionText} `, '')
-                          .replace(/\n/g, 'うんこ')
-                          .replace(/^ +/, '')
-                          .replace(/ +$/, '')
-                          .replace(/^{/, '')
-                          .replace(/}$/, '')
-                          .replace(/うんこ/g, ';')
-                          .replace(/^;/, '')
-                          .split(/(?<=};)/)
-                          .map((item) => {
-                            return item.replace(/^ +/, '').replace(/;$/, '')
-                          }),
-                      ],
+                      cssTextList: cssStyleRules[j].cssText
+                        .replace(`@media ${cssStyleRules[j].conditionText} `, '')
+                        .replace(/\n/g, 'うんこ')
+                        .replace(/^ +/, '')
+                        .replace(/ +$/, '')
+                        .replace(/^{/, '')
+                        .replace(/}$/, '')
+                        .replace(/うんこ/g, ';')
+                        .replace(/^;/, '')
+                        .split(/(?<=};)/)
+                        .map((item) => {
+                          return item.replace(/^ +/, '').replace(/;$/, '')
+                        }),
                     })
                   }
                 }
@@ -445,18 +443,18 @@ function main(targetXpath) {
       let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
       let resultList = executeTraverseDom(targetDom)
       console.log(resultList)
-      // for (let index = 0; index < resultList.length; index++) {
-      //   const [_, domInfo] = resultList[index]
-      //   for (let index = 0; index < domInfo.selectorTextList.length; index++) {
-      //     const selectorText = domInfo.selectorTextList[index]
-      //     if (domInfo.selectorPriorityScoreList) {
-      //       domInfo.selectorPriorityScoreList.push(calculatePriorityScore(selectorText))
-      //     } else {
-      //       domInfo.selectorPriorityScoreList = [calculatePriorityScore(selectorText)]
-      //     }
-      //   }
-      // }
-      // resolve(reformat(executeSortByPriorityScore(addXpathInfo(resultList))))
+      for (let index = 0; index < resultList.length; index++) {
+        const [_, domInfo] = resultList[index]
+        for (let index = 0; index < domInfo.selectorTextList.length; index++) {
+          const selectorText = domInfo.selectorTextList[index]
+          if (domInfo.selectorPriorityScoreList) {
+            domInfo.selectorPriorityScoreList.push(calculatePriorityScore(selectorText))
+          } else {
+            domInfo.selectorPriorityScoreList = [calculatePriorityScore(selectorText)]
+          }
+        }
+      }
+      resolve(reformat(executeSortByPriorityScore(addXpathInfo(resultList))))
     }, 3000)
   })
 }
