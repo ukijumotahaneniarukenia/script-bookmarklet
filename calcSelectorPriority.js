@@ -333,10 +333,21 @@ let PSEUDO_CLASSES_PATTERN = /(?<!:):(?!(not))[\w-]+(\(.*\))?/g
 let PSEUDO_ELEMENTS_PATTERN = /::(root|after|before|first-letter|first-line|selection)/g
 
 // https://specificity.keegan.st/
-// let resultInfoList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]/div')
-// let resultInfoList = main('/html/body/div[2]/div[1]/div[2]/span/div[1]/dl/span[2]')
-
 // https://mailchimp.com/pricing/
-let resultInfoList = await main('/html/body/main/section[1]/div/div/h1')
+// let resultInfoList = await main('/html/body/main/section[1]/div/div/h1')
+let resultInfoList = await main('/html/body/main/div/div/div[1]/div[2]/div[2]')
 
-console.table(resultInfoList)
+let selectColumnList = ['xpath', 'cssPropertyName', 'cssPropertyValue', 'selectorPriorityScore']
+
+let displayList = []
+for (let i = 0; i < resultInfoList.length; i++) {
+  const resultInfo = resultInfoList[i]
+  let resultItem = {}
+  for (let j = 0; j < selectColumnList.length; j++) {
+    const selectColumn = selectColumnList[j]
+    resultItem = Object.assign(resultItem, { [selectColumn]: resultInfo[selectColumn] })
+  }
+  displayList.push(resultItem)
+}
+
+console.table(displayList)
