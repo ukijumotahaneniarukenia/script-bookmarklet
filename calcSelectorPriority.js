@@ -471,7 +471,10 @@ let PSEUDO_CLASSES_PATTERN = /(?<!:):(?!(not))[\w-]+(\(.*\))?/g
 let PSEUDO_ELEMENTS_PATTERN = /::(root|after|before|first-letter|first-line|selection)/g
 
 // https://mailchimp.com/pricing/
-let resultInfoList = await main('/html/body/main/div/div/div[1]/div[2]/div[1]/div[1]/div/a/p')
+// let resultInfoList = await main('/html/body/main/div/div/div[1]/div[2]/div[1]/div[1]/div/a/p')
+
+// https://dev.to/codeozz/how-i-improve-my-skills-in-typescript-1l91
+let resultInfoList = await main('/html/body/div[9]/div/div[1]/aside[1]/div/div')
 
 let selectColumnList = ['xpath', 'cssPropertyName', 'cssPropertyValue', 'selectorPriorityScore']
 
@@ -490,5 +493,7 @@ for (let i = 0; i < resultInfoList.length; i++) {
 // propertyNameの名寄せも必要 泥試合
 // property単位のValueパタン分解も必要 上下左右指定 上下指定など
 // background => background-colorなど
+// 記載順序が必要 同一優先度値ではわからない CSSスタイルシート、CSSブロックごとに連番が必要
 // 結構大変
+// ChromeのCopy Styles作った人めちゃすごい
 console.table(displayList)
