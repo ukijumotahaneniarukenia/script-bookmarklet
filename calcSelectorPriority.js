@@ -38,31 +38,71 @@ function getSelectorList(targetDom, resultListMap) {
         cssStyleRules = cssStyleSheetList[i].rules || cssStyleSheetList[i].cssRules
         for (let j in cssStyleRules) {
           if (typeof cssStyleRules[j] === 'object' && targetDom.nodeName !== '#text' && targetDom.nodeName !== '#comment') {
-            console.log(cssStyleRules[j])
-            let targetCSsStyleType = cssStyleRules[j].type
-            switch (targetCSsStyleType) {
+            let targetCssStyleType = cssStyleRules[j].type
+            switch (targetCssStyleType) {
               case cssStyleRules[j].CHARSET_RULE:
                 break
               case cssStyleRules[j].FONT_FACE_RULE:
                 // 5
+                if (cssStyleRules[j].cssText !== '' && cssStyleRules[j].cssText !== null && cssStyleRules[j].cssText !== undefined) {
+                  let targetXpath = getXpath(targetDom)
+                  if (resultListMap.has(targetXpath)) {
+                    let targetResultInfo = resultListMap.get(targetXpath)
+                    targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+                    resultListMap.set(targetXpath, targetResultInfo)
+                  } else {
+                    resultListMap.set(targetXpath, {
+                      cssTextList: [cssStyleRules[j].cssText],
+                    })
+                  }
+                }
                 break
               case cssStyleRules[j].KEYFRAMES_RULE:
                 break
               case cssStyleRules[j].KEYFRAME_RULE:
                 break
               case cssStyleRules[j].MEDIA_RULE:
-                // 4
                 if (cssStyleRules[j].media.length !== 0 && window.matchMedia(cssStyleRules[j].conditionText).media) {
                   let targetXpath = getXpath(targetDom)
+                  console.log(
+                    // セレクタのみ抽出したい
+                    cssStyleRules[j].cssText
+                      .replace(`@media ${cssStyleRules[j].conditionText} `, '')
+                      .replace(/\n/g, 'うんこ')
+                      .replace(/^ +/, '')
+                      .replace(/ +$/, '')
+                      .replace(/^{/, '')
+                      .replace(/}$/, '')
+                      .replace(/うんこ/g, ';')
+                      .replace(/^;/, '')
+                  )
                   if (resultListMap.has(targetXpath)) {
                     let targetResultInfo = resultListMap.get(targetXpath)
-                    targetResultInfo.mediaList = targetResultInfo.mediaList.concat(Array.from(cssStyleRules[j].media))
-                    targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+                    targetResultInfo.cssTextList.push(
+                      cssStyleRules[j].cssText
+                        .replace(`@media ${cssStyleRules[j].conditionText} `, '')
+                        .replace(/\n/g, 'うんこ')
+                        .replace(/^ +/, '')
+                        .replace(/ +$/, '')
+                        .replace(/^{/, '')
+                        .replace(/}$/, '')
+                        .replace(/うんこ/g, ';')
+                        .replace(/^;/, ''),
+                    )
                     resultListMap.set(targetXpath, targetResultInfo)
                   } else {
                     resultListMap.set(targetXpath, {
-                      mediaList: Array.from(cssStyleRules[j].media),
-                      cssTextList: [cssStyleRules[j].cssText],
+                      cssTextList: [
+                        cssStyleRules[j].cssText
+                          .replace(`@media ${cssStyleRules[j].conditionText} `, '')
+                          .replace(/\n/g, 'うんこ')
+                          .replace(/^ +/, '')
+                          .replace(/ +$/, '')
+                          .replace(/^{/, '')
+                          .replace(/}$/, '')
+                          .replace(/うんこ/g, ';')
+                          .replace(/^;/, ''),
+                      ],
                     })
                   }
                 }
