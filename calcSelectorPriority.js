@@ -42,21 +42,24 @@ function getSelectorList(targetDom, resultListMap) {
             switch (targetCssStyleType) {
               case cssStyleRules[j].CHARSET_RULE:
                 break
-              // case cssStyleRules[j].FONT_FACE_RULE:
-              //   // 5
-              //   if (cssStyleRules[j].cssText !== '' && cssStyleRules[j].cssText !== null && cssStyleRules[j].cssText !== undefined) {
-              //     let targetXpath = getXpath(targetDom)
-              //     if (resultListMap.has(targetXpath)) {
-              //       let targetResultInfo = resultListMap.get(targetXpath)
-              //       targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
-              //       resultListMap.set(targetXpath, targetResultInfo)
-              //     } else {
-              //       resultListMap.set(targetXpath, {
-              //         cssTextList: [cssStyleRules[j].cssText],
-              //       })
-              //     }
-              //   }
-              //   break
+              case cssStyleRules[j].FONT_FACE_RULE:
+                // 5
+                // TODO どういれこんだらいいかわからん
+                // https://developer.mozilla.org/ja/docs/Web/CSS/@font-face
+                if (cssStyleRules[j].cssText !== '' && cssStyleRules[j].cssText !== null && cssStyleRules[j].cssText !== undefined) {
+                  let targetXpath = getXpath(targetDom)
+                  // console.log(cssStyleRules[j].cssText)
+                  // if (resultListMap.has(targetXpath)) {
+                  //   let targetResultInfo = resultListMap.get(targetXpath)
+                  //   targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+                  //   resultListMap.set(targetXpath, targetResultInfo)
+                  // } else {
+                  //   resultListMap.set(targetXpath, {
+                  //     cssTextList: [cssStyleRules[j].cssText],
+                  //   })
+                  // }
+                }
+                break
               case cssStyleRules[j].KEYFRAMES_RULE:
                 break
               case cssStyleRules[j].KEYFRAME_RULE:
@@ -442,7 +445,7 @@ function main(targetXpath) {
     setTimeout(() => {
       let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
       let resultList = executeTraverseDom(targetDom)
-      console.log(resultList)
+      // console.log(resultList)
       for (let index = 0; index < resultList.length; index++) {
         const [_, domInfo] = resultList[index]
         for (let index = 0; index < domInfo.selectorTextList.length; index++) {
@@ -483,4 +486,9 @@ for (let i = 0; i < resultInfoList.length; i++) {
   displayList.push(resultItem)
 }
 
+// TODO xpath, cssPropertyName単位で最大のselectorPriorityScoreもつcssPropertyValueを抽出する
+// propertyNameの名寄せも必要 泥試合
+// property単位のValueパタン分解も必要 上下左右指定 上下指定など
+// background => background-colorなど
+// 結構大変
 console.table(displayList)
