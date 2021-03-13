@@ -39,6 +39,7 @@ function getSelectorList(targetDom, resultListMap) {
         for (let j in cssStyleRules) {
           if (typeof cssStyleRules[j] === 'object' && targetDom.nodeName !== '#text' && targetDom.nodeName !== '#comment') {
             let targetCssStyleType = cssStyleRules[j].type
+            console.log(cssStyleRules[j])
             switch (targetCssStyleType) {
               case cssStyleRules[j].CHARSET_RULE:
                 break
@@ -446,7 +447,6 @@ function main(targetXpath) {
     setTimeout(() => {
       let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
       let resultList = executeTraverseDom(targetDom)
-      // console.log(resultList)
       for (let index = 0; index < resultList.length; index++) {
         const [_, domInfo] = resultList[index]
         for (let index = 0; index < domInfo.selectorTextList.length; index++) {
@@ -472,14 +472,14 @@ let PSEUDO_CLASSES_PATTERN = /(?<!:):(?!(not))[\w-]+(\(.*\))?/g
 let PSEUDO_ELEMENTS_PATTERN = /::(root|after|before|first-letter|first-line|selection)/g
 
 // https://mailchimp.com/pricing/
-// let resultInfoList = await main('/html/body/main/div/div/div[1]/div[2]/div[1]/div[1]/div/a/p')
+let resultInfoList = await main('/html/body/main/div/div/div[1]/div[2]/div[1]/div[1]/div/a/p')
 
 // https://dev.to/codeozz/how-i-improve-my-skills-in-typescript-1l91
 // let resultInfoList = await main('/html/body/div[9]/div/div[1]/aside[1]/div/div')
 
 // https://codyhouse.co/demo-templates/marte/components-charts.html
 // このサイトは@supportsとかいろいろ入っててやりごたえある
-let resultInfoList = await main('/html/body/div[1]/main/div[2]/div[2]')
+// let resultInfoList = await main('/html/body/div[1]/main/div[2]/div[2]')
 
 let selectColumnList = ['xpath', 'cssPropertyName', 'cssPropertyValue', 'selectorPriorityScore']
 
@@ -501,5 +501,7 @@ for (let i = 0; i < resultInfoList.length; i++) {
 // 記載順序が必要 同一優先度値ではわからない CSSスタイルシート、CSSブロックごとに連番が必要
 // 結構大変
 // 記述パターンを調査する上で使用することにし、それまではChromeのCopy Stylesで運用
+// 条件付き規則は入れ子にできるらしいので、それフラットにパースしないとだめ
+// https://developer.mozilla.org/ja/docs/Web/CSS/At-rule#conditional_group_rules
 // ChromeのCopy Styles作った人めちゃすごい
 console.table(displayList)

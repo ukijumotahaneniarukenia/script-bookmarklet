@@ -1,5 +1,11 @@
 # script-bookmarklet
 
+- SCSS記法
+  - https://qiita.com/Takuan_Oishii/items/0f0d2c5dc33a9b2d9cb1
+
+- Chrome Dev Tool
+  - https://www.keycdn.com/blog/chrome-devtools
+
 - セレクタ点数
   - https://www.slideshare.net/mobile/yumi-uniq-ishizaki/css-13918388
   - https://specificity.keegan.st/
