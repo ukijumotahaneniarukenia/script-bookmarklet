@@ -89,6 +89,7 @@ function getSelectorList(targetDom, resultListMap) {
                           }),
                       })
                     } else {
+                      console.log(cssStyleRules[j].cssText)
                       targetResultInfo.selectorTextList = targetResultInfo.selectorTextList.concat(
                         cssStyleRules[j].cssText
                           .replace(`@media ${cssStyleRules[j].conditionText} `, '')
@@ -474,7 +475,11 @@ let PSEUDO_ELEMENTS_PATTERN = /::(root|after|before|first-letter|first-line|sele
 // let resultInfoList = await main('/html/body/main/div/div/div[1]/div[2]/div[1]/div[1]/div/a/p')
 
 // https://dev.to/codeozz/how-i-improve-my-skills-in-typescript-1l91
-let resultInfoList = await main('/html/body/div[9]/div/div[1]/aside[1]/div/div')
+// let resultInfoList = await main('/html/body/div[9]/div/div[1]/aside[1]/div/div')
+
+// https://codyhouse.co/demo-templates/marte/components-charts.html
+// このサイトは@supportsとかいろいろ入っててやりごたえある
+let resultInfoList = await main('/html/body/div[1]/main/div[2]/div[2]')
 
 let selectColumnList = ['xpath', 'cssPropertyName', 'cssPropertyValue', 'selectorPriorityScore']
 
@@ -495,5 +500,6 @@ for (let i = 0; i < resultInfoList.length; i++) {
 // background => background-colorなど
 // 記載順序が必要 同一優先度値ではわからない CSSスタイルシート、CSSブロックごとに連番が必要
 // 結構大変
+// 記述パターンを調査する上で使用することにし、それまではChromeのCopy Stylesで運用
 // ChromeのCopy Styles作った人めちゃすごい
 console.table(displayList)
