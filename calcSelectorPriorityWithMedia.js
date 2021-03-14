@@ -61,20 +61,27 @@ function getSelectorList(targetDom, resultListMap) {
               case cssStyleRules[j].CHARSET_RULE:
                 break
               case cssStyleRules[j].FONT_FACE_RULE:
-                // TODO どういれこんだらいいかわからん
+                // TODO URLは正規化しないとだめ サブドメインは異なることがある
                 // https://developer.mozilla.org/ja/docs/Web/CSS/@font-face
+                // https://css-tricks.com/snippets/css/using-font-face/
+                // https://stackoverflow.com/questions/47897685/how-do-i-specify-which-font-weights-are-available-for-a-given-font-family
                 if (cssStyleRules[j].cssText !== '' && cssStyleRules[j].cssText !== null && cssStyleRules[j].cssText !== undefined) {
                   let targetXpath = getXpath(targetDom)
-                  // console.log(cssStyleRules[j].cssText)
-                  // if (resultListMap.has(targetXpath)) {
-                  //   let targetResultInfo = resultListMap.get(targetXpath)
-                  //   targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
-                  //   resultListMap.set(targetXpath, targetResultInfo)
-                  // } else {
-                  //   resultListMap.set(targetXpath, {
-                  //     cssTextList: [cssStyleRules[j].cssText],
-                  //   })
-                  // }
+                  if (resultListMap.has(targetXpath)) {
+                    let targetResultInfo = resultListMap.get(targetXpath)
+                    if (targetResultInfo.fontCssTextList === undefined) {
+                      targetResultInfo = Object.assign(targetResultInfo, {
+                        fontCssTextList: [cssStyleRules[j].cssText],
+                      })
+                    } else {
+                      targetResultInfo.fontCssTextList.push(cssStyleRules[j].cssText)
+                    }
+                    resultListMap.set(targetXpath, targetResultInfo)
+                  } else {
+                    resultListMap.set(targetXpath, {
+                      fontCssTextList: [cssStyleRules[j].cssText],
+                    })
+                  }
                 }
                 break
               case cssStyleRules[j].KEYFRAMES_RULE:
@@ -139,7 +146,13 @@ function getSelectorList(targetDom, resultListMap) {
                     } else {
                       targetResultInfo.selectorTextList.push(cssStyleRules[j].selectorText)
                     }
-                    targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+                    if (targetResultInfo.cssTextList === undefined) {
+                      targetResultInfo = Object.assign(targetResultInfo, {
+                        cssTextList: [cssStyleRules[j].cssText],
+                      })
+                    } else {
+                      targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+                    }
                     resultListMap.set(targetXpath, targetResultInfo)
                   } else {
                     resultListMap.set(targetXpath, {
@@ -248,7 +261,9 @@ function process(targetXpath) {
 
 async function main() {
   // https://mailchimp.com/pricing/
-  let targetXpath = '/html/body/main/div/div/div[1]/div[2]'
+  // let targetXpath = '/html/body/main/div/div/div[1]/div[2]'
+  // https://www.starbucks.com/rewards
+  let targetXpath = '/html/body/div[2]/div/div[3]/main/div[4]/div'
   let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
   let resultInfoList = await process(targetXpath)
   console.table(resultInfoList)
@@ -257,6 +272,7 @@ async function main() {
     const resultInfo = resultInfoList[i]
     displayItem = displayItem + resultInfo.cssTextList.join('\n')
   }
+  displayItem = displayItem + resultInfoList[0].fontCssTextList.join('\n')
   console.log(targetDom)
   console.log(displayItem)
 }
