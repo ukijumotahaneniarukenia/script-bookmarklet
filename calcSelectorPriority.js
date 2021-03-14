@@ -62,7 +62,92 @@ function supportQuierySelectorFlatten(targetSupportRule, targetCssRule, resultIn
   }
 }
 
-function getSelectorList(targetDom, resultListMap) {
+function keyframeQuierySelectorFlatten(targetKeyframeRule, targetCssRule, resultInfoList) {
+  if (targetCssRule.cssRules === undefined) {
+    resultInfoList.push({
+      keyframeCssText: targetKeyframeRule.cssText,
+      selectorText: targetCssRule.selectorText, // undefined
+      cssText: targetCssRule.cssText,
+    })
+    return resultInfoList
+  } else {
+    let targetCssStyleRuleList = Array.from(targetCssRule.cssRules)
+    for (let index = 0; index < targetCssStyleRuleList.length; index++) {
+      const targetCssStyleRule = targetCssStyleRuleList[index]
+      keyframeQuierySelectorFlatten(targetKeyframeRule, targetCssStyleRule, resultInfoList)
+    }
+  }
+}
+
+function extractCssBlockText(targetCssText) {
+  let regexp = new RegExp(/\{.*\}/g)
+  let matchResultList = { ...targetCssText.match(regexp) }
+  return matchResultList[0]
+}
+
+function extractCssPropertyInfoList(targetCssBlockText) {
+  return targetCssBlockText
+    .replace(/\{/, '')
+    .replace(/\}/, '')
+    .split(/;/)
+    .map((item) => {
+      return item.split(/:/).filter((item2) => {
+        return item2.length !== 0
+      })
+    })
+    .filter((item) => {
+      return item[0].trim().length !== 0
+    })
+    .map((item) => {
+      return { propertyName: item[0].trim(), propertyValue: item.splice(1).join().trim() }
+    })
+}
+
+function getSelectorListByPropertyName(targetPropertyName) {
+  // https://stackoverflow.com/questions/7251804/cssStyleSheetList-javascript-get-a-list-of-cssStyleSheetList-custom-attributes
+  let cssStyleSheetList = document.styleSheets
+  let cssStyleRules = null
+  let resultInfoList = []
+  for (let i in cssStyleSheetList) {
+    if (typeof cssStyleSheetList[i] === 'object' && cssStyleSheetList[i].href === null) {
+      if (cssStyleSheetList[i].rules || cssStyleSheetList[i].cssRules) {
+        cssStyleRules = cssStyleSheetList[i].rules || cssStyleSheetList[i].cssRules
+        for (let j in cssStyleRules) {
+          if (typeof cssStyleRules[j] === 'object' && cssStyleRules[j].selectorText !== undefined) {
+            let cssPropertyInfoList = extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText))
+            for (let index = 0; index < cssPropertyInfoList.length; index++) {
+              const cssPropertyInfo = cssPropertyInfoList[index]
+              if (cssPropertyInfo.propertyName === targetPropertyName) {
+                resultInfoList.push({
+                  cssText: cssStyleRules[j].cssText,
+                  cssSelectorText: cssStyleRules[j].selectorText,
+                  cssPropertyName: cssPropertyInfo.propertyName,
+                  cssPropertyValue: cssPropertyInfo.propertyValue,
+                })
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  return resultInfoList
+}
+
+function isMatchAnimation(targetAnimationName, animationPropertyInfoList) {
+  let isMatch = false
+  let matchSelector = null
+  for (let index = 0; index < animationPropertyInfoList.length; index++) {
+    const animationPropertyInfo = animationPropertyInfoList[index]
+    if (animationPropertyInfo.cssPropertyValue.indexOf(targetAnimationName) !== -1) {
+      isMatch = true
+      matchSelector = animationPropertyInfo.cssSelectorText
+    }
+  }
+  return [isMatch, matchSelector]
+}
+
+function getSelectorList(targetDom, resultListMap, animationPropertyInfoList) {
   // https://stackoverflow.com/questions/7251804/cssStyleSheetList-javascript-get-a-list-of-cssStyleSheetList-custom-attributes
   let cssStyleSheetList = document.styleSheets
   let cssStyleRules = null
@@ -101,8 +186,42 @@ function getSelectorList(targetDom, resultListMap) {
                 }
                 break
               case cssStyleRules[j].KEYFRAMES_RULE:
-                console.log('KEYFRAMES_RULE', cssStyleRules[j])
                 // TODO アニメーションプロパティの値でアニメーション名を含んでいる場合はマージする
+                let [isMatch, matchSelector] = isMatchAnimation(cssStyleRules[j].name, animationPropertyInfoList)
+                if (isMatch) {
+                  let keyframeQuierySelectorFlattenInfoList = []
+                  keyframeQuierySelectorFlatten(cssStyleRules[j], cssStyleRules[j], keyframeQuierySelectorFlattenInfoList)
+                  console.log('keyframeQuierySelectorFlattenInfoList', keyframeQuierySelectorFlattenInfoList, matchSelector)
+                  for (let index = 0; index < keyframeQuierySelectorFlattenInfoList.length; index++) {
+                    const keyframeQuierySelectorFlattenInfo = keyframeQuierySelectorFlattenInfoList[index]
+                    if (targetDom.matches(matchSelector)) {
+                      let targetXpath = getXpath(targetDom)
+                      if (resultListMap.has(targetXpath)) {
+                        let targetResultInfo = resultListMap.get(targetXpath)
+                        if (targetResultInfo.cssTextList === undefined) {
+                          targetResultInfo = Object.assign(targetResultInfo, {
+                            cssTextList: [keyframeQuierySelectorFlattenInfo.cssText],
+                          })
+                        } else {
+                          targetResultInfo.cssTextList.push(keyframeQuierySelectorFlattenInfo.cssText)
+                        }
+                        if (targetResultInfo.keyframeCssTextList === undefined) {
+                          targetResultInfo = Object.assign(targetResultInfo, {
+                            keyframeCssTextList: [keyframeQuierySelectorFlattenInfo.keyframeCssText],
+                          })
+                        } else {
+                          targetResultInfo.keyframeCssTextList.push(keyframeQuierySelectorFlattenInfo.keyframeCssText)
+                        }
+                        resultListMap.set(targetXpath, targetResultInfo)
+                      } else {
+                        resultListMap.set(targetXpath, {
+                          keyframeCssTextList: [keyframeQuierySelectorFlattenInfo.keyframeCssText],
+                          cssTextList: [keyframeQuierySelectorFlattenInfo.cssText],
+                        })
+                      }
+                    }
+                  }
+                }
                 break
               case cssStyleRules[j].KEYFRAME_RULE:
                 // UNKO cssStyleRules[j].KEYFRAMES_RULEの子なので通らない想定
@@ -273,24 +392,26 @@ function getExternalCssLinkUrlList() {
   return resultList
 }
 
-function traverseDom(targetDom, resultList, resultListMap) {
+function traverseDom(targetDom, resultList, resultListMap, animationPropertyInfoList) {
   let targetDomChildList = Array.from(targetDom.childNodes)
   if (targetDomChildList.length === 0) {
     return resultList
   }
   for (let index = 0; index < targetDomChildList.length; index++) {
     const targetDomChild = targetDomChildList[index]
-    getSelectorList(targetDomChild, resultListMap)
+    getSelectorList(targetDomChild, resultListMap, animationPropertyInfoList)
     resultList.push(targetDomChild)
-    traverseDom(targetDomChild, resultList, resultListMap)
+    traverseDom(targetDomChild, resultList, resultListMap, animationPropertyInfoList)
   }
 }
 
 function executeTraverseDom(targetDom) {
   let tmpList = new Array()
   let domListMap = new Map()
-  getSelectorList(targetDom, domListMap)
-  traverseDom(targetDom, tmpList, domListMap)
+  let animationPropertyInfoList = getSelectorListByPropertyName('animation')
+  console.log(animationPropertyInfoList)
+  getSelectorList(targetDom, domListMap, animationPropertyInfoList)
+  traverseDom(targetDom, tmpList, domListMap, animationPropertyInfoList)
   return Array.from(new Set(domListMap))
 }
 
