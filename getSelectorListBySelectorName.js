@@ -64,7 +64,25 @@ function extractCssPropertyInfoList(targetCssBlockText) {
     })
 }
 
-function getSelectorListByCssType(targetCssType) {
+function executeMakeStyleDom() {
+  return new Promise((resolve) => {
+    makeStyleDom(getExternalCssLinkUrlList())
+    console.log('executeMakeStyleDom is done')
+    resolve()
+  })
+}
+
+function executeGetSelectorList(targetSelectorName) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      let resultInfoList = getSelectorListBySelectorName(targetSelectorName)
+      console.log('executeGetSelectorList is done')
+      resolve(resultInfoList)
+    }, 3000)
+  })
+}
+
+function getSelectorListBySelectorName(targetSelectorName) {
   // https://stackoverflow.com/questions/7251804/cssStyleSheetList-javascript-get-a-list-of-cssStyleSheetList-custom-attributes
   let cssStyleSheetList = document.styleSheets
   let cssStyleRules = null
@@ -75,10 +93,11 @@ function getSelectorListByCssType(targetCssType) {
         cssStyleRules = cssStyleSheetList[i].rules || cssStyleSheetList[i].cssRules
         for (let j in cssStyleRules) {
           if (typeof cssStyleRules[j] === 'object') {
-            if (cssStyleRules[j].type === targetCssType) {
+            if (cssStyleRules[j].cssText.indexOf(targetSelectorName) !== -1 && cssStyleRules[j].selectorText !== undefined) {
               resultInfoList.push({
-                cssAnimationText: cssStyleRules[j].cssText,
-                keyframeName: cssStyleRules[j].name,
+                cssText: cssStyleRules[j].cssText,
+                cssSelectorText: cssStyleRules[j].selectorText,
+                cssPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)),
               })
             }
           }
@@ -89,81 +108,25 @@ function getSelectorListByCssType(targetCssType) {
   return resultInfoList
 }
 
-function executeMakeStyleDom() {
-  return new Promise((resolve) => {
-    makeStyleDom(getExternalCssLinkUrlList())
-    console.log('executeMakeStyleDom is done')
-    resolve()
-  })
-}
-
-function executeGetSelectorList() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      let resultInfoList = getSelectorListByCssType(CSSRule.KEYFRAMES_RULE)
-      console.log('executeGetSelectorList is done')
-      resolve(resultInfoList)
-    }, 3000)
-  })
-}
-
-function getSelectorListByPropertyName(targetPropertyName) {
-  // https://stackoverflow.com/questions/7251804/cssStyleSheetList-javascript-get-a-list-of-cssStyleSheetList-custom-attributes
-  let cssStyleSheetList = document.styleSheets
-  let cssStyleRules = null
-  let resultInfoList = []
-  for (let i in cssStyleSheetList) {
-    if (typeof cssStyleSheetList[i] === 'object' && cssStyleSheetList[i].href === null) {
-      if (cssStyleSheetList[i].rules || cssStyleSheetList[i].cssRules) {
-        cssStyleRules = cssStyleSheetList[i].rules || cssStyleSheetList[i].cssRules
-        for (let j in cssStyleRules) {
-          if (typeof cssStyleRules[j] === 'object' && cssStyleRules[j].selectorText !== undefined) {
-            resultInfoList.push({
-              cssText: cssStyleRules[j].cssText,
-              cssSelectorText: cssStyleRules[j].selectorText,
-              cssPropertyInfoList: extractCssPropertyInfoList(extractCssBlockText(cssStyleRules[j].cssText)).filter((item) => {
-                return item.propertyName.indexOf(targetPropertyName) !== -1
-              }),
-            })
-          }
-        }
-      }
-    }
-  }
-  return resultInfoList
-}
-
-function getMatchAnimationSelectorInfoList(targetKeyFrameName) {
-  let resultInfoList = []
-  let selectorInfoList = getSelectorListByPropertyName('animation')
-  for (let index = 0; index < selectorInfoList.length; index++) {
-    const selectorInfo = selectorInfoList[index]
-    if (
-      selectorInfo.cssPropertyInfoList.length !== 0 &&
-      selectorInfo.cssPropertyInfoList.filter((item) => {
-        return item.propertyValue.indexOf(targetKeyFrameName) !== -1
-      }).length !== 0
-    ) {
-      resultInfoList.push(selectorInfo)
-    }
-  }
-  return resultInfoList
-}
-
 async function main() {
   await executeMakeStyleDom()
-  let resultInfoList = await executeGetSelectorList()
-  let displayInfoList = []
-  for (let i = 0; i < resultInfoList.length; i++) {
-    const resultInfo = resultInfoList[i]
-    let matchAnimationSelectorInfoList = getMatchAnimationSelectorInfoList(resultInfo.keyframeName)
-    for (let j = 0; j < matchAnimationSelectorInfoList.length; j++) {
-      let matchAnimationSelectorInfo = matchAnimationSelectorInfoList[j]
-      matchAnimationSelectorInfo = Object.assign(matchAnimationSelectorInfo, { ...resultInfo })
-      displayInfoList.push(matchAnimationSelectorInfo)
+  let resultInfoList = await executeGetSelectorList(':root, [data-theme="default"]')
+  let displayList = []
+  for (let index = 0; index < resultInfoList.length; index++) {
+    let displayInfo = {}
+    let resultInfo = resultInfoList[index]
+    for (let index = 0; index < resultInfo.cssPropertyInfoList.length; index++) {
+      const cssPropertyInfo = resultInfo.cssPropertyInfoList[index]
+      displayInfo = {
+        cssText: resultInfo.cssText,
+        cssSelectorText: resultInfo.cssSelectorText,
+        cssPropertyName: cssPropertyInfo.propertyName,
+        cssPropertyValue: cssPropertyInfo.propertyValue,
+      }
+      displayList.push(displayInfo)
     }
   }
-  console.table(displayInfoList)
+  console.table(displayList)
 }
 
 // https://codyhouse.co/ds/docs/components
