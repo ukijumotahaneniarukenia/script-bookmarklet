@@ -28,6 +28,23 @@ function getXpath(targetDom) {
   }
 }
 
+function mediaQuierySelectorFlatten(targetCssRule, resultInfoList) {
+  if (targetCssRule.cssRules === undefined) {
+    resultInfoList.push({
+      mediaConditionText: targetCssRule.conditionText,
+      selectorText: targetCssRule.selectorText,
+      cssText: targetCssRule.cssText,
+    })
+    return resultInfoList
+  } else {
+    let targetCssStyleRuleList = Array.from(targetCssRule.cssRules)
+    for (let index = 0; index < targetCssStyleRuleList.length; index++) {
+      const targetCssStyleRule = targetCssStyleRuleList[index]
+      mediaQuierySelectorFlatten(targetCssStyleRule, resultInfoList)
+    }
+  }
+}
+
 function getSelectorList(targetDom, resultListMap) {
   // https://stackoverflow.com/questions/7251804/cssStyleSheetList-javascript-get-a-list-of-cssStyleSheetList-custom-attributes
   let cssStyleSheetList = document.styleSheets
@@ -66,7 +83,7 @@ function getSelectorList(targetDom, resultListMap) {
                 break
               case cssStyleRules[j].MEDIA_RULE:
                 // ネスト再帰すれば行ける！！！
-                console.log(cssStyleRules[j])
+                mediaQuierySelectorFlatten(cssStyleRules[j], [])
                 if (cssStyleRules[j].media.length !== 0 && window.matchMedia(cssStyleRules[j].conditionText).matches) {
                   let targetXpath = getXpath(targetDom)
                   if (resultListMap.has(targetXpath)) {
@@ -205,7 +222,7 @@ function addXpathInfo(targetItemList) {
 }
 
 function process(targetXpath) {
-  // makeStyleDom(getExternalCssLinkUrlList())
+  makeStyleDom(getExternalCssLinkUrlList())
   return new Promise((resolve) => {
     setTimeout(() => {
       let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
@@ -216,9 +233,7 @@ function process(targetXpath) {
 }
 
 async function main() {
-  // https://mailchimp.com/pricing/
-  let targetXpath = '/html/body/main/div/div/div[1]/div[2]'
-  // let targetXpath = '/html/body/div'
+  let targetXpath = '/html/body/div'
   let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
   let resultInfoList = await process(targetXpath)
   console.table(resultInfoList)

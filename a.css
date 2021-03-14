@@ -1,0 +1,18 @@
+@media (min-width: 426px) and (orientation: landscape) {
+  div { font-size: 5.75em; }
+}
+@media (min-width: 400px) {
+  div { width: 100px; height: 300px; border: 1px solid steelblue; }
+}
+
+@media screen and (min-width:500px){
+  a{width:16.666%;}
+}
+@media screen and (min-width:300px){
+  @media screen and (min-height:10px){
+    za{width:16.666%;}
+    b{height: 10px;}
+  }
+  za:nth-of-type(3n){border-right:1px solid #dcdddd;}
+  za:nth-of-type(6n){border-right:none;}
+}
