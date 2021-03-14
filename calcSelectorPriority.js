@@ -160,6 +160,7 @@ function getSelectorList(targetDom, resultListMap, animationPropertyInfoList) {
             let targetCssStyleType = cssStyleRules[j].type
             switch (targetCssStyleType) {
               case cssStyleRules[j].CHARSET_RULE:
+                // TODO 調べる
                 break
               case cssStyleRules[j].FONT_FACE_RULE:
                 // TODO URLは正規化しないとだめ サブドメインは異なることがある
@@ -186,12 +187,10 @@ function getSelectorList(targetDom, resultListMap, animationPropertyInfoList) {
                 }
                 break
               case cssStyleRules[j].KEYFRAMES_RULE:
-                // TODO アニメーションプロパティの値でアニメーション名を含んでいる場合はマージする
                 let [isMatch, matchSelector] = isMatchAnimation(cssStyleRules[j].name, animationPropertyInfoList)
                 if (isMatch) {
                   let keyframeQuierySelectorFlattenInfoList = []
                   keyframeQuierySelectorFlatten(cssStyleRules[j], cssStyleRules[j], keyframeQuierySelectorFlattenInfoList)
-                  console.log('keyframeQuierySelectorFlattenInfoList', keyframeQuierySelectorFlattenInfoList, matchSelector)
                   for (let index = 0; index < keyframeQuierySelectorFlattenInfoList.length; index++) {
                     const keyframeQuierySelectorFlattenInfo = keyframeQuierySelectorFlattenInfoList[index]
                     if (targetDom.matches(matchSelector)) {
@@ -227,8 +226,6 @@ function getSelectorList(targetDom, resultListMap, animationPropertyInfoList) {
                 // UNKO cssStyleRules[j].KEYFRAMES_RULEの子なので通らない想定
                 break
               case cssStyleRules[j].MEDIA_RULE:
-                // TODO postcssとかでネストセレクタをフラットセレクタにマージしてくれたりするのだろうか
-                // https://postcss.org/
                 if (cssStyleRules[j].media.length !== 0 && window.matchMedia(cssStyleRules[j].conditionText).matches) {
                   let mediaQuierySelectorFlattenInfoList = []
                   mediaQuierySelectorFlatten(cssStyleRules[j], cssStyleRules[j], mediaQuierySelectorFlattenInfoList)
@@ -264,8 +261,10 @@ function getSelectorList(targetDom, resultListMap, animationPropertyInfoList) {
                 }
                 break
               case cssStyleRules[j].NAMESPACE_RULE:
+                // TODO 調べる
                 break
               case cssStyleRules[j].PAGE_RULE:
+                // TODO 調べる
                 break
               case cssStyleRules[j].STYLE_RULE:
                 if (
