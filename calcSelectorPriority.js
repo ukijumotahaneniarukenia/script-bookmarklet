@@ -500,4 +500,5 @@ for (let i = 0; i < resultInfoList.length; i++) {
 
 // このchrome拡張が目指すべきゴール 普通にやばい
 // https://chrome.google.com/webstore/detail/css-used/cdopjfddjlonogibjahpnmjpoangjfff/related
+// https://github.com/painty/CSS-Used-ChromeExt/blob/master/src/traversalCSSRuleList.js
 console.table(displayList)

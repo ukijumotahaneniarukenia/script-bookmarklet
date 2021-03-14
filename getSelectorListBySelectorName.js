@@ -110,7 +110,7 @@ function getSelectorListBySelectorName(targetSelectorName) {
 
 async function main() {
   await executeMakeStyleDom()
-  let resultInfoList = await executeGetSelectorList(':root, [data-theme="default"]')
+  let resultInfoList = await executeGetSelectorList('*')
   let displayList = []
   for (let index = 0; index < resultInfoList.length; index++) {
     let displayInfo = {}
