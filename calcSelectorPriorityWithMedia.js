@@ -28,6 +28,24 @@ function getXpath(targetDom) {
   }
 }
 
+function mediaQuierySelectorFlatten(targetMediaRule, targetCssRule, resultInfoList) {
+  // ルートメデイア情報は持ち回る
+  if (targetCssRule.cssRules === undefined) {
+    resultInfoList.push({
+      mediaCssText: targetMediaRule.cssText,
+      selectorText: targetCssRule.selectorText,
+      cssText: targetCssRule.cssText,
+    })
+    return resultInfoList
+  } else {
+    let targetCssStyleRuleList = Array.from(targetCssRule.cssRules)
+    for (let index = 0; index < targetCssStyleRuleList.length; index++) {
+      const targetCssStyleRule = targetCssStyleRuleList[index]
+      mediaQuierySelectorFlatten(targetMediaRule, targetCssStyleRule, resultInfoList)
+    }
+  }
+}
+
 function getSelectorList(targetDom, resultListMap) {
   // https://stackoverflow.com/questions/7251804/cssStyleSheetList-javascript-get-a-list-of-cssStyleSheetList-custom-attributes
   let cssStyleSheetList = document.styleSheets
@@ -43,7 +61,6 @@ function getSelectorList(targetDom, resultListMap) {
               case cssStyleRules[j].CHARSET_RULE:
                 break
               case cssStyleRules[j].FONT_FACE_RULE:
-                // 5
                 // TODO どういれこんだらいいかわからん
                 // https://developer.mozilla.org/ja/docs/Web/CSS/@font-face
                 if (cssStyleRules[j].cssText !== '' && cssStyleRules[j].cssText !== null && cssStyleRules[j].cssText !== undefined) {
@@ -65,24 +82,39 @@ function getSelectorList(targetDom, resultListMap) {
               case cssStyleRules[j].KEYFRAME_RULE:
                 break
               case cssStyleRules[j].MEDIA_RULE:
-                // ネスト再帰すれば行ける！！！
-                console.log(cssStyleRules[j])
+                // TODO postcssとかでネストセレクタをフラットセレクタにマージしてくれたりするのだろうか
+                // https://postcss.org/
                 if (cssStyleRules[j].media.length !== 0 && window.matchMedia(cssStyleRules[j].conditionText).matches) {
-                  let targetXpath = getXpath(targetDom)
-                  if (resultListMap.has(targetXpath)) {
-                    let targetResultInfo = resultListMap.get(targetXpath)
-                    if (targetResultInfo.cssTextList === undefined) {
-                      targetResultInfo = Object.assign(targetResultInfo, {
-                        cssTextList: [cssStyleRules[j].cssText],
-                      })
-                    } else {
-                      targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+                  let mediaQuierySelectorFlattenInfoList = []
+                  mediaQuierySelectorFlatten(cssStyleRules[j], cssStyleRules[j], mediaQuierySelectorFlattenInfoList)
+                  for (let index = 0; index < mediaQuierySelectorFlattenInfoList.length; index++) {
+                    const mediaQuierySelectorFlattenInfo = mediaQuierySelectorFlattenInfoList[index]
+                    if (targetDom.matches(mediaQuierySelectorFlattenInfo.selectorText)) {
+                      let targetXpath = getXpath(targetDom)
+                      if (resultListMap.has(targetXpath)) {
+                        let targetResultInfo = resultListMap.get(targetXpath)
+                        if (targetResultInfo.cssTextList === undefined) {
+                          targetResultInfo = Object.assign(targetResultInfo, {
+                            cssTextList: [mediaQuierySelectorFlattenInfo.cssText],
+                          })
+                        } else {
+                          targetResultInfo.cssTextList.push(mediaQuierySelectorFlattenInfo.cssText)
+                        }
+                        if (targetResultInfo.mediaCssTextList === undefined) {
+                          targetResultInfo = Object.assign(targetResultInfo, {
+                            mediaCssTextList: [mediaQuierySelectorFlattenInfo.mediaCssText],
+                          })
+                        } else {
+                          targetResultInfo.mediaCssTextList.push(mediaQuierySelectorFlattenInfo.mediaCssText)
+                        }
+                        resultListMap.set(targetXpath, targetResultInfo)
+                      } else {
+                        resultListMap.set(targetXpath, {
+                          mediaCssTextList: [mediaQuierySelectorFlattenInfo.mediaCssText],
+                          cssTextList: [mediaQuierySelectorFlattenInfo.cssText],
+                        })
+                      }
                     }
-                    resultListMap.set(targetXpath, targetResultInfo)
-                  } else {
-                    resultListMap.set(targetXpath, {
-                      cssTextList: [cssStyleRules[j].cssText],
-                    })
                   }
                 }
                 break
@@ -90,34 +122,33 @@ function getSelectorList(targetDom, resultListMap) {
                 break
               case cssStyleRules[j].PAGE_RULE:
                 break
-              // case cssStyleRules[j].STYLE_RULE:
-              //   // 1
-              //   if (
-              //     cssStyleRules[j].selectorText !== '' &&
-              //     cssStyleRules[j].selectorText !== null &&
-              //     cssStyleRules[j].selectorText !== undefined &&
-              //     targetDom.matches(cssStyleRules[j].selectorText)
-              //   ) {
-              //     let targetXpath = getXpath(targetDom)
-              //     if (resultListMap.has(targetXpath)) {
-              //       let targetResultInfo = resultListMap.get(targetXpath)
-              //       if (targetResultInfo.selectorTextList === undefined) {
-              //         targetResultInfo = Object.assign(targetResultInfo, {
-              //           selectorTextList: [cssStyleRules[j].selectorText],
-              //         })
-              //       } else {
-              //         targetResultInfo.selectorTextList.push(cssStyleRules[j].selectorText)
-              //       }
-              //       targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
-              //       resultListMap.set(targetXpath, targetResultInfo)
-              //     } else {
-              //       resultListMap.set(targetXpath, {
-              //         selectorTextList: [cssStyleRules[j].selectorText],
-              //         cssTextList: [cssStyleRules[j].cssText],
-              //       })
-              //     }
-              //   }
-              //   break
+              case cssStyleRules[j].STYLE_RULE:
+                if (
+                  cssStyleRules[j].selectorText !== '' &&
+                  cssStyleRules[j].selectorText !== null &&
+                  cssStyleRules[j].selectorText !== undefined &&
+                  targetDom.matches(cssStyleRules[j].selectorText)
+                ) {
+                  let targetXpath = getXpath(targetDom)
+                  if (resultListMap.has(targetXpath)) {
+                    let targetResultInfo = resultListMap.get(targetXpath)
+                    if (targetResultInfo.selectorTextList === undefined) {
+                      targetResultInfo = Object.assign(targetResultInfo, {
+                        selectorTextList: [cssStyleRules[j].selectorText],
+                      })
+                    } else {
+                      targetResultInfo.selectorTextList.push(cssStyleRules[j].selectorText)
+                    }
+                    targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+                    resultListMap.set(targetXpath, targetResultInfo)
+                  } else {
+                    resultListMap.set(targetXpath, {
+                      selectorTextList: [cssStyleRules[j].selectorText],
+                      cssTextList: [cssStyleRules[j].cssText],
+                    })
+                  }
+                }
+                break
               case cssStyleRules[j].SUPPORTS_RULE:
                 break
               default:
@@ -205,7 +236,7 @@ function addXpathInfo(targetItemList) {
 }
 
 function process(targetXpath) {
-  // makeStyleDom(getExternalCssLinkUrlList())
+  makeStyleDom(getExternalCssLinkUrlList())
   return new Promise((resolve) => {
     setTimeout(() => {
       let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
@@ -218,18 +249,16 @@ function process(targetXpath) {
 async function main() {
   // https://mailchimp.com/pricing/
   let targetXpath = '/html/body/main/div/div/div[1]/div[2]'
-  // let targetXpath = '/html/body/div'
   let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
   let resultInfoList = await process(targetXpath)
   console.table(resultInfoList)
-
-  // let displayItem = ''
-  // for (let i = 0; i < resultInfoList.length; i++) {
-  //   const resultInfo = resultInfoList[i]
-  //   displayItem = displayItem + resultInfo.cssTextList.join('\n')
-  // }
-  // console.log(targetDom)
-  // console.log(displayItem)
+  let displayItem = ''
+  for (let i = 0; i < resultInfoList.length; i++) {
+    const resultInfo = resultInfoList[i]
+    displayItem = displayItem + resultInfo.cssTextList.join('\n')
+  }
+  console.log(targetDom)
+  console.log(displayItem)
 }
 
 main()
