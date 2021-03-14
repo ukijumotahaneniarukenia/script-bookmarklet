@@ -471,15 +471,8 @@ let ATTR_PATTERN = /\[[^\]]+\]/g
 let PSEUDO_CLASSES_PATTERN = /(?<!:):(?!(not))[\w-]+(\(.*\))?/g
 let PSEUDO_ELEMENTS_PATTERN = /::(root|after|before|first-letter|first-line|selection)/g
 
-// https://mailchimp.com/pricing/
-let resultInfoList = await main('/html/body/main/div/div/div[1]/div[2]/div[1]/div[1]/div/a/p')
-
-// https://dev.to/codeozz/how-i-improve-my-skills-in-typescript-1l91
-// let resultInfoList = await main('/html/body/div[9]/div/div[1]/aside[1]/div/div')
-
-// https://codyhouse.co/demo-templates/marte/components-charts.html
-// このサイトは@supportsとかいろいろ入っててやりごたえある
-// let resultInfoList = await main('/html/body/div[1]/main/div[2]/div[2]')
+let targetXpath = prompt('Please Input Xpath')
+let resultInfoList = await main(targetXpath)
 
 let selectColumnList = ['xpath', 'cssPropertyName', 'cssPropertyValue', 'selectorPriorityScore']
 
@@ -504,4 +497,7 @@ for (let i = 0; i < resultInfoList.length; i++) {
 // 条件付き規則は入れ子にできるらしいので、それフラットにパースしないとだめ
 // https://developer.mozilla.org/ja/docs/Web/CSS/At-rule#conditional_group_rules
 // ChromeのCopy Styles作った人めちゃすごい
+
+// このchrome拡張が目指すべきゴール 普通にやばい
+// https://chrome.google.com/webstore/detail/css-used/cdopjfddjlonogibjahpnmjpoangjfff/related
 console.table(displayList)
