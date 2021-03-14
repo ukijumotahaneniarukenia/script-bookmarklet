@@ -28,6 +28,40 @@ function getXpath(targetDom) {
   }
 }
 
+function mediaQuierySelectorFlatten(targetMediaRule, targetCssRule, resultInfoList) {
+  if (targetCssRule.cssRules === undefined) {
+    resultInfoList.push({
+      mediaCssText: targetMediaRule.cssText,
+      selectorText: targetCssRule.selectorText,
+      cssText: targetCssRule.cssText,
+    })
+    return resultInfoList
+  } else {
+    let targetCssStyleRuleList = Array.from(targetCssRule.cssRules)
+    for (let index = 0; index < targetCssStyleRuleList.length; index++) {
+      const targetCssStyleRule = targetCssStyleRuleList[index]
+      mediaQuierySelectorFlatten(targetMediaRule, targetCssStyleRule, resultInfoList)
+    }
+  }
+}
+
+function supportQuierySelectorFlatten(targetSupportRule, targetCssRule, resultInfoList) {
+  if (targetCssRule.cssRules === undefined) {
+    resultInfoList.push({
+      supportCssText: targetSupportRule.cssText,
+      selectorText: targetCssRule.selectorText,
+      cssText: targetCssRule.cssText,
+    })
+    return resultInfoList
+  } else {
+    let targetCssStyleRuleList = Array.from(targetCssRule.cssRules)
+    for (let index = 0; index < targetCssStyleRuleList.length; index++) {
+      const targetCssStyleRule = targetCssStyleRuleList[index]
+      supportQuierySelectorFlatten(targetSupportRule, targetCssStyleRule, resultInfoList)
+    }
+  }
+}
+
 function getSelectorList(targetDom, resultListMap) {
   // https://stackoverflow.com/questions/7251804/cssStyleSheetList-javascript-get-a-list-of-cssStyleSheetList-custom-attributes
   let cssStyleSheetList = document.styleSheets
@@ -43,129 +77,75 @@ function getSelectorList(targetDom, resultListMap) {
               case cssStyleRules[j].CHARSET_RULE:
                 break
               case cssStyleRules[j].FONT_FACE_RULE:
-                // 5
-                // TODO どういれこんだらいいかわからん
+                // TODO URLは正規化しないとだめ サブドメインは異なることがある
                 // https://developer.mozilla.org/ja/docs/Web/CSS/@font-face
+                // https://css-tricks.com/snippets/css/using-font-face/
+                // https://stackoverflow.com/questions/47897685/how-do-i-specify-which-font-weights-are-available-for-a-given-font-family
                 if (cssStyleRules[j].cssText !== '' && cssStyleRules[j].cssText !== null && cssStyleRules[j].cssText !== undefined) {
                   let targetXpath = getXpath(targetDom)
-                  // console.log(cssStyleRules[j].cssText)
-                  // if (resultListMap.has(targetXpath)) {
-                  //   let targetResultInfo = resultListMap.get(targetXpath)
-                  //   targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
-                  //   resultListMap.set(targetXpath, targetResultInfo)
-                  // } else {
-                  //   resultListMap.set(targetXpath, {
-                  //     cssTextList: [cssStyleRules[j].cssText],
-                  //   })
-                  // }
+                  if (resultListMap.has(targetXpath)) {
+                    let targetResultInfo = resultListMap.get(targetXpath)
+                    if (targetResultInfo.fontCssTextList === undefined) {
+                      targetResultInfo = Object.assign(targetResultInfo, {
+                        fontCssTextList: [cssStyleRules[j].cssText],
+                      })
+                    } else {
+                      targetResultInfo.fontCssTextList.push(cssStyleRules[j].cssText)
+                    }
+                    resultListMap.set(targetXpath, targetResultInfo)
+                  } else {
+                    resultListMap.set(targetXpath, {
+                      fontCssTextList: [cssStyleRules[j].cssText],
+                    })
+                  }
                 }
                 break
               case cssStyleRules[j].KEYFRAMES_RULE:
                 break
               case cssStyleRules[j].KEYFRAME_RULE:
                 break
-              // case cssStyleRules[j].MEDIA_RULE:
-              //   if (cssStyleRules[j].media.length !== 0 && window.matchMedia(cssStyleRules[j].conditionText).media) {
-              //     let targetXpath = getXpath(targetDom)
-              //     if (resultListMap.has(targetXpath)) {
-              //       let targetResultInfo = resultListMap.get(targetXpath)
-              //       if (targetResultInfo.selectorTextList === undefined) {
-              //         targetResultInfo = Object.assign(targetResultInfo, {
-              //           selectorTextList: cssStyleRules[j].cssText
-              //             .replace(`@media ${cssStyleRules[j].conditionText} `, '')
-              //             .replace(/\n/g, 'うんこ')
-              //             .replace(/^ +/, '')
-              //             .replace(/ +$/, '')
-              //             .replace(/^{/, '')
-              //             .replace(/}$/, '')
-              //             .replace(/うんこ/g, ';')
-              //             .replace(/^;/, '')
-              //             .split(/(?<=};)/)
-              //             .map((item) => {
-              //               return item.replace(/^ +/, '')
-              //             })
-              //             .map((item) => {
-              //               return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
-              //             }),
-              //         })
-              //       } else {
-              //         console.log(cssStyleRules[j].cssText)
-              //         targetResultInfo.selectorTextList = targetResultInfo.selectorTextList.concat(
-              //           cssStyleRules[j].cssText
-              //             .replace(`@media ${cssStyleRules[j].conditionText} `, '')
-              //             .replace(/\n/g, 'うんこ')
-              //             .replace(/^ +/, '')
-              //             .replace(/ +$/, '')
-              //             .replace(/^{/, '')
-              //             .replace(/}$/, '')
-              //             .replace(/うんこ/g, ';')
-              //             .replace(/^;/, '')
-              //             .split(/(?<=};)/)
-              //             .map((item) => {
-              //               return item.replace(/^ +/, '')
-              //             })
-              //             .map((item) => {
-              //               return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
-              //             })
-              //         )
-              //       }
-              //       targetResultInfo.cssTextList = targetResultInfo.cssTextList.concat(
-              //         cssStyleRules[j].cssText
-              //           .replace(`@media ${cssStyleRules[j].conditionText} `, '')
-              //           .replace(/\n/g, 'うんこ')
-              //           .replace(/^ +/, '')
-              //           .replace(/ +$/, '')
-              //           .replace(/^{/, '')
-              //           .replace(/}$/, '')
-              //           .replace(/うんこ/g, ';')
-              //           .replace(/^;/, '')
-              //           .split(/(?<=};)/)
-              //           .map((item) => {
-              //             return item.replace(/^ +/, '').replace(/;$/, '')
-              //           })
-              //       )
-              //       resultListMap.set(targetXpath, targetResultInfo)
-              //     } else {
-              //       resultListMap.set(targetXpath, {
-              //         selectorTextList: cssStyleRules[j].cssText
-              //           .replace(`@media ${cssStyleRules[j].conditionText} `, '')
-              //           .replace(/\n/g, 'うんこ')
-              //           .replace(/^ +/, '')
-              //           .replace(/ +$/, '')
-              //           .replace(/^{/, '')
-              //           .replace(/}$/, '')
-              //           .replace(/うんこ/g, ';')
-              //           .replace(/^;/, '')
-              //           .split(/(?<=};)/)
-              //           .map((item) => {
-              //             return item.replace(/^ +/, '')
-              //           })
-              //           .map((item) => {
-              //             return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
-              //           }),
-              //         cssTextList: cssStyleRules[j].cssText
-              //           .replace(`@media ${cssStyleRules[j].conditionText} `, '')
-              //           .replace(/\n/g, 'うんこ')
-              //           .replace(/^ +/, '')
-              //           .replace(/ +$/, '')
-              //           .replace(/^{/, '')
-              //           .replace(/}$/, '')
-              //           .replace(/うんこ/g, ';')
-              //           .replace(/^;/, '')
-              //           .split(/(?<=};)/)
-              //           .map((item) => {
-              //             return item.replace(/^ +/, '').replace(/;$/, '')
-              //           }),
-              //       })
-              //     }
-              //   }
-              //   break
+              case cssStyleRules[j].MEDIA_RULE:
+                // TODO postcssとかでネストセレクタをフラットセレクタにマージしてくれたりするのだろうか
+                // https://postcss.org/
+                if (cssStyleRules[j].media.length !== 0 && window.matchMedia(cssStyleRules[j].conditionText).matches) {
+                  let mediaQuierySelectorFlattenInfoList = []
+                  mediaQuierySelectorFlatten(cssStyleRules[j], cssStyleRules[j], mediaQuierySelectorFlattenInfoList)
+                  for (let index = 0; index < mediaQuierySelectorFlattenInfoList.length; index++) {
+                    const mediaQuierySelectorFlattenInfo = mediaQuierySelectorFlattenInfoList[index]
+                    if (targetDom.matches(mediaQuierySelectorFlattenInfo.selectorText)) {
+                      let targetXpath = getXpath(targetDom)
+                      if (resultListMap.has(targetXpath)) {
+                        let targetResultInfo = resultListMap.get(targetXpath)
+                        if (targetResultInfo.cssTextList === undefined) {
+                          targetResultInfo = Object.assign(targetResultInfo, {
+                            cssTextList: [mediaQuierySelectorFlattenInfo.cssText],
+                          })
+                        } else {
+                          targetResultInfo.cssTextList.push(mediaQuierySelectorFlattenInfo.cssText)
+                        }
+                        if (targetResultInfo.mediaCssTextList === undefined) {
+                          targetResultInfo = Object.assign(targetResultInfo, {
+                            mediaCssTextList: [mediaQuierySelectorFlattenInfo.mediaCssText],
+                          })
+                        } else {
+                          targetResultInfo.mediaCssTextList.push(mediaQuierySelectorFlattenInfo.mediaCssText)
+                        }
+                        resultListMap.set(targetXpath, targetResultInfo)
+                      } else {
+                        resultListMap.set(targetXpath, {
+                          mediaCssTextList: [mediaQuierySelectorFlattenInfo.mediaCssText],
+                          cssTextList: [mediaQuierySelectorFlattenInfo.cssText],
+                        })
+                      }
+                    }
+                  }
+                }
+                break
               case cssStyleRules[j].NAMESPACE_RULE:
                 break
               case cssStyleRules[j].PAGE_RULE:
                 break
               case cssStyleRules[j].STYLE_RULE:
-                // 1
                 if (
                   cssStyleRules[j].selectorText !== '' &&
                   cssStyleRules[j].selectorText !== null &&
@@ -182,7 +162,13 @@ function getSelectorList(targetDom, resultListMap) {
                     } else {
                       targetResultInfo.selectorTextList.push(cssStyleRules[j].selectorText)
                     }
-                    targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+                    if (targetResultInfo.cssTextList === undefined) {
+                      targetResultInfo = Object.assign(targetResultInfo, {
+                        cssTextList: [cssStyleRules[j].cssText],
+                      })
+                    } else {
+                      targetResultInfo.cssTextList.push(cssStyleRules[j].cssText)
+                    }
                     resultListMap.set(targetXpath, targetResultInfo)
                   } else {
                     resultListMap.set(targetXpath, {
@@ -193,6 +179,43 @@ function getSelectorList(targetDom, resultListMap) {
                 }
                 break
               case cssStyleRules[j].SUPPORTS_RULE:
+                // https://developer.mozilla.org/ja/docs/Web/CSS/@supports
+                // https://developer.mozilla.org/ja/docs/Web/API/CSSSupportsRule
+                // https://blog.kazu69.net/2016/09/14/using-at-rule-supports-development-with-css-property-of-future/
+                if (CSS.supports(cssStyleRules[j].conditionText)) {
+                  let supportQuierySelectorFlattenInfoList = []
+                  supportQuierySelectorFlatten(cssStyleRules[j], cssStyleRules[j], supportQuierySelectorFlattenInfoList)
+                  for (let index = 0; index < supportQuierySelectorFlattenInfoList.length; index++) {
+                    const supportQuierySelectorFlattenInfo = supportQuierySelectorFlattenInfoList[index]
+                    // MEMO プレミアム機能等で機能制限を実現するためににあえてセレクタに不一致するようなマスキングをしているので結果に出力されない
+                    if (targetDom.matches(supportQuierySelectorFlattenInfo.selectorText)) {
+                      let targetXpath = getXpath(targetDom)
+                      if (resultListMap.has(targetXpath)) {
+                        let targetResultInfo = resultListMap.get(targetXpath)
+                        if (targetResultInfo.cssTextList === undefined) {
+                          targetResultInfo = Object.assign(targetResultInfo, {
+                            cssTextList: [supportQuierySelectorFlattenInfo.cssText],
+                          })
+                        } else {
+                          targetResultInfo.cssTextList.push(supportQuierySelectorFlattenInfo.cssText)
+                        }
+                        if (targetResultInfo.supportCssTextList === undefined) {
+                          targetResultInfo = Object.assign(targetResultInfo, {
+                            supportCssTextList: [supportQuierySelectorFlattenInfo.supportCssText],
+                          })
+                        } else {
+                          targetResultInfo.supportCssTextList.push(supportQuierySelectorFlattenInfo.supportCssText)
+                        }
+                        resultListMap.set(targetXpath, targetResultInfo)
+                      } else {
+                        resultListMap.set(targetXpath, {
+                          supportCssTextList: [supportQuierySelectorFlattenInfo.supportCssText],
+                          cssTextList: [supportQuierySelectorFlattenInfo.cssText],
+                        })
+                      }
+                    }
+                  }
+                }
                 break
               default:
                 break
@@ -278,7 +301,7 @@ function addXpathInfo(targetItemList) {
   return resultList
 }
 
-function main(targetXpath) {
+function process(targetXpath) {
   makeStyleDom(getExternalCssLinkUrlList())
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -289,19 +312,29 @@ function main(targetXpath) {
   })
 }
 
-// https://mailchimp.com/
-let targetXpath = '/html/body/main/section[1]/div/div/div/div/div'
-let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
-let resultInfoList = await main(targetXpath)
-console.table(resultInfoList)
-
-let displayItem = ''
-for (let i = 0; i < resultInfoList.length; i++) {
-  const resultInfo = resultInfoList[i]
-  displayItem = displayItem + resultInfo.cssTextList.join('\n')
+async function main() {
+  // https://mailchimp.com/pricing/
+  // let targetXpath = '/html/body/main/div/div/div[1]/div[2]'
+  // https://www.starbucks.com/rewards
+  // let targetXpath = '/html/body/div[2]/div/div[3]/main/div[4]/div'
+  // https://codyhouse.co/ds/components/app/circular-progress-card
+  let targetXpath = '/html/body/div/div' // @supportで機能制限する例が豊富
+  let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
+  let resultInfoList = await process(targetXpath)
+  console.table(resultInfoList)
+  let displayItem = ''
+  for (let i = 0; i < resultInfoList.length; i++) {
+    const resultInfo = resultInfoList[i]
+    displayItem = displayItem + resultInfo.cssTextList.join('\n')
+  }
+  if (resultInfoList[0].fontCssTextList !== undefined) {
+    displayItem = displayItem + resultInfoList[0].fontCssTextList.join('\n')
+  }
+  console.log(targetDom)
+  console.log(displayItem)
 }
-console.log(targetDom)
-console.log(displayItem)
-// このchrome拡張が目指すべきゴール 普通にやばい
+
+main()
+// このchrome拡張が普通にやばい
 // https://chrome.google.com/webstore/detail/css-used/cdopjfddjlonogibjahpnmjpoangjfff/related
 // https://github.com/painty/CSS-Used-ChromeExt/blob/master/src/traversalCSSRuleList.js
