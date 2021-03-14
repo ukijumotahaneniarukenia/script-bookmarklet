@@ -39,7 +39,6 @@ function getSelectorList(targetDom, resultListMap) {
         for (let j in cssStyleRules) {
           if (typeof cssStyleRules[j] === 'object' && targetDom.nodeName !== '#text' && targetDom.nodeName !== '#comment') {
             let targetCssStyleType = cssStyleRules[j].type
-            console.log(cssStyleRules[j])
             switch (targetCssStyleType) {
               case cssStyleRules[j].CHARSET_RULE:
                 break
@@ -65,102 +64,102 @@ function getSelectorList(targetDom, resultListMap) {
                 break
               case cssStyleRules[j].KEYFRAME_RULE:
                 break
-              case cssStyleRules[j].MEDIA_RULE:
-                if (cssStyleRules[j].media.length !== 0 && window.matchMedia(cssStyleRules[j].conditionText).media) {
-                  let targetXpath = getXpath(targetDom)
-                  if (resultListMap.has(targetXpath)) {
-                    let targetResultInfo = resultListMap.get(targetXpath)
-                    if (targetResultInfo.selectorTextList === undefined) {
-                      targetResultInfo = Object.assign(targetResultInfo, {
-                        selectorTextList: cssStyleRules[j].cssText
-                          .replace(`@media ${cssStyleRules[j].conditionText} `, '')
-                          .replace(/\n/g, 'うんこ')
-                          .replace(/^ +/, '')
-                          .replace(/ +$/, '')
-                          .replace(/^{/, '')
-                          .replace(/}$/, '')
-                          .replace(/うんこ/g, ';')
-                          .replace(/^;/, '')
-                          .split(/(?<=};)/)
-                          .map((item) => {
-                            return item.replace(/^ +/, '')
-                          })
-                          .map((item) => {
-                            return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
-                          }),
-                      })
-                    } else {
-                      console.log(cssStyleRules[j].cssText)
-                      targetResultInfo.selectorTextList = targetResultInfo.selectorTextList.concat(
-                        cssStyleRules[j].cssText
-                          .replace(`@media ${cssStyleRules[j].conditionText} `, '')
-                          .replace(/\n/g, 'うんこ')
-                          .replace(/^ +/, '')
-                          .replace(/ +$/, '')
-                          .replace(/^{/, '')
-                          .replace(/}$/, '')
-                          .replace(/うんこ/g, ';')
-                          .replace(/^;/, '')
-                          .split(/(?<=};)/)
-                          .map((item) => {
-                            return item.replace(/^ +/, '')
-                          })
-                          .map((item) => {
-                            return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
-                          })
-                      )
-                    }
-                    targetResultInfo.cssTextList = targetResultInfo.cssTextList.concat(
-                      cssStyleRules[j].cssText
-                        .replace(`@media ${cssStyleRules[j].conditionText} `, '')
-                        .replace(/\n/g, 'うんこ')
-                        .replace(/^ +/, '')
-                        .replace(/ +$/, '')
-                        .replace(/^{/, '')
-                        .replace(/}$/, '')
-                        .replace(/うんこ/g, ';')
-                        .replace(/^;/, '')
-                        .split(/(?<=};)/)
-                        .map((item) => {
-                          return item.replace(/^ +/, '').replace(/;$/, '')
-                        })
-                    )
-                    resultListMap.set(targetXpath, targetResultInfo)
-                  } else {
-                    resultListMap.set(targetXpath, {
-                      selectorTextList: cssStyleRules[j].cssText
-                        .replace(`@media ${cssStyleRules[j].conditionText} `, '')
-                        .replace(/\n/g, 'うんこ')
-                        .replace(/^ +/, '')
-                        .replace(/ +$/, '')
-                        .replace(/^{/, '')
-                        .replace(/}$/, '')
-                        .replace(/うんこ/g, ';')
-                        .replace(/^;/, '')
-                        .split(/(?<=};)/)
-                        .map((item) => {
-                          return item.replace(/^ +/, '')
-                        })
-                        .map((item) => {
-                          return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
-                        }),
-                      cssTextList: cssStyleRules[j].cssText
-                        .replace(`@media ${cssStyleRules[j].conditionText} `, '')
-                        .replace(/\n/g, 'うんこ')
-                        .replace(/^ +/, '')
-                        .replace(/ +$/, '')
-                        .replace(/^{/, '')
-                        .replace(/}$/, '')
-                        .replace(/うんこ/g, ';')
-                        .replace(/^;/, '')
-                        .split(/(?<=};)/)
-                        .map((item) => {
-                          return item.replace(/^ +/, '').replace(/;$/, '')
-                        }),
-                    })
-                  }
-                }
-                break
+              // case cssStyleRules[j].MEDIA_RULE:
+              //   if (cssStyleRules[j].media.length !== 0 && window.matchMedia(cssStyleRules[j].conditionText).media) {
+              //     let targetXpath = getXpath(targetDom)
+              //     if (resultListMap.has(targetXpath)) {
+              //       let targetResultInfo = resultListMap.get(targetXpath)
+              //       if (targetResultInfo.selectorTextList === undefined) {
+              //         targetResultInfo = Object.assign(targetResultInfo, {
+              //           selectorTextList: cssStyleRules[j].cssText
+              //             .replace(`@media ${cssStyleRules[j].conditionText} `, '')
+              //             .replace(/\n/g, 'うんこ')
+              //             .replace(/^ +/, '')
+              //             .replace(/ +$/, '')
+              //             .replace(/^{/, '')
+              //             .replace(/}$/, '')
+              //             .replace(/うんこ/g, ';')
+              //             .replace(/^;/, '')
+              //             .split(/(?<=};)/)
+              //             .map((item) => {
+              //               return item.replace(/^ +/, '')
+              //             })
+              //             .map((item) => {
+              //               return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
+              //             }),
+              //         })
+              //       } else {
+              //         console.log(cssStyleRules[j].cssText)
+              //         targetResultInfo.selectorTextList = targetResultInfo.selectorTextList.concat(
+              //           cssStyleRules[j].cssText
+              //             .replace(`@media ${cssStyleRules[j].conditionText} `, '')
+              //             .replace(/\n/g, 'うんこ')
+              //             .replace(/^ +/, '')
+              //             .replace(/ +$/, '')
+              //             .replace(/^{/, '')
+              //             .replace(/}$/, '')
+              //             .replace(/うんこ/g, ';')
+              //             .replace(/^;/, '')
+              //             .split(/(?<=};)/)
+              //             .map((item) => {
+              //               return item.replace(/^ +/, '')
+              //             })
+              //             .map((item) => {
+              //               return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
+              //             })
+              //         )
+              //       }
+              //       targetResultInfo.cssTextList = targetResultInfo.cssTextList.concat(
+              //         cssStyleRules[j].cssText
+              //           .replace(`@media ${cssStyleRules[j].conditionText} `, '')
+              //           .replace(/\n/g, 'うんこ')
+              //           .replace(/^ +/, '')
+              //           .replace(/ +$/, '')
+              //           .replace(/^{/, '')
+              //           .replace(/}$/, '')
+              //           .replace(/うんこ/g, ';')
+              //           .replace(/^;/, '')
+              //           .split(/(?<=};)/)
+              //           .map((item) => {
+              //             return item.replace(/^ +/, '').replace(/;$/, '')
+              //           })
+              //       )
+              //       resultListMap.set(targetXpath, targetResultInfo)
+              //     } else {
+              //       resultListMap.set(targetXpath, {
+              //         selectorTextList: cssStyleRules[j].cssText
+              //           .replace(`@media ${cssStyleRules[j].conditionText} `, '')
+              //           .replace(/\n/g, 'うんこ')
+              //           .replace(/^ +/, '')
+              //           .replace(/ +$/, '')
+              //           .replace(/^{/, '')
+              //           .replace(/}$/, '')
+              //           .replace(/うんこ/g, ';')
+              //           .replace(/^;/, '')
+              //           .split(/(?<=};)/)
+              //           .map((item) => {
+              //             return item.replace(/^ +/, '')
+              //           })
+              //           .map((item) => {
+              //             return item.match(new RegExp(/^.*?(?={)/g))[0].replace(/ +$/, '')
+              //           }),
+              //         cssTextList: cssStyleRules[j].cssText
+              //           .replace(`@media ${cssStyleRules[j].conditionText} `, '')
+              //           .replace(/\n/g, 'うんこ')
+              //           .replace(/^ +/, '')
+              //           .replace(/ +$/, '')
+              //           .replace(/^{/, '')
+              //           .replace(/}$/, '')
+              //           .replace(/うんこ/g, ';')
+              //           .replace(/^;/, '')
+              //           .split(/(?<=};)/)
+              //           .map((item) => {
+              //             return item.replace(/^ +/, '').replace(/;$/, '')
+              //           }),
+              //       })
+              //     }
+              //   }
+              //   break
               case cssStyleRules[j].NAMESPACE_RULE:
                 break
               case cssStyleRules[j].PAGE_RULE:
@@ -261,118 +260,6 @@ function traverseDom(targetDom, resultList, resultListMap) {
   }
 }
 
-// https://gist.github.com/ssafejava/6605832#file-mozgetmatchedcssrules-js-L26
-function countPatternMatch(targetSelectorTokenItem, targetPattern) {
-  let matchList = targetSelectorTokenItem.match(targetPattern)
-  if (matchList === null) {
-    return 0
-  }
-  return matchList.length
-}
-
-// https://gist.github.com/ssafejava/6605832#file-mozgetmatchedcssrules-js-L32
-function calculatePriorityScore(targetSelector) {
-  // https://www.slideshare.net/yumi-uniq-ishizaki/css-13918388
-  let priorityScore = [0, 0, 0]
-  let selectorTokenList = targetSelector.split(' ')
-  let matchCount = null
-  for (let index = 0; index < selectorTokenList.length; index++) {
-    let selectorTokenItem = selectorTokenList[index]
-    // IDパタンマッチ
-    matchCount = countPatternMatch(selectorTokenItem, ID_PATTERN)
-    priorityScore[0] += matchCount
-    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
-    if (matchCount !== 0) {
-      selectorTokenItem = selectorTokenItem.replace(ID_PATTERN, '')
-    }
-    // クラスパタンマッチ
-    matchCount = countPatternMatch(selectorTokenItem, CLASS_PATTERN)
-    priorityScore[1] += matchCount
-    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
-    if (matchCount !== 0) {
-      selectorTokenItem = selectorTokenItem.replace(CLASS_PATTERN, '')
-    }
-    // 属性パタンマッチ
-    matchCount = countPatternMatch(selectorTokenItem, ATTR_PATTERN)
-    priorityScore[1] += matchCount
-    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
-    if (matchCount !== 0) {
-      selectorTokenItem = selectorTokenItem.replace(ATTR_PATTERN, '')
-    }
-    // 疑似クラスパタンマッチ
-    matchCount = countPatternMatch(selectorTokenItem, PSEUDO_CLASSES_PATTERN)
-    priorityScore[1] += matchCount
-    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
-    if (matchCount !== 0) {
-      selectorTokenItem = selectorTokenItem.replace(PSEUDO_CLASSES_PATTERN, '')
-    }
-    // 要素パタンマッチ
-    matchCount = countPatternMatch(selectorTokenItem, ELEMENT_PATTERN)
-    priorityScore[2] += matchCount
-    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
-    if (matchCount !== 0) {
-      selectorTokenItem = selectorTokenItem.replace(ELEMENT_PATTERN, '')
-    }
-    // 疑似要素パタンマッチ
-    matchCount = countPatternMatch(selectorTokenItem, PSEUDO_ELEMENTS_PATTERN)
-    priorityScore[2] += matchCount
-    // マッチ件数が0件でない場合は、マッチ評価トークンをセレクタから除去
-    if (matchCount !== 0) {
-      selectorTokenItem = selectorTokenItem.replace(PSEUDO_ELEMENTS_PATTERN, '')
-    }
-  }
-  return Number.parseInt(priorityScore.join(''))
-}
-
-function isEnableSelector(targetDom, targetSelector) {
-  if (targetDom.mozMatchesSelector !== undefined && targetDom.mozMatchesSelector(targetSelector)) {
-    return targetSelector
-  }
-  if (targetDom.matchesSelector !== undefined && targetDom.matchesSelector(targetSelector)) {
-    return targetSelector
-  }
-  if (targetDom.webkitMatchesSelector !== undefined && targetDom.webkitMatchesSelector(targetSelector)) {
-    return targetSelector
-  }
-  if (targetDom.oMatchesSelector !== undefined && targetDom.oMatchesSelector(targetSelector)) {
-    return targetSelector
-  }
-  if (targetDom.msMatchesSelector !== undefined && targetDom.msMatchesSelector(targetSelector)) {
-    return targetSelector
-  }
-  return null
-}
-
-// https://gist.github.com/ssafejava/6605832#file-mozgetmatchedcssrules-js-L70
-function specifyPriorityScore(targetDom, targetSelector) {
-  let selectorTokenList = targetSelector.split(',')
-  let currentPriorityScore = 0
-  let resultPriorityScore = 0
-  for (let index = 0; index < selectorTokenList.length; index++) {
-    const selectorToken = selectorTokenList[index]
-    if (isEnableSelector(targetDom, selectorToken)) {
-      currentPriorityScore = calculatePriorityScore(selectorToken)
-      resultPriorityScore = currentPriorityScore > resultPriorityScore ? currentPriorityScore : resultPriorityScore
-    }
-  }
-  return resultPriorityScore
-}
-
-// https://gist.github.com/ssafejava/6605832#file-mozgetmatchedcssrules-js-L82
-function sortByPriorityScore(targetSelectorPriorityScoreList) {
-  return targetSelectorPriorityScoreList.sort((a, b) => {
-    return b - a
-  })
-}
-
-function executeSortByPriorityScore(targetItemList) {
-  for (let index = 0; index < targetItemList.length; index++) {
-    let targetItem = targetItemList[index]
-    sortByPriorityScore(targetItem.selectorPriorityScoreList)
-  }
-  return targetItemList
-}
-
 function executeTraverseDom(targetDom) {
   let tmpList = new Array()
   let domListMap = new Map()
@@ -391,114 +278,30 @@ function addXpathInfo(targetItemList) {
   return resultList
 }
 
-function reformat(targetItemList) {
-  let resultList = []
-  for (let i = 0; i < targetItemList.length; i++) {
-    const targetItem = targetItemList[i]
-    for (let j = 0; j < targetItem.selectorTextList.length; j++) {
-      let targetCssPropertyInfoList = extractCssPropertyInfoList(extractCssBlockText(targetItem.cssTextList[j]))
-      for (let k = 0; k < targetCssPropertyInfoList.length; k++) {
-        const cssPropertyInfo = targetCssPropertyInfoList[k]
-        let pushItem = {
-          xpath: targetItem.xpath,
-          cssText: targetItem.cssTextList[j],
-          cssBlockText: extractCssBlockText(targetItem.cssTextList[j]),
-          cssPropertyName: cssPropertyInfo.propertyName,
-          cssPropertyValue: cssPropertyInfo.propertyValue,
-          cssPropertyInfoList: targetCssPropertyInfoList,
-          selectorText: targetItem.selectorTextList[j],
-          selectorPriorityScore: targetItem.selectorPriorityScoreList[j],
-        }
-        resultList.push(pushItem)
-      }
-    }
-  }
-  return resultList
-}
-
-function extractCssBlockText(targetCssText) {
-  let regexp = new RegExp(/\{.*\}/g)
-  let matchResultList = { ...targetCssText.match(regexp) }
-  return matchResultList[0]
-}
-
-function extractCssPropertyInfoList(targetCssBlockText) {
-  return targetCssBlockText
-    .replace(/\{/, '')
-    .replace(/\}/, '')
-    .split(/;/)
-    .map((item) => {
-      return item.split(/:/).filter((item2) => {
-        return item2.length !== 0
-      })
-    })
-    .filter((item) => {
-      return item[0].trim().length !== 0
-    })
-    .map((item) => {
-      return { propertyName: item[0].trim(), propertyValue: item.splice(1).join().trim() }
-    })
-}
-
 function main(targetXpath) {
-  // サブフック
   makeStyleDom(getExternalCssLinkUrlList())
   return new Promise((resolve) => {
     setTimeout(() => {
       let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
       let resultList = executeTraverseDom(targetDom)
-      for (let index = 0; index < resultList.length; index++) {
-        const [_, domInfo] = resultList[index]
-        for (let index = 0; index < domInfo.selectorTextList.length; index++) {
-          const selectorText = domInfo.selectorTextList[index]
-          if (domInfo.selectorPriorityScoreList) {
-            domInfo.selectorPriorityScoreList.push(calculatePriorityScore(selectorText))
-          } else {
-            domInfo.selectorPriorityScoreList = [calculatePriorityScore(selectorText)]
-          }
-        }
-      }
-      resolve(reformat(executeSortByPriorityScore(addXpathInfo(resultList))))
+      resolve(addXpathInfo(resultList))
     }, 3000)
   })
 }
 
-// https://gist.github.com/ssafejava/6605832
-let ELEMENT_PATTERN = /[\w-]+/g
-let ID_PATTERN = /#[\w-]+/g
-let CLASS_PATTERN = /\.[\w-]+/g
-let ATTR_PATTERN = /\[[^\]]+\]/g
-let PSEUDO_CLASSES_PATTERN = /(?<!:):(?!(not))[\w-]+(\(.*\))?/g
-let PSEUDO_ELEMENTS_PATTERN = /::(root|after|before|first-letter|first-line|selection)/g
-
-let targetXpath = prompt('Please Input Xpath')
+// https://mailchimp.com/
+let targetXpath = '/html/body/main/section[1]/div/div/div/div/div'
+let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
 let resultInfoList = await main(targetXpath)
+console.table(resultInfoList)
 
-let selectColumnList = ['xpath', 'cssPropertyName', 'cssPropertyValue', 'selectorPriorityScore']
-
-let displayList = []
+let displayItem = ''
 for (let i = 0; i < resultInfoList.length; i++) {
   const resultInfo = resultInfoList[i]
-  let resultItem = {}
-  for (let j = 0; j < selectColumnList.length; j++) {
-    const selectColumn = selectColumnList[j]
-    resultItem = Object.assign(resultItem, { [selectColumn]: resultInfo[selectColumn] })
-  }
-  displayList.push(resultItem)
+  displayItem = displayItem + resultInfo.cssTextList.join('\n')
 }
-
-// TODO xpath, cssPropertyName単位で最大のselectorPriorityScoreもつcssPropertyValueを抽出する
-// propertyNameの名寄せも必要 泥試合
-// property単位のValueパタン分解も必要 上下左右指定 上下指定など
-// background => background-colorなど
-// 記載順序が必要 同一優先度値ではわからない CSSスタイルシート、CSSブロックごとに連番が必要
-// 結構大変
-// 記述パターンを調査する上で使用することにし、それまではChromeのCopy Stylesで運用
-// 条件付き規則は入れ子にできるらしいので、それフラットにパースしないとだめ
-// https://developer.mozilla.org/ja/docs/Web/CSS/At-rule#conditional_group_rules
-// ChromeのCopy Styles作った人めちゃすごい
-
+console.log(targetDom)
+console.log(displayItem)
 // このchrome拡張が目指すべきゴール 普通にやばい
 // https://chrome.google.com/webstore/detail/css-used/cdopjfddjlonogibjahpnmjpoangjfff/related
 // https://github.com/painty/CSS-Used-ChromeExt/blob/master/src/traversalCSSRuleList.js
-console.table(displayList)
