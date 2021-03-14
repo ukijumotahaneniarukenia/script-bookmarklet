@@ -436,13 +436,7 @@ function process(targetXpath) {
   })
 }
 
-async function main() {
-  // https://mailchimp.com/pricing/
-  let targetXpath = '/html/body/main/div/div/div[1]/div[2]'
-  // https://www.starbucks.com/rewards
-  // let targetXpath = '/html/body/div[2]/div/div[3]/main/div[4]/div'
-  // https://codyhouse.co/ds/components/app/circular-progress-card
-  // let targetXpath = '/html/body/div/div' // @supportで機能制限する例が豊富
+async function main(targetXpath) {
   let targetDom = document.evaluate(targetXpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null).snapshotItem(0)
   let resultInfoList = await process(targetXpath)
   console.table(resultInfoList)
@@ -460,7 +454,9 @@ async function main() {
   console.log(displayItem)
 }
 
-main()
+// calcSelectorPriorityから汎用化
+let targetXpath = prompt('Please Input Xpath')
+main(targetXpath)
 // このchrome拡張が普通にやばい
 // https://chrome.google.com/webstore/detail/css-used/cdopjfddjlonogibjahpnmjpoangjfff/related
 // https://github.com/painty/CSS-Used-ChromeExt/blob/master/src/traversalCSSRuleList.js
