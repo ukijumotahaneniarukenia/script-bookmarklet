@@ -102,8 +102,10 @@ function getSelectorList(targetDom, resultListMap) {
                 break
               case cssStyleRules[j].KEYFRAMES_RULE:
                 console.log('KEYFRAMES_RULE', cssStyleRules[j])
+                // TODO アニメーションプロパティの値でアニメーション名を含んでいる場合はマージする
                 break
               case cssStyleRules[j].KEYFRAME_RULE:
+                // UNKO cssStyleRules[j].KEYFRAMES_RULEの子なので通らない想定
                 break
               case cssStyleRules[j].MEDIA_RULE:
                 // TODO postcssとかでネストセレクタをフラットセレクタにマージしてくれたりするのだろうか
