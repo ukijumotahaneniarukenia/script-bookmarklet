@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- 実装している人すごすぎ
+  - https://www.google.com/search?q=how+to+extract+applyed+css&oq=how+to+extract+applyed+css+&aqs=chrome..69i57.14568j1j1&sourceid=chrome&ie=UTF-8
+
 - SCSS記法
   - https://qiita.com/Takuan_Oishii/items/0f0d2c5dc33a9b2d9cb1
 
