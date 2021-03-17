@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- pure js remove event handler
+  - https://webkatu.com/201405152355-remove-eventlistener/
+
 - イベント間引き
   - https://www.webprofessional.jp/throttle-scroll-events/
 
