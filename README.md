@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- イベント間引き
+  - https://www.webprofessional.jp/throttle-scroll-events/
+
 - 実装している人すごすぎ
   - https://www.google.com/search?q=how+to+extract+applyed+css&oq=how+to+extract+applyed+css+&aqs=chrome..69i57.14568j1j1&sourceid=chrome&ie=UTF-8
 
