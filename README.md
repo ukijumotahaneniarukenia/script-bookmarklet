@@ -2,6 +2,7 @@
 
 - pure js remove event handler
   - https://webkatu.com/201405152355-remove-eventlistener/
+  - https://stackoverflow.com/questions/5660131/how-to-removeeventlistener-that-is-addeventlistener-with-anonymous-function#answer-5660165
 
 - イベント間引き
   - https://www.webprofessional.jp/throttle-scroll-events/
