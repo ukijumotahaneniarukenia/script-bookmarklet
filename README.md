@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- styleノードはremoveじゃなくてproperty単位でremove
+  - https://stackoverflow.com/questions/18691655/remove-style-on-element
+
 - pure js remove event handler
   - https://webkatu.com/201405152355-remove-eventlistener/
   - https://stackoverflow.com/questions/5660131/how-to-removeeventlistener-that-is-addeventlistener-with-anonymous-function#answer-5660165
