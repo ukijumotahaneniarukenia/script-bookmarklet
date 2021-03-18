@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- CSSセレクタをidとclass両方で指定できる ハンディそうなパタンだ
+  - http://var.blog.jp/archives/26950294.html
+
 - styleノードはremoveじゃなくてproperty単位でremove
   - https://stackoverflow.com/questions/18691655/remove-style-on-element
 
