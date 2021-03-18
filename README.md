@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- JavaScript スタイルガイド
+  - https://google.github.io/styleguide/jsguide.html
+
 - CSSセレクタをidとclass両方で指定できる ハンディそうなパタンだ
   - http://var.blog.jp/archives/26950294.html
 
