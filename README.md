@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- 迷路で遊べる
+  - https://algoful.com/Archive/Algorithm/LifeGame
+
 - ブラウザのキャッシュ
   - https://qiita.com/hkusu/items/d40aa8a70bacd2015dfa
 
