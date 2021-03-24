@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- ブラウザのキャッシュ
+  - https://qiita.com/hkusu/items/d40aa8a70bacd2015dfa
+
 - いい感じのスレ
   - https://jp.quora.com/%E6%9C%80%E8%BF%91jQuery%E3%82%88%E3%82%8A%E3%82%82React%E3%81%A8%E8%81%9E%E3%81%8D%E3%81%BE%E3%81%99%E3%81%8B-%E3%81%93%E3%82%8C%E3%81%AF%E6%AD%A3%E8%A7%A3%E3%81%A7%E3%81%99%E3%81%8B/answers/128799664?ch=10&share=fcb95d36&srid=A4DrS
 
