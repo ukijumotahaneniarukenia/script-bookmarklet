@@ -4,6 +4,7 @@
   - https://ja.javascript.info/blob
   - https://github.com/niklasvh/html2canvas
   - https://stackoverflow.com/questions/22710627/tainted-canvases-may-not-be-exported
+  - https://stackoverflow.com/questions/27251953/how-to-create-file-object-from-blob
 
 - 迷路で遊べる
   - https://algoful.com/Archive/Algorithm/LifeGame
