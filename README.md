@@ -3,6 +3,7 @@
 - canvasタグをちょっといろいろ使い勝手調べたい
   - https://ja.javascript.info/blob
   - https://github.com/niklasvh/html2canvas
+  - https://stackoverflow.com/questions/22710627/tainted-canvases-may-not-be-exported
 
 - 迷路で遊べる
   - https://algoful.com/Archive/Algorithm/LifeGame
