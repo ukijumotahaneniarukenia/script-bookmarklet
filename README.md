@@ -1,5 +1,9 @@
 # script-bookmarklet
 
+- canvasタグをちょっといろいろ使い勝手調べたい
+  - https://ja.javascript.info/blob
+  - https://github.com/niklasvh/html2canvas
+
 - 迷路で遊べる
   - https://algoful.com/Archive/Algorithm/LifeGame
 
