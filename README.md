@@ -3,6 +3,8 @@
 - 遅延読み込み
   - https://web.dev/lazy-loading-video/
   - https://web.dev/lazy-loading-images/
+  - https://github.com/malchata/yall.js
+  - https://github.com/ApoorvSaxena/lozad.js
 
 - canvasタグをちょっといろいろ使い勝手調べたい
   - https://ja.javascript.info/blob
