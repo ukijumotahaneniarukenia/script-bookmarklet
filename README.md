@@ -1,5 +1,9 @@
 # script-bookmarklet
 
+- 遅延読み込み
+  - https://web.dev/lazy-loading-video/
+  - https://web.dev/lazy-loading-images/
+
 - canvasタグをちょっといろいろ使い勝手調べたい
   - https://ja.javascript.info/blob
   - https://github.com/niklasvh/html2canvas
