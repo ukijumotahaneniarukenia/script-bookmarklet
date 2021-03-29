@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- vanillaのthis挙動 bind必要
+  - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind
+
 - イベント処理
   - https://ja.reactjs.org/docs/handling-events.html
 
