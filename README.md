@@ -1,5 +1,11 @@
 # script-bookmarklet
 
+- イベント処理
+  - https://ja.reactjs.org/docs/handling-events.html
+
+- ダイナミックインポート
+  - https://ja.reactjs.org/docs/code-splitting.html
+
 - 動的なcssスタイルの生成手法など
   - https://qiita.com/lightnet328/items/218eb1c4a347302cc340
 
