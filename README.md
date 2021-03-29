@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- Object と DOM区別方法
+  - https://stackoverflow.com/questions/9979172/difference-between-node-object-and-element-object
+
 - 遅延読み込み
   - https://web.dev/lazy-loading-video/
   - https://web.dev/lazy-loading-images/
