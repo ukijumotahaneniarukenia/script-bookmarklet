@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- 素のイベントをラップした独自イベントを使用しているのでdata-属性を使っていれば大丈夫そう
+  - https://stackoverflow.com/questions/37639122/using-event-target-with-react-components
+
 - データ属性などのプロパティにアクセス
   - https://qiita.com/Statham/items/8a07104153973bb25d64
 
