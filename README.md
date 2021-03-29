@@ -1,5 +1,7 @@
 # script-bookmarklet
 
+- React複雑なイベントハンドラ関連と名前空間とスコープなど調べたい
+  - https://qiita.com/baby-degu/items/e183b20dd20b20920e00
 - Object と DOM区別方法
   - https://stackoverflow.com/questions/9979172/difference-between-node-object-and-element-object
 
