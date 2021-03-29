@@ -1,7 +1,11 @@
 # script-bookmarklet
 
+- 動的なcssスタイルの生成手法など
+  - https://qiita.com/lightnet328/items/218eb1c4a347302cc340
+
 - React複雑なイベントハンドラ関連と名前空間とスコープなど調べたい Fsharpに一瞬見えた
   - https://qiita.com/baby-degu/items/e183b20dd20b20920e00
+
 - Object と DOM区別方法
   - https://stackoverflow.com/questions/9979172/difference-between-node-object-and-element-object
 
