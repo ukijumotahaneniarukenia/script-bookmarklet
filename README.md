@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- web rtc仕組み
+  - https://www.google.com/amp/s/blog.jxck.io/entries/2020-09-01/webcodecs-webtransport-chat.amp.html
+
 - 素のイベントをラップした独自イベントを使用しているのでdata-属性を使っていれば大丈夫そう
   - https://stackoverflow.com/questions/37639122/using-event-target-with-react-components
   - https://ja.reactjs.org/docs/events.html#gatsby-focus-wrapper
