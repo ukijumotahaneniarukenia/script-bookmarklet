@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- Javascript Performance
+  - https://ics.media/entry/190731/
+
 - web rtc仕組み
   - https://www.google.com/amp/s/blog.jxck.io/entries/2020-09-01/webcodecs-webtransport-chat.amp.html
 
