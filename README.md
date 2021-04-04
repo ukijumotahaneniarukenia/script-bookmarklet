@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- CSSアニメーション よくみかけるやつが乗っている
+  - https://emilkowalski.github.io/css-effects-snippets/
+
 - アニメーションチートシート
   - https://animista.net/play/text/pop-up
 
