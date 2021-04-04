@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- アニメーションチートシート
+  - https://animista.net/play/text/pop-up
+
 - CSS命名などのメタないい感じの話
   - https://qiita.com/Takazudo/items/5180f5eb6d798a52074f
 
