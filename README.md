@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- 単一のDOMに複数のイベントハンドラを設定する
+  - https://stackoverflow.com/questions/11845678/adding-multiple-event-listeners-to-one-element
+
 - Javascript Performance
   - https://ics.media/entry/190731/
 
