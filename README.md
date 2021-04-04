@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- CSSアニメーションがグラフなどを交えて説明されている
+  - https://devdocs.io/css/timing-function
+
 - CSSアニメーション よくみかけるやつが乗っている
   - https://emilkowalski.github.io/css-effects-snippets/
 
