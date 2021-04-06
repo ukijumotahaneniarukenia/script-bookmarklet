@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- document body clickで閉じるよくあるやつ
+  - https://techstacker.com/close-modal-click-outside-vanilla-javascript/
+
 - where句がcssでも使えることにびっくり
   - https://twitter.com/mgechev/status/1379290296903684099?s=21
 
