@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- where句がcssでも使えることにびっくり
+  - https://twitter.com/mgechev/status/1379290296903684099?s=21
+
 - CSSアニメーションがグラフなどを交えて説明されている
   - https://devdocs.io/css/timing-function
 
