@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- スクロール方向を検知
+  - https://codepen.io/lehollandaisvolant/pen/ryrrGx?editors=1010
+
 - document body clickで閉じるよくあるやつ
   - https://techstacker.com/close-modal-click-outside-vanilla-javascript/
 
