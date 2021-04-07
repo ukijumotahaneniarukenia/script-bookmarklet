@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style id="hoge">
+      #pseudo::before {
+        content: 'unko';
+        height: 1vh;
+      }
+    </style>
+    <style id="toge">
+      .pseudo::before {
+        content: 'morimori';
+        height: 10vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="pseudo"></div>
+    <script>
+      function getCssPropertyValue(targetDom, targetCssPropertyName, targetPseudoName) {
+        if (targetPseudoName) {
+          return window.getComputedStyle(targetDom, `::${targetPseudoName}`).getPropertyValue(targetCssPropertyName);
+        }
+        return window.getComputedStyle(targetDom).getPropertyValue(targetCssPropertyName);
+      }
+
+      function getCssStyleSheetById(targetDomId) {
+        let sheetList = Array.from(document.styleSheets);
+        for (let index = 0; index < sheetList.length; index++) {
+          const sheet = sheetList[index];
+          const sheetId = sheet.ownerNode.getAttribute('id');
+          if (sheetId === targetDomId) {
+            return sheet;
+          }
+        }
+      }
+
+      function updatePseudoValue(targetStyleSheet, targetDomId, targetPseudoName, targetPropertyUpdateName, targetUpdateValue) {
+        targetStyleSheet.insertRule(`#${targetDomId}::${targetPseudoName} { ${targetPropertyUpdateName}: ${targetUpdateValue} }`, targetStyleSheet.cssRules.length);
+      }
+
+      let targetDom = document.getElementById('pseudo');
+      const targetStyleSheet = getCssStyleSheetById('hoge');
+      console.log('変更前：', getCssPropertyValue(targetDom, 'height', 'before'));
+      updatePseudoValue(targetStyleSheet, 'pseudo', 'before', 'height', '50vh');
+      console.log('変更後：', getCssPropertyValue(targetDom, 'height', 'before'));
+    </script>
+  </body>
+</html>
