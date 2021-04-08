@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- scriptタグのスコープ
+  - https://www.bennadel.com/blog/3540-strict-mode-settings-in-javascript-are-scoped-to-the-script-tag.htm
+
 - スクロール方向を検知
   - https://codepen.io/lehollandaisvolant/pen/ryrrGx?editors=1010
 
