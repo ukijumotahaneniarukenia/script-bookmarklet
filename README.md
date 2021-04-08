@@ -5,6 +5,7 @@
 
 - scriptタグのスコープ
   - https://www.bennadel.com/blog/3540-strict-mode-settings-in-javascript-are-scoped-to-the-script-tag.htm
+  - https://css-tricks.com/almanac/properties/o/object-position/#browser-support
 
 - スクロール方向を検知
   - https://codepen.io/lehollandaisvolant/pen/ryrrGx?editors=1010
