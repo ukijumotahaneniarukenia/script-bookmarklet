@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- React Component間連携パターン
+  - https://qiita.com/kyoshidajp/items/0ddb156d96bb6337f623
+
 - object-position便利そうで負荷少なそう
   - https://www.codegrid.net/articles/2016-css-object-1/
   - https://www.webprofessional.jp/using-css-object-fit-object-position-properties/
