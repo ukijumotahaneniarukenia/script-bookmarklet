@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- ちょー便利そう
+  - https://qiita.com/da-sugi/items/77f5b9bbbd32d8a79bf3
+
 - モバイルflutterのアプリ開発など
   - https://qiita.com/nittannittan/items/76ea9af760a92f1a159b
   - https://pentagon.tokyo/app/1948/
