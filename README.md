@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- 歴史がある
+  - https://qiita.com/okmttdhr/items/1caff5a36c8468779a64
+
 - ちょー便利そう
   - https://qiita.com/da-sugi/items/77f5b9bbbd32d8a79bf3
 
