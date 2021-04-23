@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- いい感じの動画
+  - https://youtu.be/IZmYn4ObRJc
+
 - いい感じ
   - https://commons.nicovideo.jp/material/nc63039
 
