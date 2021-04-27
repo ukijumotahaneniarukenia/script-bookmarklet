@@ -1,5 +1,9 @@
 # script-bookmarklet
 
+- グラフデータベースやってみたい 面白そう
+  - https://qiita.com/awk256/items/dc528a64ecb380eabb5c
+
+
 - いい感じの動画
   - https://youtu.be/IZmYn4ObRJc
 
