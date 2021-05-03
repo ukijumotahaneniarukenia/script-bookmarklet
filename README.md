@@ -1,5 +1,9 @@
 # script-bookmarklet
 
+- 2019年度版
+  - https://www.freecodecamp.org/news/a-realworld-comparison-of-front-end-frameworks-with-benchmarks-2019-update-4be0d3c78075/
+
+
 - グラフデータベースやってみたい 面白そう
   - https://qiita.com/awk256/items/dc528a64ecb380eabb5c
 
