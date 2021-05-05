@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- mongodbとdynamodb
+  - https://www.xplenty.com/jp/blog/dynamodb-vs-mongodb-differences-ja/
+
 - 2020年度版
   - https://medium.com/dailyjs/a-realworld-comparison-of-front-end-frameworks-2020-4e50655fe4c1
 
