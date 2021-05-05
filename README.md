@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- graphqlのとっかかりに良さそう
+  - https://github.com/meteor/meteor
+
 - mongodbとdynamodb
   - https://www.xplenty.com/jp/blog/dynamodb-vs-mongodb-differences-ja/
 
