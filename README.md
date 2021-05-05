@@ -1,5 +1,9 @@
 # script-bookmarklet
 
+- svelteについての議論
+  - https://gist.github.com/Rich-Harris/0f910048478c2a6505d1c32185b61934
+
+
 - graphqlのとっかかりに良さそう
   - https://github.com/meteor/meteor
 
