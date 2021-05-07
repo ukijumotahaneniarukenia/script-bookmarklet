@@ -1,5 +1,10 @@
 # script-bookmarklet
 
+- 指標
+  - https://jp.quora.com/%E4%B8%96%E7%95%8C%E3%81%AB%E9%80%9A%E7%94%A8%E3%81%99%E3%82%8B%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E3%81%AE%E8%A6%81%E4%BB%B6%E3%81%AF%E4%BD%95%E3%81%A0%E3%81%A8%E6%80%9D%E3%81%84/answers/67767492?ch=99&share=8f9b24a5&srid=A4DrS
+
+
+
 - alpine js書きやすそう vueっぽい
   - https://www.mitsue.co.jp/knowledge/blog/frontend/202002/21_1253.html
 
