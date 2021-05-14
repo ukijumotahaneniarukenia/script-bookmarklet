@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- 便利そうレイヤ
+  - https://github.com/mthenw/awesome-layers
+
 - 指標
   - https://jp.quora.com/%E4%B8%96%E7%95%8C%E3%81%AB%E9%80%9A%E7%94%A8%E3%81%99%E3%82%8B%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E3%81%AE%E8%A6%81%E4%BB%B6%E3%81%AF%E4%BD%95%E3%81%A0%E3%81%A8%E6%80%9D%E3%81%84/answers/67767492?ch=99&share=8f9b24a5&srid=A4DrS
   - https://jp.quora.com/%E9%9D%9E%E5%B8%B8%E3%81%AB%E5%84%AA%E7%A7%80%E3%81%A0%E3%81%A8%E6%80%9D%E3%81%86%E8%8B%A5%E6%89%8B%E3%81%AE%E3%82%B9%E3%82%BF%E3%83%BC%E3%83%88%E3%82%A2%E3%83%83%E3%83%97%E3%81%AE%E7%B5%8C%E5%96%B6%E8%80%85/answers/69651705?ch=99&share=f742182c&srid=A4DrS
