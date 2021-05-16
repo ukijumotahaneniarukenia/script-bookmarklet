@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- swift awesome
+  - https://github.com/onmyway133/awesome-swiftui
+
 - 便利そうレイヤ
   - https://github.com/mthenw/awesome-layers
 
