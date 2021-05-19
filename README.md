@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- tree 
+  - https://stackoverflow.com/questions/52523718/building-a-json-of-a-directory-tree-using-jq
+
 - stack overflow api
   - https://github.com/Swaagie/stackexchange
 
