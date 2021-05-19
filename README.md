@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- stack overflow api
+  - https://github.com/Swaagie/stackexchange
+
 - swift awesome
   - https://github.com/onmyway133/awesome-swiftui
 
