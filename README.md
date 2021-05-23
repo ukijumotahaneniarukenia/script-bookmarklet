@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- server less でnextjs対応されたらしい　便利そう
+  - https://zenn.dev/makumattun/articles/6e260f3a5af117
+
 - tree 
   - https://stackoverflow.com/questions/52523718/building-a-json-of-a-directory-tree-using-jq
 
