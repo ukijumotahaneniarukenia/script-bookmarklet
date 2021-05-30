@@ -56,8 +56,9 @@ let b = { B: { list: [] } };
 let c = { C: { list: [] } };
 const tableInfoList = [];
 movalInfoList.map((movalInfo, idx) => {
-  const tableInfo = {
-    step: idx,
+  tableInfo = {
+    step: `#${idx}`,
+    tile: movalInfoList[idx - 1] ? movalInfoList[idx - 1]["disk"] : "-",
     state: {
       A: a["A"]["list"].join(" "),
       B: b["B"]["list"].join(" "),
@@ -78,8 +79,9 @@ movalInfoList.map((movalInfo, idx) => {
     mover(removeItem, movalInfo, a, b, c);
   }
 });
-const tableInfo = {
-  step: movalInfoList.length,
+tableInfo = {
+  step: `#${movalInfoList.length}`,
+  tile: movalInfoList[movalInfoList.length - 1]["disk"],
   state: {
     A: a["A"]["list"].join(" "),
     B: b["B"]["list"].join(" "),
