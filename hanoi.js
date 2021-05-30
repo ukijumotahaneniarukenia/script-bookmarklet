@@ -37,7 +37,19 @@ function mover(removeItem, movalInfo, a, b, c) {
   }
 }
 
-const stackNumber = 3
+function getMoveItem(itemInfo, placeKeyName, movalInfo) {
+  const removeItem = Number(
+    itemInfo[placeKeyName].list
+      .splice(itemInfo[placeKeyName].list.indexOf(movalInfo.disk), 1)
+      .join()
+  );
+  return removeItem;
+}
+
+const stackNumber = Number(process.argv.splice(2)[0]);
+if (Number.isNaN(stackNumber)) {
+  process.exit(1)
+}
 const { movalInfoList } = hanoi(stackNumber, "A", "B", "C", []);
 let a = { A: { list: range(stackNumber) } };
 let b = { B: { list: [] } };
@@ -46,21 +58,15 @@ movalInfoList.map((movalInfo, idx) => {
   // console.log(idx, movalInfo,movalInfo.from,movalInfo.to);
   console.log(idx, a, b, c);
   if (a[movalInfo.from]) {
-    const removeItem = Number(
-      a.A.list.splice(a.A.list.indexOf(movalInfo.disk), 1).join()
-    );
+    const removeItem = getMoveItem(a, "A", movalInfo);
     mover(removeItem, movalInfo, a, b, c);
   }
   if (b[movalInfo.from]) {
-    const removeItem = Number(
-      b.B.list.splice(b.B.list.indexOf(movalInfo.disk), 1).join()
-    );
+    const removeItem = getMoveItem(b, "B", movalInfo);
     mover(removeItem, movalInfo, a, b, c);
   }
   if (c[movalInfo.from]) {
-    const removeItem = Number(
-      c.C.list.splice(c.C.list.indexOf(movalInfo.disk), 1).join()
-    );
+    const removeItem = getMoveItem(c, "C", movalInfo);
     mover(removeItem, movalInfo, a, b, c);
   }
 });
