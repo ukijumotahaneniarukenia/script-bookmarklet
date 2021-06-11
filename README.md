@@ -1,5 +1,8 @@
 # script-bookmarklet
 
+- すごい
+  - https://stackoverflow.com/questions/64690514/creating-a-resizable-draggable-rotate-view-in-javascript
+
 - server less でnextjs対応されたらしい　便利そう
   - https://zenn.dev/makumattun/articles/6e260f3a5af117
 
