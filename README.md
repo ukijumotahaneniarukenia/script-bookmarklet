@@ -1,5 +1,9 @@
 # script-bookmarklet
 
+- WebComponent単位でスタイリングできる！！！これはやばい。くそ便利
+  - https://stackoverflow.com/questions/59618991/how-to-use-a-css-framework-with-litelement
+  - https://www.html5rocks.com/ja/tutorials/webcomponents/shadowdom-201/
+
 - ルータ
   - https://vaadin.com/router
   - https://visionmedia.github.io/page.js/
