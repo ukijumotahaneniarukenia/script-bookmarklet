@@ -1,5 +1,9 @@
 # script-bookmarklet
 
+- 開始終了はイベント発火キャッチできるらしい
+  - https://css-tricks.com/controlling-css-animations-transitions-javascript/
+
+
 - これ作ろう
   - https://www.google.com/amp/s/www.gizmodo.jp/amp/2021/03/mgm-lion-is-the-latest-hollywood-icon-to-be-replace.html
   - https://codepen.io/Doris_z/pen/mJWWoW
